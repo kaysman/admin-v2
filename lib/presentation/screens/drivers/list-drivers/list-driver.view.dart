@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lng_adminapp/data/data_drivers.dart';
 import 'package:lng_adminapp/data/enums/status.enum.dart';
 import 'package:lng_adminapp/data/models/meta.model.dart';
+import 'package:lng_adminapp/data/models/pagination_options.dart';
 import 'package:lng_adminapp/data/models/user.model.dart';
 import 'package:lng_adminapp/data/services/app.service.dart';
 import 'package:lng_adminapp/data/services/user.service.dart';
@@ -17,6 +18,7 @@ import 'package:lng_adminapp/presentation/shared/colors.dart';
 import 'package:lng_adminapp/presentation/shared/components/button.dart';
 import 'package:lng_adminapp/presentation/shared/components/pagination.dart';
 import 'package:lng_adminapp/presentation/shared/components/scrollable.dart';
+import 'package:lng_adminapp/presentation/shared/components/search_icon.dart';
 import 'package:lng_adminapp/presentation/shared/icons.dart';
 import 'package:lng_adminapp/presentation/shared/spacings.dart';
 
@@ -44,8 +46,11 @@ class _DriverListState extends State<DriverList> {
 
   @override
   void initState() {
-    // TODO: implement initState
     driverBloc = context.read<DriverBloc>();
+    if (driverBloc.state.drivers == null) {
+      driverBloc.loadDrivers();
+    }
+
     super.initState();
   }
 
@@ -103,7 +108,7 @@ class _DriverListState extends State<DriverList> {
                                 width: 24,
                               ),
                               Expanded(
-                                child: TextField(
+                                child: TextFormField(
                                   style: Theme.of(context).textTheme.bodyText1,
                                   decoration: InputDecoration(
                                     fillColor: Colors.white,
@@ -138,11 +143,15 @@ class _DriverListState extends State<DriverList> {
                                         ?.copyWith(
                                           color: kGrey1Color,
                                         ),
-                                    prefixIcon: Container(
-                                      padding: EdgeInsets.all(8.sp),
-                                      child: AppIcons.svgAsset(AppIcons.search),
-                                    ),
+                                    prefixIcon: SearchIcon(),
                                   ),
+                                  onFieldSubmitted: (v) {
+                                    if (v.isNotEmpty) {
+                                      driverBloc.loadDrivers(PaginationOptions(
+                                          filter: v,
+                                          limit: driverState.perPage));
+                                    }
+                                  },
                                 ),
                               )
                             ],
@@ -212,12 +221,14 @@ class _DriverListState extends State<DriverList> {
                                   Spacings.SMALL_HORIZONTAL,
                                   SizedBox(
                                     width: 85,
-                                    child: DecoratedDropdown(
+                                    child: DecoratedDropdown<int>(
                                       value: driverState.perPage,
                                       icon: null,
-                                      items: ['10', '20', '50'],
-                                      onChanged: (v) {
-                                        driverBloc.setPerPageAndLoad(v);
+                                      items: [10, 20, 50],
+                                      onChanged: (int? v) {
+                                        if (v != null) {
+                                          driverBloc.setPerPageAndLoad(v);
+                                        }
                                       },
                                     ),
                                   ),
@@ -346,13 +357,15 @@ class _DriverListState extends State<DriverList> {
   }
 
   loadPrevious(Meta? meta) async {
-    var previous = (meta!.currentPage - 1).toString();
-    await context.read<DriverBloc>().loadDrivers(previous);
+    var previous = (meta!.currentPage - 1);
+    await context
+        .read<DriverBloc>()
+        .loadDrivers(PaginationOptions(page: previous));
   }
 
   loadNext(Meta? meta) async {
-    var next = (meta!.currentPage + 1).toString();
-    await context.read<DriverBloc>().loadDrivers(next);
+    var next = (meta!.currentPage + 1);
+    await context.read<DriverBloc>().loadDrivers(PaginationOptions(page: next));
   }
 
   navigateToDriverDetailsPage(data) {

@@ -42,3 +42,21 @@ class Permission {
     return 'Permission(code: $code)';
   }
 }
+
+@JsonSerializable(explicitToJson: true)
+class PermissionsByModule {
+  final Map<String, List<Permission>>? data;
+
+  PermissionsByModule({this.data});
+
+  factory PermissionsByModule.fromJson(Map<String, dynamic> json) =>
+      PermissionsByModule(
+        data: json.map(
+          (k, e) => MapEntry(
+              k,
+              (e as List<dynamic>)
+                  .map((e) => Permission.fromJson(e as Map<String, dynamic>))
+                  .toList()),
+        ),
+      );
+}

@@ -271,7 +271,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Order number',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -293,7 +293,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Description',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -315,7 +315,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Quantity',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -337,7 +337,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Weight',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -359,7 +359,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Currency',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -381,7 +381,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Dimension Unit',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -403,7 +403,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Height',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -425,7 +425,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Length',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -447,7 +447,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Name',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -469,7 +469,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Price',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -491,7 +491,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Type',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -513,7 +513,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Weight Unit',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -535,7 +535,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Width',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -570,7 +570,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Sender firstname',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -592,7 +592,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Sender lastname',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -614,7 +614,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Sender email address',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -637,7 +637,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Sender Phone Number',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -660,7 +660,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Sender company',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -682,7 +682,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Sender address line 1',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -705,7 +705,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Sender address line 2',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -728,7 +728,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Sender address line 3',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -751,7 +751,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Sender Postal Code',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -773,7 +773,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Sender city',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -795,7 +795,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Sender country',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -817,7 +817,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Sender longitude',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -839,7 +839,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Sender latitude',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -861,7 +861,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Sender address type',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -897,7 +897,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Receiver firstname',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -920,7 +920,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Receiver lastname',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -942,7 +942,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Receiver Email address',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -965,7 +965,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Receiver Phone Number',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -988,7 +988,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Receiver company',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1010,7 +1010,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Receiver address line 1',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1033,7 +1033,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Receiver address line 2',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1056,7 +1056,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Receiver address line 3',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1079,7 +1079,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Receiver Postal Code',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1102,7 +1102,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Receiver city',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1124,7 +1124,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Receiver country',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1146,7 +1146,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Receiver longitude',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1169,7 +1169,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Receiver latitude',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1191,7 +1191,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Receiver address type',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1225,7 +1225,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Service type',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1247,7 +1247,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Service level',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1269,7 +1269,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Is Dangerous Goods',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1291,7 +1291,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Allow weekend delivery',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1314,7 +1314,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Requested Delivery Time Slot Type',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1338,7 +1338,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Requested Delivery Time Slot Start',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1363,7 +1363,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Requested Delivery Time Slot End',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1388,7 +1388,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Cash on Delivery Requested',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1411,7 +1411,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Cash on Delivery Amount',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1434,7 +1434,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Cash on Delivery Currency',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1457,7 +1457,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Insured Amount',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1479,7 +1479,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
                               flex2: 2,
                               child1: Text(
                                 'Insured Currency',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                               child2: DropdownButton<String>(
                                 isExpanded: true,
@@ -1604,7 +1604,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
             _selectedSenderLatitude = e;
             break;
           case "Sender's address type":
-            _selectedSenderAddressType =e;
+            _selectedSenderAddressType = e;
             break;
           case "Pick up notes":
             _selectedPickupNote = e;
@@ -1761,22 +1761,22 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
     KeyBoolPair _orderNumber =
         KeyBoolPair(isRequired: true, key: _selectedOrderNumber);
     KeyBoolPair _description =
-        KeyBoolPair(isRequired: true, key: _selectedDescription);
+        KeyBoolPair(isRequired: false, key: _selectedDescription);
     KeyBoolPair _quantity =
-        KeyBoolPair(isRequired: true, key: _selectedQuantity);
-    KeyBoolPair _weight = KeyBoolPair(isRequired: true, key: _selectedWeight);
+        KeyBoolPair(isRequired: false, key: _selectedQuantity);
+    KeyBoolPair _weight = KeyBoolPair(isRequired: false, key: _selectedWeight);
     KeyBoolPair _currency =
-        KeyBoolPair(isRequired: true, key: _selectedCurrency);
+        KeyBoolPair(isRequired: false, key: _selectedCurrency);
     KeyBoolPair _dimensionUnit =
-        KeyBoolPair(isRequired: true, key: _selectedDimensionUnit);
-    KeyBoolPair _height = KeyBoolPair(isRequired: true, key: _selectedHeight);
-    KeyBoolPair _length = KeyBoolPair(isRequired: true, key: _selectedLength);
-    KeyBoolPair _name = KeyBoolPair(isRequired: true, key: _selectedName);
-    KeyBoolPair _price = KeyBoolPair(isRequired: true, key: _selectedPrice);
-    KeyBoolPair _type = KeyBoolPair(isRequired: true, key: _selectedType);
+        KeyBoolPair(isRequired: false, key: _selectedDimensionUnit);
+    KeyBoolPair _height = KeyBoolPair(isRequired: false, key: _selectedHeight);
+    KeyBoolPair _length = KeyBoolPair(isRequired: false, key: _selectedLength);
+    KeyBoolPair _name = KeyBoolPair(isRequired: false, key: _selectedName);
+    KeyBoolPair _price = KeyBoolPair(isRequired: false, key: _selectedPrice);
+    KeyBoolPair _type = KeyBoolPair(isRequired: false, key: _selectedType);
     KeyBoolPair _weightUnit =
-        KeyBoolPair(isRequired: true, key: _selectedWeightUnit);
-    KeyBoolPair _width = KeyBoolPair(isRequired: true, key: _selectedWidth);
+        KeyBoolPair(isRequired: false, key: _selectedWeightUnit);
+    KeyBoolPair _width = KeyBoolPair(isRequired: false, key: _selectedWidth);
 
     // service information
     KeyBoolPair _serviceType =
@@ -1788,19 +1788,19 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
     KeyBoolPair _senderFirstName =
         KeyBoolPair(isRequired: true, key: _selectedSenderFirstName);
     KeyBoolPair _senderLastName =
-        KeyBoolPair(isRequired: true, key: _selectedSenderLastName);
+        KeyBoolPair(isRequired: false, key: _selectedSenderLastName);
     KeyBoolPair _senderEmailAddress =
-        KeyBoolPair(isRequired: true, key: _selectedSenderEmailAddress);
+        KeyBoolPair(isRequired: false, key: _selectedSenderEmailAddress);
     KeyBoolPair _senderPhoneNumber =
         KeyBoolPair(isRequired: true, key: _selectedSenderPhoneNumber);
     KeyBoolPair _senderCompany =
-        KeyBoolPair(isRequired: true, key: _selectedSenderCompany);
+        KeyBoolPair(isRequired: false, key: _selectedSenderCompany);
     KeyBoolPair _senderAddress1 =
         KeyBoolPair(isRequired: true, key: _selectedSenderAddressLineOne);
     KeyBoolPair _senderAddress2 =
-        KeyBoolPair(isRequired: true, key: _selectedSenderAddressLineTwo);
+        KeyBoolPair(isRequired: false, key: _selectedSenderAddressLineTwo);
     KeyBoolPair _senderAddress3 =
-        KeyBoolPair(isRequired: true, key: _selectedSenderAddressLineThree);
+        KeyBoolPair(isRequired: false, key: _selectedSenderAddressLineThree);
     KeyBoolPair _senderPostalCode =
         KeyBoolPair(isRequired: true, key: _selectedSenderPostalCode);
     KeyBoolPair _senderCity =
@@ -1808,29 +1808,29 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
     KeyBoolPair _senderCountry =
         KeyBoolPair(isRequired: true, key: _selectedSenderCountry);
     KeyBoolPair _senderLongitude =
-        KeyBoolPair(isRequired: true, key: _selectedSenderLongitude);
+        KeyBoolPair(isRequired: false, key: _selectedSenderLongitude);
     KeyBoolPair _senderLatitude =
-        KeyBoolPair(isRequired: true, key: _selectedSenderLatitude);
+        KeyBoolPair(isRequired: false, key: _selectedSenderLatitude);
     KeyBoolPair _senderAddressType =
-        KeyBoolPair(isRequired: true, key: _selectedSenderAddressType);
+        KeyBoolPair(isRequired: false, key: _selectedSenderAddressType);
 
     // Receiver information
     KeyBoolPair _receiverFirstName =
         KeyBoolPair(isRequired: true, key: _selectedReceiverFirstName);
     KeyBoolPair _receiverLastName =
-        KeyBoolPair(isRequired: true, key: _selectedReceiverLastName);
+        KeyBoolPair(isRequired: false, key: _selectedReceiverLastName);
     KeyBoolPair _receiverEmailAddress =
-        KeyBoolPair(isRequired: true, key: _selectedReceiverEmailAddress);
+        KeyBoolPair(isRequired: false, key: _selectedReceiverEmailAddress);
     KeyBoolPair _receiverPhoneNumber =
         KeyBoolPair(isRequired: true, key: _selectedReceiverPhoneNumber);
     KeyBoolPair _receiverCompany =
-        KeyBoolPair(isRequired: true, key: _selectedReceiverCompany);
+        KeyBoolPair(isRequired: false, key: _selectedReceiverCompany);
     KeyBoolPair _receiverAddress1 =
         KeyBoolPair(isRequired: true, key: _selectedReceiverAddressLineOne);
     KeyBoolPair _receiverAddress2 =
-        KeyBoolPair(isRequired: true, key: _selectedReceiverAddressLineTwo);
+        KeyBoolPair(isRequired: false, key: _selectedReceiverAddressLineTwo);
     KeyBoolPair _receiverAddress3 =
-        KeyBoolPair(isRequired: true, key: _selectedReceiverAddressLineThree);
+        KeyBoolPair(isRequired: false, key: _selectedReceiverAddressLineThree);
     KeyBoolPair _receiverPostalCode =
         KeyBoolPair(isRequired: true, key: _selectedReceiverPostalCode);
     KeyBoolPair _receiverCity =
@@ -1838,54 +1838,54 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
     KeyBoolPair _receiverCountry =
         KeyBoolPair(isRequired: true, key: _selectedReceiverCountry);
     KeyBoolPair _receiverLongitude =
-        KeyBoolPair(isRequired: true, key: _selectedReceiverLongitude);
+        KeyBoolPair(isRequired: false, key: _selectedReceiverLongitude);
     KeyBoolPair _receiverLatitude =
-        KeyBoolPair(isRequired: true, key: _selectedReceiverLatitude);
+        KeyBoolPair(isRequired: false, key: _selectedReceiverLatitude);
     KeyBoolPair _receiverAddressType =
-        KeyBoolPair(isRequired: true, key: _selectedReceiverAddressType);
+        KeyBoolPair(isRequired: false, key: _selectedReceiverAddressType);
 
     // notes and other information
     KeyBoolPair _pickupNote =
-        KeyBoolPair(isRequired: true, key: _selectedPickupNote);
+        KeyBoolPair(isRequired: false, key: _selectedPickupNote);
     KeyBoolPair _deliveryNoteMerchant =
-        KeyBoolPair(isRequired: true, key: _selectedDeliveryNoteMerchant);
+        KeyBoolPair(isRequired: false, key: _selectedDeliveryNoteMerchant);
     KeyBoolPair _deliveryNoteReceiver =
-        KeyBoolPair(isRequired: true, key: _selectedDeliveryNoteReceiver);
+        KeyBoolPair(isRequired: false, key: _selectedDeliveryNoteReceiver);
     KeyBoolPair _productNote =
-        KeyBoolPair(isRequired: true, key: _selectedProductNote);
+        KeyBoolPair(isRequired: false, key: _selectedProductNote);
     KeyBoolPair _otherNotes =
-        KeyBoolPair(isRequired: true, key: _selectedOtherNotes);
+        KeyBoolPair(isRequired: false, key: _selectedOtherNotes);
     KeyBoolPair _isDangerousGoods = KeyBoolPair(
-      isRequired: true,
+      isRequired: false,
       key: _selectedisDangerousGoods,
     );
     KeyBoolPair _allowWeekendDelivery = KeyBoolPair(
-      isRequired: true,
+      isRequired: false,
       key: _selectedallowWeekendDelivery,
     );
     KeyBoolPair _requestedDeliveryTimeSlotType = KeyBoolPair(
-        isRequired: true, key: _selectedrequestedDeliveryTimeSlotType);
+        isRequired: false, key: _selectedrequestedDeliveryTimeSlotType);
 
     KeyBoolPair _requestedDeliveryTimeSlotStart = KeyBoolPair(
-        isRequired: true, key: _selectedrequestedDeliveryTimeSlotStartTime);
+        isRequired: false, key: _selectedrequestedDeliveryTimeSlotStartTime);
 
     KeyBoolPair _requestedDeliveryTimeSlotEnd = KeyBoolPair(
-        isRequired: true, key: _selectedrequestedDeliveryTimeSlotEndTime);
+        isRequired: false, key: _selectedrequestedDeliveryTimeSlotEndTime);
 
     KeyBoolPair _codRequested =
-        KeyBoolPair(isRequired: true, key: _selectedcashOnDeliveryRequested);
+        KeyBoolPair(isRequired: false, key: _selectedcashOnDeliveryRequested);
 
     KeyBoolPair _codAmount =
-        KeyBoolPair(isRequired: true, key: _selectedcashOnDeliveryAmount);
+        KeyBoolPair(isRequired: false, key: _selectedcashOnDeliveryAmount);
 
     KeyBoolPair _codCurrency =
-        KeyBoolPair(isRequired: true, key: _selectedcashOnDeliveryCurrency);
+        KeyBoolPair(isRequired: false, key: _selectedcashOnDeliveryCurrency);
 
     KeyBoolPair _insuredAmount =
-        KeyBoolPair(isRequired: true, key: _selectedinsuredAmount);
+        KeyBoolPair(isRequired: false, key: _selectedinsuredAmount);
 
     KeyBoolPair _insuredCurrency =
-        KeyBoolPair(isRequired: true, key: _selectedinsuredCurrency);
+        KeyBoolPair(isRequired: false, key: _selectedinsuredCurrency);
 
     OrderDetails orderInformation = OrderDetails(
       orderNumber: _orderNumber,
@@ -1974,7 +1974,7 @@ class _UploadExcelDialogState extends State<UploadExcelDialog>
 
     FilledMappingRequest data = FilledMappingRequest(
       id: mappingId,
-      merchantId: AppService.currentUser.value?.merchant?.id,
+      // merchantId: AppService.currentUser.value?.merchant?.id,
       mapping: mapping,
     );
 

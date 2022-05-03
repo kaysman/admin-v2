@@ -44,66 +44,60 @@ class TabViewedContainer extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(10)),
         color: Colors.white,
       ),
-      child: DefaultTabController(
-        length: tabs.length,
-        initialIndex: tabIndex ?? 0,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: AbsorbPointer(
-                    absorbing: true,
-                    child: TabBar(
-                      labelColor: kPrimaryColor,
-                      controller: controller,
-                      labelStyle: Theme.of(context).textTheme.bodyText1,
-                      unselectedLabelStyle:
-                          Theme.of(context).textTheme.bodyText1,
-                      unselectedLabelColor: kGrey1Color,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      tabs: tabs
-                          .map<Widget>(
-                            (tab) => Tab(
-                              child: Container(
-                                width: width! / tabs.length,
-                                child: Center(child: Text(tab)),
-                              ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: AbsorbPointer(
+                  absorbing: true,
+                  child: TabBar(
+                    labelColor: kPrimaryColor,
+                    controller: controller,
+                    labelStyle: Theme.of(context).textTheme.bodyText1,
+                    unselectedLabelStyle: Theme.of(context).textTheme.bodyText1,
+                    unselectedLabelColor: kGrey1Color,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    tabs: tabs
+                        .map<Widget>(
+                          (tab) => Tab(
+                            child: Container(
+                              width: width! / tabs.length,
+                              child: Center(child: Text(tab)),
                             ),
-                          )
-                          .toList(),
-                    ),
+                          ),
+                        )
+                        .toList(),
                   ),
                 ),
-              ],
-            ),
-            Divider(
-              height: 0,
-              endIndent: 0,
-              indent: 0,
-              thickness: 1,
-            ),
-            Expanded(
-              child: Padding(
-                padding: padding ?? EdgeInsets.all(24.w),
-                child: TabBarView(
-                  physics: NeverScrollableScrollPhysics(),
-                  controller: controller,
-                  children: views,
-                ),
+              ),
+            ],
+          ),
+          Divider(
+            height: 0,
+            endIndent: 0,
+            indent: 0,
+            thickness: 1,
+          ),
+          Expanded(
+            child: Padding(
+              padding: padding ?? EdgeInsets.all(24.w),
+              child: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
+                controller: controller,
+                children: views,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: 24.w,
-                bottom: 24.w,
-                right: 24.w,
-              ),
-              child: footer!,
-            )
-          ],
-        ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              left: 24.w,
+              bottom: 24.w,
+              right: 24.w,
+            ),
+            child: footer!,
+          )
+        ],
       ),
     );
   }

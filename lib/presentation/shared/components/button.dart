@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lng_adminapp/data/enums/status.enum.dart';
 import 'package:lng_adminapp/shared.dart';
 
@@ -13,10 +12,10 @@ class Button extends StatelessWidget {
     this.borderRadius = 6.0,
     this.hasBorder = false,
     this.textColor,
+    this.textStyle,
     this.onPressed,
     this.elevation,
-    this.horizontalPadding,
-    this.verticalPadding,
+    this.padding,
     this.onPrimary,
     this.isDisabled = false,
     this.isLoading = false,
@@ -26,14 +25,14 @@ class Button extends StatelessWidget {
 
   final String text;
   final Color? textColor;
+  final TextStyle? textStyle;
   final Color primary;
   final Color? onPrimary;
   final bool hasBorder;
   final Color borderColor;
   final double borderRadius;
   final double? elevation;
-  final double? verticalPadding;
-  final double? horizontalPadding;
+  final EdgeInsets? padding;
   final bool isLoading;
   final bool isDisabled;
   final Widget? icon;
@@ -42,54 +41,46 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Opacity(
-      opacity: isDisabled ? 0.5 : 1,
-      child: AbsorbPointer(
-        absorbing: isDisabled || isLoading,
-        child: ElevatedButton(
-          onPressed: this.onPressed,
-          style: ElevatedButton.styleFrom(
-            elevation: this.elevation,
-            primary: this.primary,
-            onPrimary: this.onPrimary,
-            shape: RoundedRectangleBorder(
-              side: this.hasBorder
-                  ? BorderSide(color: this.borderColor)
-                  : BorderSide.none,
-              borderRadius: BorderRadius.circular(this.borderRadius),
+    return SizedBox(
+      child: Opacity(
+        opacity: isDisabled ? 0.5 : 1,
+        child: AbsorbPointer(
+          absorbing: isDisabled || isLoading,
+          child: ElevatedButton(
+            onPressed: this.onPressed,
+            style: ElevatedButton.styleFrom(
+              elevation: this.elevation,
+              primary: this.primary,
+              onPrimary: this.onPrimary,
+              shape: RoundedRectangleBorder(
+                side: this.hasBorder
+                    ? BorderSide(color: this.borderColor)
+                    : BorderSide.none,
+                borderRadius: BorderRadius.circular(this.borderRadius),
+              ),
+              padding: this.padding,
             ),
-            padding: EdgeInsets.symmetric(
-              vertical: this.verticalPadding ?? 7.h,
-              horizontal: this.horizontalPadding ?? 12.w,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (icon != null) icon!,
+                SizedBox(width: Spacings.kSpaceTiny),
+                Text(
+                  this.text,
+                  style: textStyle ??
+                      Theme.of(context)
+                          .textTheme
+                          .bodyText2
+                          ?.copyWith(color: textColor),
+                ),
+                SizedBox(width: Spacings.kSpaceTiny),
+                if (isLoading)
+                  ProgressIndicatorSmall(
+                    color: textColor ?? kWhite,
+                  ),
+              ],
             ),
           ),
-          child: isLoading
-              ? ProgressIndicatorSmall(
-                  color: textColor ?? kWhite,
-                )
-              : icon == null
-                  ? Text(
-                      this.text,
-                      style: GoogleFonts.inter(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14.sp,
-                        color: textColor ?? kWhite,
-                      ),
-                    )
-                  : Row(
-                      children: [
-                        icon!,
-                        SizedBox(width: Spacings.kSpaceTiny),
-                        Text(
-                          this.text,
-                          style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 14.sp,
-                            color: textColor ?? kWhite,
-                          ),
-                        ),
-                      ],
-                    ),
         ),
       ),
     );

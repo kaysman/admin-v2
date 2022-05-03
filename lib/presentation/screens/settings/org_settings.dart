@@ -19,7 +19,7 @@ class OrganizationalSettingsPage extends StatelessWidget {
     User? userIdentity,
   ) {
     return Container(
-      width: 0.5.sw,
+      width: 0.28.sw,
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 24,
@@ -30,20 +30,16 @@ class OrganizationalSettingsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  label,
-                  style: Theme.of(context).textTheme.bodyText2,
-                  textAlign: TextAlign.start,
-                ),
-                Text(
-                  "Last edited 12/02/2021",
-                  style: Theme.of(context).textTheme.subtitle1,
-                  textAlign: TextAlign.end,
-                )
-              ],
+            Text(
+              label,
+              style: Theme.of(context).textTheme.bodyText2,
+              textAlign: TextAlign.start,
+            ),
+            SizedBox(height: 16),
+            Text(
+              "Last edited " + "${userIdentity?.updatedAt ?? ''}",
+              style: Theme.of(context).textTheme.caption,
+              textAlign: TextAlign.end,
             ),
             SizedBox(height: 24),
             CircleAvatar(
@@ -108,10 +104,10 @@ class OrganizationalSettingsPage extends StatelessWidget {
     );
   }
 
-  Widget _editUserInfo(BuildContext context, String label, String buttonText,
+  Widget _editTenantInfo(BuildContext context, String label, String buttonText,
       Function()? onButtonPressed, User? userIdentity) {
     return Container(
-      width: 0.5.sw,
+      width: 0.4.sw,
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 24,
@@ -132,7 +128,7 @@ class OrganizationalSettingsPage extends StatelessWidget {
                   ),
                   Text(
                     "Last edited ${userIdentity?.tenant?.updatedAt}",
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.caption,
                     textAlign: TextAlign.end,
                   ),
                 ],
@@ -297,10 +293,9 @@ class OrganizationalSettingsPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: 0.38.sw,
                 child: _editInfo(
                   context,
-                  "${state.identity?.role?.name?.text} Information",
+                  "${state.identity?.role?.name} Information",
                   "Edit",
                   () => Navigator.pushNamed(context, EditUserInfo.routeName,
                       arguments: userIdentity),
@@ -320,8 +315,8 @@ class OrganizationalSettingsPage extends StatelessWidget {
               ),
               const SizedBox(width: 32),
               Container(
-                width: 0.38.sw,
-                child: _editUserInfo(
+                // width: 0.38.sw,
+                child: _editTenantInfo(
                   context,
                   "Organizational Information",
                   "Edit",

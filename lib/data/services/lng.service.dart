@@ -18,7 +18,7 @@ class LngService {
       };
 
   static Future<Credentials> login(Map<String, dynamic> data) async {
-    var uri = Uri.http(apiUrl, "/api/v1/auth/login");
+    var uri = Uri.https(apiUrl, "/api/v1/auth/login");
     try {
       var res = await ApiClient.instance.post(uri,
           headers: {
@@ -36,7 +36,7 @@ class LngService {
   /// from the api, data is non-nullable
   static Future<User> getUserIdentity(String? id) async {
     assert(id != null);
-    var uri = Uri.http(apiUrl, "/api/v1/users/$id");
+    var uri = Uri.https(apiUrl, "/api/v1/users/$id");
     try {
       var res = await ApiClient.instance.get(uri, headers: await headers);
       return User.fromJson(res.data);
@@ -51,7 +51,7 @@ class LngService {
   }
 
   static Future<User> updateUserIdentity(Map<String, dynamic> data) async {
-    var uri = Uri.http(apiUrl, "/api/v1/users");
+    var uri = Uri.https(apiUrl, "/api/v1/users");
     try {
       var res = await ApiClient.instance.patch(
         uri,
@@ -74,11 +74,29 @@ class LngService {
       FileUpload data, FilePickerResult result) async {
     Uint8List _bytesData = result.files.last.bytes!;
     String fileName = basename(result.files.last.path!);
-    var uri = Uri.http(apiUrl, '/api/v1/uploads/file');
+    var uri = Uri.https(apiUrl, '/api/v1/uploads/file');
     try {
       var response = ApiClient.instance.sendFile(uri, _bytesData, fileName,
           data: data, headers: await fileHeader);
       return response;
     } catch (error) {}
+  }
+
+  static Future<bool?> changePassword(
+      String oldPassword, String newPassword) async {
+    var uri = Uri.https(apiUrl, "/api/v1/auth/change-password");
+    var body = <String, String>{
+      "oldPassword": oldPassword,
+      "newPassword": newPassword
+    };
+    try {
+      var res = await ApiClient.instance
+          .patch(uri, data: json.encode(body), headers: await headers);
+      print(res);
+      return res.success;
+    } catch (_) {
+      print(_.toString());
+      throw _;
+    }
   }
 }

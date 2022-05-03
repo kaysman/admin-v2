@@ -111,7 +111,7 @@ class _SelectableOptionsState extends State<SelectableOptions> {
                   Spacer(),
                   Text.rich(TextSpan(
                     text: "${DateFormat('dd/MM/yyyy').format(DateTime.now())}",
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.caption,
                   )),
                 ],
               ),
@@ -388,7 +388,7 @@ class ExpandableCard extends StatelessWidget {
         subtitle: this.subtitle != null
             ? Text(
                 this.subtitle!,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.caption,
               )
             : null,
         children: this.children,

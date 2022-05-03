@@ -69,7 +69,7 @@ class _DeleteDialogState extends State<DeleteDialog> {
               Text(
                 "${widget.message}",
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.caption,
               ),
               SizedBox(height: 32.sp),
               Text(

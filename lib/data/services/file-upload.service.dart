@@ -16,7 +16,7 @@ import 'package:http/http.dart' as http;
 class FileUploadService {
   static Future<dynamic> uploadFile(
       FileUpload data, FilePickerResult file) async {
-    var uri = Uri.http(apiUrl, '/api/v1/uploads/file');
+    var uri = Uri.https(apiUrl, '/api/v1/uploads/file');
     // String fileName = basename(file.path);
     // Dio dio = Dio();
     try {
@@ -79,7 +79,7 @@ class FileUploadService {
   //     };
 
   // static Future<ApiResponse> uploadFile() async {
-  //   var uri = Uri.http(apiUrl, '/api/v1/uploads/file');
+  //   var uri = Uri.https(apiUrl, '/api/v1/uploads/file');
 
   //   try {
   //     var res = await ApiClient.instance

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:lng_adminapp/data/models/role/permission-toggle-feedback.model.dart';
 import 'package:lng_adminapp/data/models/role/permission.model.dart';
 import 'package:lng_adminapp/shared.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class RolePermission extends StatefulWidget {
+class RolePermissionExpandableTile extends StatefulWidget {
   final String title;
   final List<Widget>? permissions;
   // final int? activePermissions;
-  const RolePermission({
+  const RolePermissionExpandableTile({
     Key? key,
     required this.title,
     this.permissions,
@@ -16,10 +14,12 @@ class RolePermission extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _RolePermissionState createState() => _RolePermissionState();
+  _RolePermissionExpandableTileState createState() =>
+      _RolePermissionExpandableTileState();
 }
 
-class _RolePermissionState extends State<RolePermission> {
+class _RolePermissionExpandableTileState
+    extends State<RolePermissionExpandableTile> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -63,13 +63,13 @@ class _RolePermissionState extends State<RolePermission> {
                           margin: EdgeInsets.symmetric(horizontal: 16),
                           child: Text(
                             'Permissions',
-                            style: Theme.of(context).textTheme.subtitle1,
+                            style: Theme.of(context).textTheme.caption,
                           )),
                       Container(
                           margin: EdgeInsets.symmetric(horizontal: 16),
                           child: Text(
                             'Status',
-                            style: Theme.of(context).textTheme.subtitle1,
+                            style: Theme.of(context).textTheme.caption,
                           )),
                     ],
                   ),
@@ -98,7 +98,7 @@ class _RolePermissionState extends State<RolePermission> {
 
 class PermissionToggle extends StatefulWidget {
   final Permission permission;
-  final ValueChanged<PermissionToggleFeedback>? onValueChanged;
+  final ValueChanged<bool>? onValueChanged;
   bool isToggled;
   PermissionToggle({
     Key? key,
@@ -128,15 +128,7 @@ class _PermissionToggleState extends State<PermissionToggle> {
         ),
         Switch(
           value: widget.isToggled,
-          onChanged: (value) {
-            PermissionToggleFeedback feedback = PermissionToggleFeedback();
-            setState(() {
-              widget.isToggled = value;
-              feedback.id = widget.permission.id!;
-              feedback.status = value;
-              widget.onValueChanged!(feedback);
-            });
-          },
+          onChanged: widget.onValueChanged,
         )
       ],
     );

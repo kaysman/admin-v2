@@ -1,14 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lng_adminapp/data/models/user.model.dart';
-import 'package:lng_adminapp/data/services/app.service.dart';
 import 'package:lng_adminapp/presentation/screens/settings/settings.bloc.dart';
 import 'package:lng_adminapp/shared.dart';
-import 'package:lng_adminapp/data/enums/status.enum.dart';
 
 class EditUserInfo extends StatefulWidget {
   static const String routeName = 'edit-user-info';
@@ -44,7 +39,7 @@ class _EditUserInfoState extends State<EditUserInfo> {
     super.initState();
   }
 
-  Widget _buildHeader(BuildContext context) {
+  _buildHeader(BuildContext context) {
     return Container(
       color: kGreyBackground,
       padding: const EdgeInsets.only(
@@ -58,7 +53,7 @@ class _EditUserInfoState extends State<EditUserInfo> {
           SizedBox(height: 32),
           Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(
-              "Edit ${user.role?.name?.text} Information",
+              "Edit ${user.role?.name} Information",
               style: Theme.of(context).textTheme.headline6,
               textAlign: TextAlign.start,
             ),
@@ -68,7 +63,7 @@ class _EditUserInfoState extends State<EditUserInfo> {
     );
   }
 
-  Widget _editUserInfo(BuildContext context) {
+  _editUserInfo(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 24,
@@ -113,24 +108,22 @@ class _EditUserInfoState extends State<EditUserInfo> {
             ),
           ),
           const SizedBox(height: 24),
-          LabeledInput(
-            label: "Email",
-            controller: _emailController,
-          ),
-          const SizedBox(height: 24),
           RowOfTwoChildren(
-            child1: AppService.hasPermission(PermissionType.CHANGE_PASSWORD)
-                ? LabeledInput(
-                    label: "Password",
-                    controller: _passwordController,
-                  )
-                : Center(
-                    child: Text("No permission to change password"),
-                  ),
+            child1: LabeledInput(
+              label: "Email",
+              controller: _emailController,
+            ),
             child2: LabeledInput(
               label: "Phone Number",
               controller: _phoneController,
             ),
+          ),
+          const SizedBox(height: 24),
+          TextButton(
+            onPressed: () {
+              showWhiteDialog(context, ChangePasswordDialog());
+            },
+            child: Text("Change password"),
           ),
           const SizedBox(height: 24),
           Row(
@@ -208,6 +201,84 @@ class _EditUserInfoState extends State<EditUserInfo> {
                 ),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ChangePasswordDialog extends StatefulWidget {
+  const ChangePasswordDialog({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<ChangePasswordDialog> createState() => _ChangePasswordDialogState();
+}
+
+class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
+  final oldController = TextEditingController();
+  final newController = TextEditingController();
+
+  late SettingsBloc settingsBloc;
+
+  @override
+  void initState() {
+    settingsBloc = BlocProvider.of<SettingsBloc>(context);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    oldController.dispose();
+    newController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 0.3.sw,
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text("Ali Bg"),
+          const SizedBox(height: 24.0),
+          LabeledInput(
+            label: "Old password",
+            controller: oldController,
+          ),
+          const SizedBox(height: 16.0),
+          LabeledInput(
+            label: "New password",
+            controller: newController,
+          ),
+          const SizedBox(height: 16.0),
+          BlocConsumer<SettingsBloc, SettingsState>(
+            listenWhen: (state1, state2) =>
+                state1.changepasswordStatus != state2.changepasswordStatus,
+            listener: (context, state) {
+              if (state.changepasswordStatus == ChangepasswordStatus.success) {
+                showSnackBar(context, Text("Password changed"));
+              }
+            },
+            builder: (context, state) {
+              return Button(
+                textColor: kWhite,
+                primary: kPrimaryColor,
+                isLoading:
+                    state.changepasswordStatus == ChangepasswordStatus.loading,
+                text: "Ok",
+                onPressed: () async {
+                  await settingsBloc.changePassword(
+                    oldController.text,
+                    newController.text,
+                  );
+                },
+              );
+            },
           ),
         ],
       ),

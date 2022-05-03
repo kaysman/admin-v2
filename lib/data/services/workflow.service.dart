@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:lng_adminapp/data/enums/status.enum.dart';
 import 'package:lng_adminapp/data/models/workflow/standard_workflow.model.dart';
 import 'package:lng_adminapp/data/models/workflow/workflow.model.dart';
 import 'package:lng_adminapp/data/services/api_client.dart';
@@ -29,7 +28,7 @@ class WorkflowService {
   }
 
   static Future<WorkflowStandard> getStandardWorkflows() async {
-    var uri = Uri.http(apiUrl, 'api/v1/workflows/standard-workflow-names/get');
+    var uri = Uri.https(apiUrl, 'api/v1/workflows/standard-workflow-names/get');
     try {
       var res = await ApiClient.instance.get(uri, headers: await headers);
       return WorkflowStandard.fromJson(res.data);

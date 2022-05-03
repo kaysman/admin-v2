@@ -64,6 +64,7 @@ class _CreateDriverState extends State<CreateDriver>
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
     driverBloc = context.read<DriverBloc>();
+
     checkIfUserIsUpdating();
     super.initState();
   }
@@ -95,22 +96,24 @@ class _CreateDriverState extends State<CreateDriver>
     if (UserService.selectedDriver.value != null) {
       driver = UserService.selectedDriver.value;
 
-      _firstNameController.text = driver?.firstName ?? '';
-      _lastNameController.text = driver?.lastName ?? '';
+      _firstNameController.text = driver?.firstName ?? 'TestName';
+      _lastNameController.text = driver?.lastName ?? 'TestSurname';
       _emailController.text = driver?.emailAddress ?? '';
-      _phoneController.text = driver?.phoneNumber ?? '';
-      _modelController.text = driver?.driver?.vehicleDetail?.model ?? '';
-      _modelYearController.text = driver?.driver?.vehicleDetail?.year ?? '';
+      _phoneController.text = driver?.phoneNumber ?? '7712837812';
+      _modelController.text = driver?.driver?.vehicleDetail?.model ?? 'Lexus';
+      _modelYearController.text = driver?.driver?.vehicleDetail?.year ?? '2012';
       _licenseController.text =
-          driver?.driver?.vehicleDetail?.licensePlate ?? '';
-      _colorController.text = driver?.driver?.vehicleDetail?.color ?? '';
+          driver?.driver?.vehicleDetail?.licensePlate ?? '123123';
+      _colorController.text = driver?.driver?.vehicleDetail?.color ?? 'Red';
       _selectedVehicleType = driver?.driver?.vehicleType ?? '';
-      _address1Controller.text = driver?.driver?.address?.addressLineOne ?? '';
-      _address2Controller.text = driver?.driver?.address?.addressLineTwo ?? '';
-      _postalController.text = driver?.driver?.address?.postalCode ?? '';
-      _cityController.text = driver?.driver?.address?.city ?? '';
-      _stateController.text = driver?.driver?.address?.state ?? '';
-      _countryController.text = driver?.driver?.address?.country ?? '';
+      _address1Controller.text =
+          driver?.driver?.address?.addressLineOne ?? 'ASdasd';
+      _address2Controller.text =
+          driver?.driver?.address?.addressLineTwo ?? 'asd';
+      _postalController.text = driver?.driver?.address?.postalCode ?? '123';
+      _cityController.text = driver?.driver?.address?.city ?? 'ASdasd';
+      _stateController.text = driver?.driver?.address?.state ?? 'asdasd';
+      _countryController.text = driver?.driver?.address?.country ?? 'asda';
     }
   }
 
@@ -118,8 +121,7 @@ class _CreateDriverState extends State<CreateDriver>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kGreyBackground,
-      body: Padding(
-        padding: EdgeInsets.all(18.w),
+      body: LngPage(
         child: BlocBuilder<DriverBloc, DriverState>(
           builder: (context, state) {
             return Column(
@@ -144,8 +146,8 @@ class _CreateDriverState extends State<CreateDriver>
                   child: TabViewedContainer(
                     tabIndex: tabIndex,
                     controller: _tabController,
-                    width: 520.w,
-                    height: 600.h,
+                    width: 0.4.sw,
+                    height: 0.54.sh,
                     tabs: [
                       'Personal Details',
                       'Vehicle Details',
@@ -268,8 +270,12 @@ class _CreateDriverState extends State<CreateDriver>
     }
   }
 
-  submitForm(DriverBloc driverBloc, FilePickerResult? selectedImage,
-      BuildContext context, bool isUpdating) async {
+  submitForm(
+    DriverBloc driverBloc,
+    FilePickerResult? selectedImage,
+    BuildContext context,
+    bool isUpdating,
+  ) async {
     Address _address = Address(
       addressLineOne: _address1Controller.text,
       addressLineTwo: _address2Controller.text,
@@ -293,9 +299,12 @@ class _CreateDriverState extends State<CreateDriver>
       vehicleDetail: _vehicleDetail,
     );
 
-    String base64String =
-        '${base64.encode(_selectedImage!.files[0].bytes as List<int>)}-ext-${_selectedImage!.files[0].extension}';
-    ;
+    String? base64String;
+    if (_selectedImage != null) {
+      base64String =
+          '${base64.encode(_selectedImage!.files[0].bytes as List<int>)}-ext-${_selectedImage!.files[0].extension}';
+      ;
+    }
 
     CreateUserRequest _user = CreateUserRequest(
       firstName: _firstNameController.text,

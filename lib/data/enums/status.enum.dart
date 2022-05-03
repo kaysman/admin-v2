@@ -148,6 +148,8 @@ enum PermissionType {
   // 11. PERMISSION
   @JsonValue('create-permission')
   CREATE_PERMISSION,
+  @JsonValue('read-permission')
+  READ_PERMISSION,
 
   // 12. PROOF OF DELIVERY
   @JsonValue('create-proof-of-delivery')
@@ -239,7 +241,13 @@ enum PermissionType {
   @JsonValue('delete-workflow')
   DELETE_WORKFLOW,
 
-  // 23. WORKFLOW STEP
+  // WORKFLOW WAREHOUSE
+  @JsonValue('create-workflow-warehouse')
+  CREATE_WORKFLOW_WAREHOUSE,
+  @JsonValue('read-workflow-warehouse')
+  READ_WORKFLOW_WAREHOUSE,
+
+  // WORKFLOW STEP
   @JsonValue('create-workflow-step')
   CREATE_WORKFLOW_STEP,
   @JsonValue('read-workflow-step')
@@ -249,11 +257,32 @@ enum PermissionType {
   @JsonValue('delete-workflow-step')
   DELETE_WORKFLOW_STEP,
 
-  // 23. WORKFLOW WAREHOUSE
-  @JsonValue('create-workflow-warehouse')
-  CREATE_WORKFLOW_WAREHOUSE,
-  @JsonValue('read-workflow-warehouse')
-  READ_WORKFLOW_WAREHOUSE
+  // NEW
+  @JsonValue("only-load-and-go-tech")
+  ONLY_LOAD_AND_GO_TECH,
+
+  // TASK SEQUENCING
+  @JsonValue("create-task-sequencing")
+  CREATE_TASK_SEQUENCING,
+  @JsonValue("read-task-sequencing")
+  READ_TASK_SEQUENCING,
+  @JsonValue("update-task-sequencing")
+  UPDATE_TASK_SEQUENCING,
+  @JsonValue("delete-task-sequencing")
+  DELETE_TASK_SEQUENCING,
+
+  @JsonValue("read-vehicle-detail")
+  READ_VEHICLE_DETAIL,
+
+  // CREATE WORKFLOW AND WORKFLOW STEP
+  @JsonValue("create-workflow-and-workflow-step")
+  CREATE_WORKFLOW_AND_WORKFLOW_STEP,
+  @JsonValue("read-workflow-and-workflow-step")
+  READ_WORKFLOW_AND_WORKFLOW_STEP,
+  @JsonValue("update-workflow-and-workflow-step")
+  UPDATE_WORKFLOW_AND_WORKFLOW_STEP,
+  @JsonValue("delete-workflow-and-workflow-step")
+  DELETE_WORKFLOW_AND_WORKFLOW_STEP,
 }
 
 enum RoleType {
@@ -301,9 +330,13 @@ RoleType getRoleType(String name) {
 }
 
 enum StandardWorkflowType {
+  @JsonValue("Pick_up_and_drop_off_directly")
   Pick_up_and_drop_off_directly,
+  @JsonValue("To_warehouse_before_delivery")
   To_warehouse_before_delivery,
+  @JsonValue("To_warehouse_and_dispatch_point_before_delivery")
   To_warehouse_and_dispatch_point_before_delivery,
+  @JsonValue("Custom")
   Custom
 }
 
@@ -461,4 +494,77 @@ enum OrderFilterType {
   specificFilterCashOnDeliveryCurrency,
   specificFilterInsuredAmount,
   specificFilterInsuredAmountCurrency
+}
+
+enum SpecificTypeOfLocation {
+  LNG_TECH_TEAM_GENERATED,
+  TENANT_WAREHOUSE,
+  TENANT_DISPATCH_POINT,
+  MERCHANT_ANY_LOCATION,
+  DRIVER_PROFILE_LOCATION,
+  SENDER_ADDRESS,
+  RECEIVER_ADDRESS,
+
+  // these are used only during the creation of tasks
+  SPECIFIC_FOR_ONE_PICK_UP_TASK,
+  SPECIFIC_FOR_ONE_DROP_OFF_TASK,
+
+  // for ad-hoc uses
+  CUSTOM_TASK_RELATED,
+  CUSTOM_NOT_TASK_RELATED,
+
+  // custom for driver group
+  CUSTOM_FOR_DRIVER_DELIVERY_PICK_UP,
+
+  NOT_APPLICABLE,
+}
+
+enum TypeOfOtherContactDetail {
+  WAREHOUSE,
+  DISPATCH_POINT,
+  CUSTOM_FOR_DRIVER_DELIVERY_PICK_UP,
+  OTHERS,
+}
+
+enum TypeOfContactForAddress {
+  TENANT,
+  MERCHANT,
+  WAREHOUSE,
+  DISPATCH_POINT,
+  DRIVER,
+  SENDER,
+  RECEIVER,
+  OTHER,
+  CUSTOM_FOR_DRIVER_DELIVERY_PICK_UP,
+}
+
+enum TaskRelatedWorkflowSteps {
+  ON_VEHICLE_TO_DISPATCH_POINT_FOR_DELIVERY_DISPATCH,
+  ON_VEHICLE_TO_WAREHOUSE_FOR_SORTING,
+  ON_VEHICLE_FOR_DELIVERY,
+
+  // for ad-hoc uses
+  // only task related required because this is specific to task related statuses
+  CUSTOM_TASK_RELATED,
+}
+
+enum GenericTypeOfLocation {
+  // this enum list is used to simplify task categorisation. only the 3 above are used in the task logic, more can be added down the road
+
+  TENANT_WAREHOUSE,
+  TENANT_DISPATCH_POINT,
+  RECEIVER_ADDRESS,
+
+  // these are used only during the creation of tasks
+  SPECIFIC_FOR_ONE_PICK_UP_TASK,
+  SPECIFIC_FOR_ONE_DROP_OFF_TASK,
+
+  // for ad-hoc uses
+  // only task related required because this is specific to task related statuses
+  CUSTOM_TASK_RELATED,
+
+  // custom for driver group
+  CUSTOM_FOR_DRIVER_DELIVERY_PICK_UP,
+
+  OTHERS,
 }

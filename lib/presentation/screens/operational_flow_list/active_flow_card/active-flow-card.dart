@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lng_adminapp/presentation/screens/operational_flow_list/inactive_flow_card/view-flow-button.dart';
-import 'package:lng_adminapp/presentation/shared/colors.dart';
+import 'package:lng_adminapp/presentation/screens/operational_flow_list/workflow_detail_page.dart';
+import 'package:lng_adminapp/shared.dart';
 
 import '../../../../data/models/workflow/workflow.model.dart';
-import 'add-filter-button.dart';
-import 'edit-flow-button.dart';
-import 'filter-dropdown-button.dart';
+import '../../../shared/components/expansion_tile.dart';
 
 class ActiveFlowCard extends StatefulWidget {
-  const ActiveFlowCard({Key? key, required this.flowData}) : super(key: key);
+  const ActiveFlowCard({Key? key, required this.workflowEntity})
+      : super(key: key);
 
-  final WorkflowEntity flowData;
+  final WorkflowEntity workflowEntity;
 
   @override
   _ActiveFlowCardState createState() => _ActiveFlowCardState();
@@ -24,7 +23,7 @@ class _ActiveFlowCardState extends State<ActiveFlowCard> {
 
   @override
   Widget build(BuildContext context) {
-    var workflow = widget.flowData;
+    var workflow = widget.workflowEntity;
     var address =
         "${workflow.tenant?.address?.city}, ${workflow.tenant?.address?.country}";
     var time = workflow.serviceLevel;
@@ -35,7 +34,7 @@ class _ActiveFlowCardState extends State<ActiveFlowCard> {
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 32),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       clipBehavior: Clip.hardEdge,
-      child: ExpansionTile(
+      child: KExpansionTile(
         textColor: Colors.black,
         backgroundColor: kSecondaryColor,
         collapsedBackgroundColor: kSecondaryColor,
@@ -45,7 +44,6 @@ class _ActiveFlowCardState extends State<ActiveFlowCard> {
         onExpansionChanged: (value) {
           setState(() {
             _isExpanded = value;
-            //Collapsing cancels editing
             if (!value) {
               _isEditing = value;
             }
@@ -130,9 +128,8 @@ class _ActiveFlowCardState extends State<ActiveFlowCard> {
             ),
           ),
           const SizedBox(height: 16),
-          ViewFlowButton(),
-          const SizedBox(height: 24),
-
+          viewFlowButton(),
+          const SizedBox(height: 6),
           // if (_isEditing)
           //   Container(
           //     margin: EdgeInsets.symmetric(horizontal: 16),
@@ -223,6 +220,44 @@ class _ActiveFlowCardState extends State<ActiveFlowCard> {
           //   ],
           // ),
         ],
+      ),
+    );
+  }
+
+  viewFlowButton() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16),
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          side: BorderSide.none,
+          padding: EdgeInsets.fromLTRB(
+            0,
+            16,
+            8,
+            16,
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AppIcons.svgAsset(AppIcons.operationalFlow),
+            SizedBox(
+              width: 8,
+            ),
+            Text('View Operational Flow',
+                style: GoogleFonts.inter(
+                    color: kPrimaryColor,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600)),
+          ],
+        ),
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            OperationalFlowDetailScreen.routeName,
+            arguments: widget.workflowEntity,
+          );
+        },
       ),
     );
   }

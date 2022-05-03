@@ -85,7 +85,7 @@ class _SelectPickupOrdersState extends State<SelectPickupOrders> {
                 Spacings.SMALL_HORIZONTAL,
                 SizedBox(
                   width: 160,
-                  child: DecoratedDropdown(
+                  child: DecoratedDropdown<String>(
                     value: daysFilter,
                     icon: AppIcons.svgAsset(AppIcons.calendar),
                     items: ['Past 1 day', 'Past 1 week', 'Past 1 month'],
@@ -199,7 +199,7 @@ class _SelectPickupOrdersState extends State<SelectPickupOrders> {
                               Spacings.SMALL_HORIZONTAL,
                               SizedBox(
                                 width: 85,
-                                child: DecoratedDropdown(
+                                child: DecoratedDropdown<String>(
                                   value: perPage,
                                   icon: null,
                                   items: ['10', '25', '50'],

@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lng_adminapp/shared.dart';
 
-import 'view-flow-button.dart';
-
 class InactiveFlowCard extends StatefulWidget {
   const InactiveFlowCard({Key? key}) : super(key: key);
 
@@ -159,7 +157,6 @@ class _InactiveFlowCardState extends State<InactiveFlowCard> {
           SizedBox(
             height: 16,
           ),
-          ViewFlowButton(),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 16),
             child: Row(

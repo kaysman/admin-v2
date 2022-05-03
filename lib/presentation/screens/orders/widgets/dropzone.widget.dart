@@ -76,27 +76,30 @@ class _DropzoneWidgetState extends State<DropzoneWidget> {
                             SizedBox(
                               width: 5.w,
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${file?.name}',
-                                  style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 14.sp,
-                                    color: kGrey1Color,
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${file?.name}',
+                                    style: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14.sp,
+                                      color: kGrey1Color,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  '${file?.size}',
-                                  style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 14.sp,
-                                    color: kGrey1Color,
+                                  Text(
+                                    '${file?.size}',
+                                    style: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14.sp,
+                                      color: kGrey1Color,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             )
                           ],
                         ),

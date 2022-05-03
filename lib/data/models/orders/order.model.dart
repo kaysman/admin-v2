@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:lng_adminapp/data/enums/status.enum.dart';
@@ -6,8 +5,7 @@ import 'package:lng_adminapp/data/models/merchant.model.dart';
 import 'package:lng_adminapp/data/models/meta.model.dart';
 import 'package:lng_adminapp/data/models/orders/order_package.model.dart';
 import 'package:lng_adminapp/data/models/orders/order_reference.model.dart';
-import 'package:lng_adminapp/data/models/receiver.model.dart';
-import 'package:lng_adminapp/data/models/sender.model.dart';
+import 'package:lng_adminapp/data/models/contact-detail.model.dart';
 import 'package:lng_adminapp/data/models/tenant.model.dart';
 import 'package:lng_adminapp/data/models/user.model.dart';
 
@@ -79,27 +77,27 @@ class Order {
   final String? pickUpNotes;
   final String? deliveryNotesFromMerchant;
   final String? deliveryNotesFromReceiver;
-  final DateTime? deliveryDateBasedOnUpload;
-  final DateTime? deliveryDateBasedOnPickUp;
+  final String? deliveryDateBasedOnUpload;
+  final String? deliveryDateBasedOnPickUp;
   final bool? allowWeekendDelivery;
   final bool? pickUpRequested;
   final String? pickUpId;
   final DeliveryTimeSlotType? requestedDeliveryTimeSlotType;
-  final DateTime? requestedDeliveryTimeSlotStart;
-  final DateTime? requestedDeliveryTimeSlotEnd;
+  final String? requestedDeliveryTimeSlotStart;
+  final String? requestedDeliveryTimeSlotEnd;
   final bool? cashOnDeliveryRequested;
   final int? cashOnDeliveryAmount;
   final String? cashOnDeliveryCurrency;
   final int? insuredAmount;
   final String? insuredAmountCurrency;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
+  final String? createdAt;
+  final String? updatedAt;
   final Tenant? tenant;
   final Merchant? merchant;
   final User? createdBy;
   final WorkflowEntity? workflowEntity;
-  final SenderDetail? senderDetail;
-  final ReceiverDetail? receiverDetail;
+  final ContactDetail? senderDetail;
+  final ContactDetail? receiverDetail;
   final OrderReference? orderReference;
   final List<OrderPackage>? orderPackage;
 

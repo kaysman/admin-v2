@@ -148,7 +148,7 @@ class _CreateOperationalFlowScreenState
     );
   }
 
-  buildNodes(List<FlowStepEntity> nodeSteps) {
+  buildNodes(List<StandardStep> nodeSteps) {
     return ListView.builder(
       padding: const EdgeInsets.all(16.0),
       itemCount: nodeSteps.length,
@@ -278,7 +278,7 @@ class _UpdateDetailsState extends State<_UpdateDetails> {
               child1: Button(
                 text: "Cancel",
                 elevation: 0.5,
-                primary: Colors.transparent,
+                primary: kWhite,
                 textColor: kPrimaryColor,
                 onPressed: () => Navigator.of(context).pop(),
               ),

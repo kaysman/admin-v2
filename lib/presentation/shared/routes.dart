@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lng_adminapp/data/enums/status.enum.dart';
 import 'package:lng_adminapp/data/models/user.model.dart';
+import 'package:lng_adminapp/data/models/workflow/workflow.model.dart';
 import 'package:lng_adminapp/presentation/screens/drivers/create-driver/create-driver.view.dart';
 import 'package:lng_adminapp/presentation/screens/drivers/driver-information/driver-information.view.dart';
 import 'package:lng_adminapp/presentation/screens/drivers/list-drivers/list-driver.view.dart';
@@ -17,18 +18,20 @@ import 'package:lng_adminapp/presentation/screens/orders/manage_order_table/mana
 import 'package:lng_adminapp/presentation/screens/pickups/request-pickup/request-pickup.view.dart';
 import 'package:lng_adminapp/presentation/screens/prepare-orders/list-orders/prepare-order-list.view.dart';
 import 'package:lng_adminapp/presentation/screens/role-permissions-roles/add_role_screen/add_role_screen.dart';
-import 'package:lng_adminapp/presentation/screens/role-permissions-roles/permissions_dashboard.dart';
+import 'package:lng_adminapp/presentation/screens/role-permissions-roles/roles_dashboard.dart';
 import 'package:lng_adminapp/presentation/screens/role-permissions-roles/role_details_screen/role_details_screen.dart';
 import 'package:lng_adminapp/presentation/screens/screens.dart';
 import 'package:lng_adminapp/presentation/screens/settings/edit_org.dart';
 import 'package:lng_adminapp/presentation/screens/settings/edit_user.dart';
-import 'package:lng_adminapp/presentation/screens/sub-admins/add_subadmin/add_subadmin.dart';
-import 'package:lng_adminapp/presentation/screens/sub-admins/subadmin_info.dart';
 import 'package:lng_adminapp/presentation/screens/teams/create-team/create-team.view.dart';
 import 'package:lng_adminapp/presentation/screens/teams/edit_team.dart';
 import 'package:lng_adminapp/presentation/screens/teams/list-teams/list-teams.view.dart';
 import 'package:lng_adminapp/presentation/screens/teams/team-information/team-information.view.dart';
 import '../screens/manage_flow/create_flow.dart';
+import '../screens/operational_flow_list/workflow_detail_page.dart';
+import '../screens/sub-users/add_subuser/add_subuser.dart';
+import '../screens/sub-users/subuser_info.dart';
+import '../screens/sub-users/subusers_table.dart';
 import 'helpers.dart';
 
 List<Route<dynamic>> onGenerateInitialRoute(
@@ -79,11 +82,7 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
     case ForgetPassword.routeName:
       return MaterialPageRoute(
         settings: RouteSettings(name: settings.name),
-        builder: (context) => guardedRouteBuilder(
-            context,
-            [PermissionType.CHANGE_PASSWORD],
-            ForgetPassword(),
-            "You don't have permission to change password. Request this permission."),
+        builder: (context) => ForgetPassword(),
       );
 
     case InstructionsSentPage.routeName:
@@ -104,6 +103,16 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
             context,
             [PermissionType.READ_WORKFLOW],
             OperationalFlowList(),
+            "You don't have permission to see operational flows"),
+      );
+    case OperationalFlowDetailScreen.routeName:
+      return MaterialPageRoute(
+        settings: RouteSettings(name: settings.name),
+        builder: (context) => guardedRouteBuilder(
+            context,
+            [PermissionType.READ_WORKFLOW],
+            OperationalFlowDetailScreen(
+                workflowEntity: settings.arguments as WorkflowEntity),
             "You don't have permission to see operational flows"),
       );
     case CreateOperationalFlowScreen.routeName:
@@ -280,23 +289,23 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
         builder: (context) => RequestPickup(),
       );
 
-    /// Manage Subadmin Pages
-    case ManageSubadminsScreen.routeName:
+    /// Manage Sub-user Pages
+    case ManageSubusersScreen.routeName:
       return MaterialPageRoute(
         settings: RouteSettings(name: settings.name),
         builder: (context) => guardedRouteBuilder(
             context,
             [PermissionType.READ_USER],
-            ManageSubadminsScreen(),
+            ManageSubusersScreen(),
             "You don't have permission to read sub-users. Request this permission."),
       );
-    case AddSubadminScreen.routeName:
+    case AddSubuserScreen.routeName:
       return MaterialPageRoute(
         settings: RouteSettings(name: settings.name),
         builder: (context) => guardedRouteBuilder(
             context,
             [PermissionType.CREATE_USER],
-            AddSubadminScreen(),
+            AddSubuserScreen(),
             "You don't have permission to create sub-user. Request this permission."),
       );
     case SubadminInfoScreen.routeName:
@@ -305,7 +314,7 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
         builder: (context) => guardedRouteBuilder(
             context,
             [PermissionType.READ_USER],
-            SubadminInfoScreen(),
+            SubadminInfoScreen(user: settings.arguments as User),
             "You don't have permission to read sub-users. Request this permission."),
       );
 

@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     loginBloc = LoginBloc(context.read<AuthBloc>());
-    _emailController = TextEditingController(text: 'atabek@mail.com');
+    _emailController = TextEditingController(text: 'bryan@gmail.com');
     _passwordController = TextEditingController(text: '@Password001');
     super.initState();
   }
@@ -46,15 +46,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
-      listenWhen: (oldState, newState) => (oldState.status != newState.status ||
-          oldState.identityStatus != newState.identityStatus),
       listener: (context, state) {
         if (state.status == AuthStatus.authenticated &&
             state.identity != null) {
           goToHome();
-        } else {
-          print(state.identity);
-          print(state.status);
         }
       },
       builder: (context, state) {
@@ -115,7 +110,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     .textTheme
                                     .headline4
                                     ?.copyWith(
-                                      fontSize: 18,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
                                     ),
                               ),
                               Spacings.LITTLE_BIG_VERTICAL,
@@ -135,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Text(
                                   "Forgot password?",
                                   style: GoogleFonts.inter(
-                                    fontSize: 12.sp,
+                                    fontSize: 14,
                                   ),
                                 ),
                               ),
@@ -152,19 +148,19 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  SizedBox loginButton() {
-    return SizedBox(
-      width: 80,
-      child: ElevatedButton(
-        onPressed: onLoginTapped,
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300),
-          child: loginBloc.state.status == LoginStatus.inProgress ||
-                  context.read<AuthBloc>().state.identityStatus ==
-                      IdentityStatus.loading
-              ? const ProgressIndicatorSmall()
-              : Text("Log in"),
-        ),
+  loginButton() {
+    return Button(
+      textColor: kWhite,
+      primary: kPrimaryColor,
+      isLoading: loginBloc.state.status == LoginStatus.inProgress ||
+          context.read<AuthBloc>().state.identityStatus ==
+              IdentityStatus.loading,
+      text: "Log in",
+      onPressed: onLoginTapped,
+      textStyle: GoogleFonts.inter(
+        fontWeight: FontWeight.w500,
+        fontSize: 18,
+        color: kWhite,
       ),
     );
   }
@@ -179,11 +175,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return [
       Align(
         alignment: Alignment.topLeft,
-        child: Text(
+        child: SelectableText(
           "Email",
-          style: GoogleFonts.inter(
-            fontSize: 12.sp,
-          ),
+          style: Theme.of(context).textTheme.bodyText1,
         ),
       ),
       Spacings.TINY_VERTICAL,
@@ -218,9 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
         alignment: Alignment.centerLeft,
         child: SelectableText(
           "Password",
-          style: GoogleFonts.inter(
-            fontSize: 12.sp,
-          ),
+          style: Theme.of(context).textTheme.bodyText1,
         ),
       ),
       Spacings.TINY_VERTICAL,
@@ -254,15 +246,13 @@ class _LoginScreenState extends State<LoginScreen> {
         Spacings.TINY_HORIZONTAL,
         Text(
           "Remember me",
-          style: GoogleFonts.inter(
-            fontSize: 12.sp,
-          ),
+          style: Theme.of(context).textTheme.bodyText1,
         ),
       ]),
     );
   }
 
-  onLoginTapped() async {
+  Future<void> onLoginTapped() async {
     if (_formKey.currentState!.validate() && _errorText == null) {
       _formKey.currentState!.save();
       Map<String, dynamic> loginData = {

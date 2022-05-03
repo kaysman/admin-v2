@@ -1,10 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
+
+import 'package:lng_adminapp/data/enums/status.enum.dart';
 import 'package:lng_adminapp/data/models/driver-details.model.dart';
 import 'package:lng_adminapp/data/models/merchant-details.model.dart';
 import 'package:lng_adminapp/data/models/meta.model.dart';
-import 'package:lng_adminapp/data/enums/status.enum.dart';
+
 import 'role/role.model.dart';
 import 'tenant.model.dart';
+
 part 'user.model.g.dart';
 
 @JsonSerializable()
@@ -64,8 +67,8 @@ class User {
   final Role? role;
   final Tenant? tenant;
 
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
+  final String? createdAt;
+  final String? updatedAt;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
@@ -95,5 +98,17 @@ class User {
     return a;
   }
 
-  String? get title => role?.name?.text;
+  String? get title => role?.name;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is User && other.id == id;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode;
+  }
 }

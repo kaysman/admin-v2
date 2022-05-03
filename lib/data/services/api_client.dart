@@ -76,10 +76,12 @@ class ApiClient {
     }
   }
 
-  Future<ApiResponse> patch(Uri uri,
-      {Map<String, String> headers = const {},
-      dynamic data,
-      bool anonymous = false}) async {
+  Future<ApiResponse> patch(
+    Uri uri, {
+    Map<String, String> headers = const {},
+    dynamic data,
+    bool anonymous = false,
+  }) async {
     try {
       return await sendWithRetry(
         ClientRequest(http!, 'PATCH', uri, data: data, headers: headers),
@@ -177,7 +179,6 @@ class ApiClient {
         print('No Internet connection 😑');
         handleException(req, 'SocketException', e.toString(), retries);
       } on HttpException catch (e) {
-        print("Couldn't find the post 😱");
         handleException(req, 'HttpException', e.toString(), retries);
       } on FormatException catch (e) {
         print("Bad response format 👎");
@@ -225,12 +226,9 @@ Future<ApiResponse> sendWithRetry(ClientRequest req,
   DateTime start = DateTime.now();
   int retries = 0;
 
-  // while (
-  //     DateTime.now().difference(start).abs() < Duration(milliseconds: 60000) &&
-  //         retries < maxRetries) {
   try {
     print('send it');
-    print(req.uri.path);
+    print(req.uri);
     final response = await req.send();
 
     var data = ApiResponse.fromJson(jsonDecode(response.body));
@@ -247,7 +245,6 @@ Future<ApiResponse> sendWithRetry(ClientRequest req,
     print('No Internet connection 😑');
     handleException(req, 'SocketException', e.toString(), retries);
   } on HttpException catch (e) {
-    print("Couldn't find the post 😱");
     handleException(req, 'HttpException', e.toString(), retries);
   } on FormatException catch (e) {
     print("Bad response format 👎");
@@ -267,7 +264,6 @@ Future<ApiResponse> sendWithRetry(ClientRequest req,
     await Future.delayed(
         Duration(milliseconds: (100 * pow(2, retries).toInt())));
   }
-  // }
   print('request escaped');
   AppService.httpRequests!.remove(req.uri.path);
   throw TimeoutException("Client timeout");

@@ -6,6 +6,7 @@ import 'package:lng_adminapp/presentation/screens/dialog/delete/delete-dialog.bl
 import 'package:lng_adminapp/presentation/screens/teams/create-team/create-team.view.dart';
 import 'package:lng_adminapp/presentation/screens/teams/team.bloc.dart';
 import 'package:lng_adminapp/presentation/screens/teams/widgets/task-item.widget.dart';
+import 'package:lng_adminapp/presentation/shared/components/search_icon.dart';
 import 'package:lng_adminapp/shared.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -33,8 +34,8 @@ class _TeamListState extends State<TeamList> {
 
   @override
   void initState() {
-    teamBloc = context.read<TeamBloc>();
-    // TODO: implement initState
+    teamBloc = BlocProvider.of<TeamBloc>(context);
+
     super.initState();
   }
 
@@ -57,9 +58,9 @@ class _TeamListState extends State<TeamList> {
                 );
               }
               if (_listTeamStatus == ListTeamStatus.error) {
-                return const Center(
-                  child: Text('Some error occurred'),
-                );
+                return TryAgainButton(tryAgain: () async {
+                  teamBloc.loadTeams();
+                });
               }
               return BlocConsumer<DeleteDialogBloc, DeleteDialogState>(
                 listener: (context, deleteDialogState) {
@@ -127,11 +128,7 @@ class _TeamListState extends State<TeamList> {
                                           ?.copyWith(
                                             color: kGrey1Color,
                                           ),
-                                      prefixIcon: Container(
-                                        padding: EdgeInsets.all(8.sp),
-                                        child:
-                                            AppIcons.svgAsset(AppIcons.search),
-                                      ),
+                                      prefixIcon: SearchIcon(),
                                     ),
                                   ),
                                 )
@@ -154,7 +151,6 @@ class _TeamListState extends State<TeamList> {
                                   textColor: kWhite,
                                   onPressed: () {
                                     TeamService.selectedTeam.value = null;
-
                                     Navigator.pushNamed(
                                       context,
                                       CreateTeam.routeName,

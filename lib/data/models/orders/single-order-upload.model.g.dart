@@ -30,21 +30,18 @@ SingleOrderUploadModel _$SingleOrderUploadModelFromJson(
           : OrderReference.fromJson(
               json['orderReference'] as Map<String, dynamic>),
       pickUpNotes: json['pickUpNotes'] as String?,
-      requestedDeliveryTimeSlotEnd: json['requestedDeliveryTimeSlotEnd'] == null
-          ? null
-          : DateTime.parse(json['requestedDeliveryTimeSlotEnd'] as String),
-      requestedDeliveryTimeSlotStart: json['requestedDeliveryTimeSlotStart'] ==
-              null
-          ? null
-          : DateTime.parse(json['requestedDeliveryTimeSlotStart'] as String),
+      requestedDeliveryTimeSlotEnd:
+          json['requestedDeliveryTimeSlotEnd'] as String?,
+      requestedDeliveryTimeSlotStart:
+          json['requestedDeliveryTimeSlotStart'] as String?,
       requestedDeliveryTimeSlotType: $enumDecodeNullable(
           _$DeliveryTimeSlotTypeEnumMap, json['requestedDeliveryTimeSlotType']),
       serviceLevel: $enumDecode(_$ServiceLevelEnumMap, json['serviceLevel']),
       serviceType: $enumDecode(_$ServiceTypeEnumMap, json['serviceType']),
-      receiverDetail: ReceiverDetail.fromJson(
+      receiverDetail: ContactDetail.fromJson(
           json['receiverDetail'] as Map<String, dynamic>),
       senderDetail:
-          SenderDetail.fromJson(json['senderDetail'] as Map<String, dynamic>),
+          ContactDetail.fromJson(json['senderDetail'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$SingleOrderUploadModelToJson(
@@ -63,10 +60,8 @@ Map<String, dynamic> _$SingleOrderUploadModelToJson(
       'allowWeekendDelivery': instance.allowWeekendDelivery,
       'requestedDeliveryTimeSlotType':
           _$DeliveryTimeSlotTypeEnumMap[instance.requestedDeliveryTimeSlotType],
-      'requestedDeliveryTimeSlotStart':
-          instance.requestedDeliveryTimeSlotStart?.toIso8601String(),
-      'requestedDeliveryTimeSlotEnd':
-          instance.requestedDeliveryTimeSlotEnd?.toIso8601String(),
+      'requestedDeliveryTimeSlotStart': instance.requestedDeliveryTimeSlotStart,
+      'requestedDeliveryTimeSlotEnd': instance.requestedDeliveryTimeSlotEnd,
       'cashOnDeliveryRequested': instance.cashOnDeliveryRequested,
       'cashOnDeliveryAmount': instance.cashOnDeliveryAmount,
       'cashOnDeliveryCurrency': instance.cashOnDeliveryCurrency,
@@ -148,10 +143,11 @@ UpdateSingleOrderModel _$UpdateSingleOrderModelFromJson(
       workflowId: json['workflowId'] as String?,
       senderDetail: json['senderDetail'] == null
           ? null
-          : SenderDetail.fromJson(json['senderDetail'] as Map<String, dynamic>),
+          : ContactDetail.fromJson(
+              json['senderDetail'] as Map<String, dynamic>),
       receiverDetail: json['receiverDetail'] == null
           ? null
-          : ReceiverDetail.fromJson(
+          : ContactDetail.fromJson(
               json['receiverDetail'] as Map<String, dynamic>),
       orderReference: json['orderReference'] == null
           ? null

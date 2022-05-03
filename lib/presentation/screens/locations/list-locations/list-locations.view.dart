@@ -9,6 +9,7 @@ import 'package:lng_adminapp/presentation/screens/locations/create-location/crea
 import 'package:lng_adminapp/presentation/screens/locations/location-information/location-information.view.dart';
 import 'package:lng_adminapp/presentation/screens/locations/location.bloc.dart';
 import 'package:lng_adminapp/presentation/screens/orders/manage_order_table/manage_order.table.dart';
+import 'package:lng_adminapp/presentation/shared/components/search_icon.dart';
 import 'package:lng_adminapp/shared.dart';
 import 'package:provider/src/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -140,10 +141,7 @@ class _LocationListState extends State<LocationList> {
                                         ?.copyWith(
                                           color: kGrey1Color,
                                         ),
-                                    prefixIcon: Container(
-                                      padding: EdgeInsets.all(8.sp),
-                                      child: AppIcons.svgAsset(AppIcons.search),
-                                    ),
+                                    prefixIcon: SearchIcon(),
                                   ),
                                 ),
                               )
@@ -216,12 +214,14 @@ class _LocationListState extends State<LocationList> {
                                   Spacings.SMALL_HORIZONTAL,
                                   SizedBox(
                                     width: 85,
-                                    child: DecoratedDropdown(
+                                    child: DecoratedDropdown<String>(
                                       value: locationState.perPage,
                                       icon: null,
                                       items: ['10', '20', '50'],
                                       onChanged: (v) {
-                                        locationBloc.setPerPageAndLoad(v);
+                                        if (v != null) {
+                                          locationBloc.setPerPageAndLoad(v);
+                                        }
                                       },
                                     ),
                                   ),

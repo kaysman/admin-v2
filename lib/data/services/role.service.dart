@@ -7,16 +7,15 @@ import 'package:lng_adminapp/data/models/role/module.model.dart';
 import 'package:lng_adminapp/data/models/role/permission.model.dart';
 import 'package:lng_adminapp/data/models/role/role.model.dart';
 import 'package:lng_adminapp/data/services/api_client.dart';
-import 'package:lng_adminapp/data/services/storage.service.dart';
 import 'package:lng_adminapp/shared.dart';
 
-class RoleService {
+class RoleAndPermissionsService {
   static final selectedRole = ValueNotifier<Role?>(null);
   static final modules = ValueNotifier<List<Module>?>(null);
   static final selectedRolePermissions = ValueNotifier<List<Permission>?>(null);
 
   static Future<RoleList> getRoles(Map<String, String> params) async {
-    var uri = Uri.http(apiUrl, "/api/v1/roles", params);
+    var uri = Uri.https(apiUrl, "/api/v1/roles", params);
     try {
       var res = await ApiClient.instance.get(uri, headers: await headers);
       var data = RoleList.fromJson(res.data);
@@ -27,11 +26,12 @@ class RoleService {
   }
 
   static Future<List<Module>> getModules() async {
-    var uri = Uri.http(apiUrl, "/api/v1/modules");
+    var uri = Uri.https(apiUrl, "/api/v1/modules");
     var modules = <Module>[];
 
     try {
       var res = await ApiClient.instance.get(uri, headers: await headers);
+      print(res);
       for (var module in res.data) {
         modules.add(Module.fromJson(module));
       }
@@ -44,7 +44,7 @@ class RoleService {
 
   static Future<ApiResponse> createRole(
       CreateRole data, bool isUpdating) async {
-    var uri = Uri.http(apiUrl, '/api/v1/roles');
+    var uri = Uri.https(apiUrl, '/api/v1/roles/create');
     try {
       var response;
       if (isUpdating) {
@@ -63,13 +63,12 @@ class RoleService {
 
       return response;
     } catch (_) {
-      // TODO: Display modal of the error
       throw _;
     }
   }
 
   static Future<ApiResponse> deleteRole(String id) async {
-    var uri = Uri.http(apiUrl, '/api/v1/roles/$id');
+    var uri = Uri.https(apiUrl, '/api/v1/roles/$id');
     try {
       var res = await ApiClient.instance.delete(uri, headers: await headers);
       return res;
@@ -86,5 +85,19 @@ class RoleService {
       return true;
     }
     return false;
+  }
+
+  /// PERMISSIONS
+
+  static Future<PermissionsByModule> getPermissionByModule() async {
+    var uri = Uri.https(apiUrl, '/api/v1/permissions/byModule');
+
+    try {
+      var response = await ApiClient.instance.get(uri, headers: await headers);
+      return PermissionsByModule.fromJson(response.data);
+    } catch (_) {
+      print(_.toString());
+      throw _;
+    }
   }
 }

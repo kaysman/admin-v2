@@ -38,15 +38,15 @@ class _RoleDetailsScreenState extends State<RoleDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (RoleService.selectedRole.value != null) {
-      role = RoleService.selectedRole.value;
+    if (RoleAndPermissionsService.selectedRole.value != null) {
+      role = RoleAndPermissionsService.selectedRole.value;
     } else {
       print('nope nope nope');
     }
     return Scaffold(
       backgroundColor: kGreyBackground,
       body: ValueListenableBuilder(
-        valueListenable: RoleService.selectedRole,
+        valueListenable: RoleAndPermissionsService.selectedRole,
         builder: (BuildContext context, Role? v, Widget? child) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +62,7 @@ class _RoleDetailsScreenState extends State<RoleDetailsScreen> {
                 content: [
                   RoleDetails(
                     id: replaceStringWithDash(v?.id),
-                    name: replaceStringWithDash(v?.name?.text),
+                    name: replaceStringWithDash(v?.name),
                     description: replaceStringWithDash(v?.description),
                     creationTime: replaceStringWithDash(v?.createdAt),
                   ),

@@ -14,7 +14,7 @@ class LocationService {
 
   static Future<ApiResponse> createLocation(
       LocationRequest data, bool isUpdating) async {
-    var uri = Uri.http(apiUrl, '/api/v1/warehouses');
+    var uri = Uri.https(apiUrl, '/api/v1/warehouses');
     var response;
     try {
       if (isUpdating) {
@@ -38,7 +38,7 @@ class LocationService {
   }
 
   static Future<LocationList> getLocations(Map<String, String> params) async {
-    var uri = Uri.http(apiUrl, '/api/v1/warehouses', params);
+    var uri = Uri.https(apiUrl, '/api/v1/warehouses', params);
     try {
       var res = await ApiClient.instance.get(uri, headers: await headers);
       var data = LocationList.fromJson(res.data);
@@ -55,7 +55,7 @@ class LocationService {
   }
 
   static Future<ApiResponse> deleteLocation(String id) async {
-    var uri = Uri.http(apiUrl, '/api/v1/warehouses/$id');
+    var uri = Uri.https(apiUrl, '/api/v1/warehouses/$id');
     try {
       var res = await ApiClient.instance.delete(uri, headers: await headers);
       return res;

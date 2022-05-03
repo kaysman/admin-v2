@@ -1,22 +1,25 @@
 import 'package:json_annotation/json_annotation.dart';
 import '../../enums/status.enum.dart';
-part 'standard_workflow.model.g.dart';
 
-@JsonSerializable()
 class WorkflowStandard {
-  final Map<StandardWorkflowType, String>? data;
+  final List<StandardWorkflowType>? data;
   const WorkflowStandard({this.data});
 
-  factory WorkflowStandard.fromJson(Map<String, dynamic> json) =>
-      WorkflowStandard(
-        data: (json as Map<String, dynamic>?)?.map(
-          (k, e) => MapEntry(
-              $enumDecode(_$StandardWorkflowTypeEnumMap, k), e as String),
-        ),
-      );
-
-  Map<String, dynamic> toJson() => _$WorkflowStandardToJson(this);
+  factory WorkflowStandard.fromJson(List<dynamic>? json) => WorkflowStandard(
+      data: json
+          ?.map((e) => $enumDecode(_$StandardWorkflowTypeEnumMap, e))
+          .toList());
 
   @override
   String toString() => "$data";
 }
+
+const _$StandardWorkflowTypeEnumMap = {
+  StandardWorkflowType.Pick_up_and_drop_off_directly:
+      'Pick_up_and_drop_off_directly',
+  StandardWorkflowType.To_warehouse_before_delivery:
+      'To_warehouse_before_delivery',
+  StandardWorkflowType.To_warehouse_and_dispatch_point_before_delivery:
+      'To_warehouse_and_dispatch_point_before_delivery',
+  StandardWorkflowType.Custom: 'Custom',
+};

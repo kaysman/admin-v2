@@ -29,7 +29,7 @@ class MapFilterWidget extends StatelessWidget {
               Spacer(),
               Text.rich(TextSpan(
                 text: "${DateFormat('dd/MM/yyyy').format(DateTime.now())}",
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.caption,
                 children: [
                   TextSpan(text: ", Unassigned"),
                 ],

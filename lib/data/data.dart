@@ -62,3 +62,5 @@ List<String> dummyWareHouses = [
   "Warehouse no. 3",
   "Warehouse no. 4",
 ];
+
+List<String> availableCurrencies = ["Singaporean dollar"];

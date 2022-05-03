@@ -14,7 +14,7 @@ import 'package:lng_adminapp/presentation/screens/drivers/drivers.bloc.dart';
 import 'package:lng_adminapp/presentation/screens/orders/manage_order_table/manage_order.table.dart';
 import 'package:lng_adminapp/presentation/screens/pickups/pickup.bloc.dart';
 import 'package:lng_adminapp/presentation/screens/pickups/request-pickup/request-pickup.view.dart';
-import 'package:lng_adminapp/presentation/screens/pickups/widgets/request-pickup.dialog.dart';
+import 'package:lng_adminapp/presentation/shared/components/search_icon.dart';
 import 'package:lng_adminapp/shared.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -155,17 +155,14 @@ class _PickupAcceptingState extends State<_PickupAccepting> {
                               Theme.of(context).textTheme.headline5?.copyWith(
                                     color: kGrey1Color,
                                   ),
-                          prefixIcon: Container(
-                            padding: EdgeInsets.all(10.sp),
-                            child: AppIcons.svgAsset(AppIcons.search),
-                          ),
+                          prefixIcon: SearchIcon(),
                         ),
                       ),
                     ),
                     Spacings.SMALL_HORIZONTAL,
                     SizedBox(
                       width: 160,
-                      child: DecoratedDropdown(
+                      child: DecoratedDropdown<String>(
                         value: daysFilter,
                         icon: AppIcons.svgAsset(AppIcons.calendar),
                         items: ['Past 1 day', 'Past 1 week', 'Past 1 month'],
@@ -306,14 +303,16 @@ class _PickupAcceptingState extends State<_PickupAccepting> {
                                   Spacings.SMALL_HORIZONTAL,
                                   SizedBox(
                                     width: 85,
-                                    child: DecoratedDropdown(
+                                    child: DecoratedDropdown<String>(
                                       value: pickupState.perPage,
                                       icon: null,
                                       items: ['10', '20', '50'],
                                       onChanged: (v) {
-                                        context
-                                            .read<PickupBloc>()
-                                            .setPerPageAndLoad(v);
+                                        if (v != null) {
+                                          context
+                                              .read<PickupBloc>()
+                                              .setPerPageAndLoad(v);
+                                        }
                                       },
                                     ),
                                   ),
@@ -427,8 +426,8 @@ class _PickupAcceptingState extends State<_PickupAccepting> {
             Text("${pickup.merchant?.companyName}"),
             onTap: () => showAssignDriverDialog(pickup, pickupBloc, context),
           ),
-          DataCell(Text("${convertToTime(pickup.pickupTimeWindowStart!)}")),
-          DataCell(Text("${convertToTime(pickup.pickupTimeWindowEnd!)}")),
+          DataCell(Text("${pickup.pickupTimeWindowStart}")),
+          DataCell(Text("${pickup.pickupTimeWindowEnd}")),
           DataCell(Text("${pickup.merchant?.address?.addressLineOne}")),
           DataCell(Text("${pickup.status}")),
         ],
@@ -464,7 +463,11 @@ class _PickupAcceptingState extends State<_PickupAccepting> {
   showAssignDriverDialog(
       Pickup pickup, PickupBloc pickupBloc, BuildContext context) {
     PickupTimeBreakDown _breakDown = timeBreakDown(
-        pickup.pickupTimeWindowStart!, pickup.pickupTimeWindowEnd!);
+      DateTime.now(),
+      DateTime.now(),
+      // pickup.pickupTimeWindowStart!,
+      // pickup.pickupTimeWindowEnd!,
+    );
     _pickupDateController.text = _breakDown.date!;
     _pickupTime = _breakDown.pickupTime!;
     _closeTime = _breakDown.closingTime!;

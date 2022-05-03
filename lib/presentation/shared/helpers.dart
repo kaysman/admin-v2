@@ -74,7 +74,7 @@ void hideKeyboard({BuildContext? context}) {
 /// [showWhiteDialog] shows dialog with kGrey5Color(0.5)
 /// --------
 showWhiteDialog<T>(BuildContext context, Widget content,
-    [dismissible = false]) async {
+    [dismissible = true]) async {
   var res = await showDialog<T>(
     barrierDismissible: dismissible,
     context: context,
@@ -118,13 +118,6 @@ String convertTo24HrTime(String time) {
     response = '$hour:$min';
   }
   return response;
-}
-
-String convertToTime(DateTime date) {
-  var formatter = new DateFormat('dd-MM-yyyy hh:mm aaa');
-  String formattedDate = formatter.format(date);
-
-  return formattedDate;
 }
 
 String timelineDate(String? date) {

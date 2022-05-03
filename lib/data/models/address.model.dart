@@ -40,4 +40,12 @@ class Address {
       _$AddressFromJson(json);
 
   Map<String, dynamic> toJson() => _$AddressToJson(this);
+
+  String get fullAddress {
+    var a = "";
+    if (addressLineOne != null) a += addressLineOne! + " ";
+    if (addressLineTwo != null) a += addressLineTwo! + " ";
+    if (addressLineThree != null) a += addressLineThree!;
+    return a;
+  }
 }

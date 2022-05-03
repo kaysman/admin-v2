@@ -25,7 +25,7 @@ class PickupService {
 
   static Future<ApiResponse> createPickupRequest(
       CreatePickupRequest data) async {
-    var uri = Uri.http(apiUrl, '/api/v1/requests');
+    var uri = Uri.https(apiUrl, '/api/v1/requests');
     var response;
     try {
       response = await ApiClient.instance.post(
@@ -42,7 +42,7 @@ class PickupService {
 
   static Future<ApiResponse> approvePickupRequest(
       ApproveRequestModel data) async {
-    var uri = Uri.http(apiUrl, '/api/v1/requests/approve');
+    var uri = Uri.https(apiUrl, '/api/v1/requests/approve');
     var response;
     try {
       response = await ApiClient.instance.post(
@@ -60,7 +60,7 @@ class PickupService {
 
   // Returns pickups associated with Tenant
   static Future<PickupList> getPickups(Map<String, String> params) async {
-    var uri = Uri.http(apiUrl, "/api/v1/requests", params);
+    var uri = Uri.https(apiUrl, "/api/v1/requests", params);
     try {
       var res = await ApiClient.instance.get(uri, headers: await headers);
       var data = PickupList.fromJson(res.data);

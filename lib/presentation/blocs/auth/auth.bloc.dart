@@ -4,11 +4,13 @@ import 'package:lng_adminapp/data/services/app.service.dart';
 import 'package:lng_adminapp/data/services/lng.service.dart';
 import 'package:lng_adminapp/data/services/storage.service.dart';
 import 'package:lng_adminapp/presentation/blocs/auth/auth.state.dart';
+import 'package:lng_adminapp/presentation/screens/index/index.cubit.dart';
 
 class AuthBloc extends Cubit<AuthState> {
   final AuthState initAppState;
+  final IndexCubit indexBloc;
 
-  AuthBloc(this.initAppState) : super(initAppState) {
+  AuthBloc(this.initAppState, this.indexBloc) : super(initAppState) {
     if (this.initAppState.status == AuthStatus.authenticated) {
       this.loadIdentity();
     }
@@ -23,6 +25,7 @@ class AuthBloc extends Cubit<AuthState> {
       emit(state.copyWith(
           identity: identity, identityStatus: IdentityStatus.idle));
     } catch (_) {
+      print(_.toString());
       emit(state.copyWith(identityStatus: IdentityStatus.error));
     }
   }
@@ -50,5 +53,6 @@ class AuthBloc extends Cubit<AuthState> {
     AppService.instance.resetDisk();
     AppService.currentUser.value = null;
     emit(AuthState.unauthenticated());
+    indexBloc.assignPage(0);
   }
 }

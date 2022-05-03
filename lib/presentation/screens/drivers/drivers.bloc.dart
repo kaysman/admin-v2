@@ -1,6 +1,6 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lng_adminapp/data/models/pagination_options.dart';
 import 'package:lng_adminapp/data/models/user.model.dart';
 import 'package:lng_adminapp/data/models/user/create-user-request.model.dart';
 import 'package:lng_adminapp/data/services/user.service.dart';
@@ -15,21 +15,17 @@ class DriverBloc extends Cubit<DriverState> {
           listDriverStatus: ListDriverStatus.loading,
           createDriverStatus: CreateDriverStatus.idle,
           driverInformationStatus: DriverInformationStatus.idle,
-        )) {
-    loadDrivers();
-  }
+        ));
+
   final DeleteDialogBloc deleteDialogBloc;
 
-  loadDrivers([String page = "1"]) async {
-    final queryParams = <String, String>{
-      "page": page,
-      "limit": state.perPage,
-      "roleId": "06e56cbb-c883-4da8-8cb3-06661d829ef6"
-    };
+  loadDrivers([PaginationOptions? paginationOptions]) async {
+    if (paginationOptions == null)
+      paginationOptions = PaginationOptions(limit: state.perPage);
     emit(state.updateDriverState(listDriverStatus: ListDriverStatus.loading));
 
     try {
-      var drivers = await UserService.getUsers(queryParams);
+      var drivers = await UserService.getDrivers(paginationOptions.toJson());
       emit(state.updateDriverState(
         listDriverStatus: ListDriverStatus.idle,
         drivers: drivers,
@@ -42,7 +38,7 @@ class DriverBloc extends Cubit<DriverState> {
     }
   }
 
-  setPerPageAndLoad(String v) {
+  setPerPageAndLoad(int v) {
     emit(state.updateDriverState(perPage: v));
     this.loadDrivers();
   }
@@ -67,7 +63,7 @@ class DriverBloc extends Cubit<DriverState> {
       state.updateDriverState(createDriverStatus: CreateDriverStatus.loading),
     );
     try {
-      var result = await UserService.createUser(data, isUpdating);
+      var result = await UserService.createDriver(data, isUpdating);
 
       if (result.success == true) {
         if (isUpdating) {
@@ -118,7 +114,7 @@ class DriverState {
   final ListDriverStatus listDriverStatus;
   final UserList? drivers;
   final List<User>? driverItems;
-  final String perPage;
+  final int perPage;
   final CreateDriverStatus createDriverStatus;
   final DriverInformationStatus driverInformationStatus;
 
@@ -126,7 +122,7 @@ class DriverState {
     this.listDriverStatus = ListDriverStatus.loading,
     this.drivers,
     this.driverItems,
-    this.perPage = '10',
+    this.perPage = 10,
     this.createDriverStatus = CreateDriverStatus.idle,
     this.driverInformationStatus = DriverInformationStatus.loading,
   });
@@ -135,7 +131,7 @@ class DriverState {
       {ListDriverStatus? listDriverStatus,
       UserList? drivers,
       List<User>? driverItems,
-      String? perPage,
+      int? perPage,
       CreateDriverStatus? createDriverStatus,
       DriverInformationStatus? driverInformationStatus}) {
     return DriverState(

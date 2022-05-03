@@ -6,6 +6,7 @@ import 'package:lng_adminapp/data/models/role/create-role.model.dart';
 import 'package:lng_adminapp/data/models/role/module.model.dart';
 import 'package:lng_adminapp/data/models/role/role.model.dart';
 import 'package:lng_adminapp/data/services/role.service.dart';
+import 'package:lng_adminapp/presentation/screens/role-permissions-roles/permission_bloc.dart';
 import 'package:lng_adminapp/presentation/screens/role-permissions-roles/role.bloc.dart';
 import 'package:lng_adminapp/data/enums/status.enum.dart';
 import 'package:lng_adminapp/shared.dart';
@@ -25,13 +26,15 @@ class _AddRoleScreenState extends State<AddRoleScreen> {
   TextEditingController roleNameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   late RoleBloc roleBloc;
+  late PermissionBloc permissionBloc;
   List<String> permissionIds = <String>[];
   Role? role;
 
   @override
   void initState() {
-    modules = RoleService.modules.value ?? [];
+    modules = RoleAndPermissionsService.modules.value ?? [];
     roleBloc = BlocProvider.of<RoleBloc>(context);
+    permissionBloc = BlocProvider.of<PermissionBloc>(context);
     checkIfUserIsUpdating();
     super.initState();
   }
@@ -44,9 +47,9 @@ class _AddRoleScreenState extends State<AddRoleScreen> {
   }
 
   void checkIfUserIsUpdating() {
-    if (RoleService.selectedRole.value != null) {
-      role = RoleService.selectedRole.value;
-      roleNameController.text = role?.name?.text ?? "";
+    if (RoleAndPermissionsService.selectedRole.value != null) {
+      role = RoleAndPermissionsService.selectedRole.value;
+      roleNameController.text = role?.name ?? "";
       descriptionController.text = role?.description ?? '';
       permissionIds =
           role?.permissions?.map((permission) => permission.id!).toList() ?? [];
@@ -128,38 +131,62 @@ class _AddRoleScreenState extends State<AddRoleScreen> {
                       ),
                       Text(
                         'Role Permissions',
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: Theme.of(context).textTheme.caption,
                       ),
                       SizedBox(
                         height: 16,
                       ),
-                      // if (role == null) ...[
-                      ...List.generate(modules.length, (index) {
-                        var module = modules[index];
-                        return RolePermission(
-                          title: module.name ?? "",
-                          permissions: List.generate(module.permissions!.length,
-                              (index) {
-                            var permission = module.permissions![index];
-                            return PermissionToggle(
-                              permission: permission,
-                              isToggled: role == null
-                                  ? false
-                                  : RoleService.hasPermission(
-                                      role!.permissions!, permission.id!),
-                              onValueChanged: (value) {
-                                if (value.status == true) {
-                                  permissionIds.add(value.id!);
-                                } else {
-                                  permissionIds.remove(value.id!);
-                                }
-                                // continue from here
-                                print(permissionIds.length);
-                              },
+                      BlocBuilder<PermissionBloc, PermissionState>(
+                        bloc: permissionBloc,
+                        builder: (context, state) {
+                          var isStateDataNull = state.listPermissionsStatus ==
+                                  ListPermissionsStatus.idle &&
+                              state.permissions == null;
+
+                          List<Widget> permissionTiles = [];
+                          if (state.permissions?.data != null) {
+                            state.permissions?.data!
+                                .forEach((key, permissions) {
+                              permissionTiles.add(
+                                RolePermissionExpandableTile(
+                                  title: key,
+                                  permissions: List.generate(permissions.length,
+                                      (index) {
+                                    var itemID = permissions[index].id!;
+                                    return PermissionToggle(
+                                      permission: permissions[index],
+                                      isToggled: permissionIds.contains(itemID),
+                                      onValueChanged: (value) {
+                                        setState(() {
+                                          if (value) {
+                                            permissionIds.add(itemID);
+                                          } else {
+                                            permissionIds.remove(itemID);
+                                          }
+                                        });
+                                      },
+                                    );
+                                  }),
+                                ),
+                              );
+                            });
+                          }
+
+                          if (state.listPermissionsStatus ==
+                              ListPermissionsStatus.loading) {
+                            return Text("Fetching permissions");
+                          } else if (state.listPermissionsStatus ==
+                              ListPermissionsStatus.error) {
+                            return TryAgainButton(
+                              tryAgain: permissionBloc.loadPermissions,
                             );
-                          }),
-                        );
-                      }),
+                          } else if (isStateDataNull) {
+                            return Text("There is no permissions");
+                          }
+
+                          return Column(children: permissionTiles);
+                        },
+                      ),
                       BlocBuilder<RoleBloc, RoleState>(
                         bloc: roleBloc,
                         builder: (context, state) {
@@ -195,8 +222,7 @@ class _AddRoleScreenState extends State<AddRoleScreen> {
 
     if (isValid) {
       CreateRole _role = CreateRole(
-        id: role?.id ?? null,
-        name: getRoleType(roleNameController.text),
+        name: roleNameController.text,
         description: descriptionController.text,
         permissionIds: permissionIds,
       );

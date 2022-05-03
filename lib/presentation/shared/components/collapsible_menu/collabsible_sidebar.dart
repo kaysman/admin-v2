@@ -51,7 +51,7 @@ class _CollapsibleSideBarState extends State<CollapsibleSideBar>
     loginBloc = LoginBloc(authBloc);
     super.initState();
 
-    tempWidth = 225;
+    tempWidth = 0.25.sw;
     _isCollapsed = widget.isCollapsed;
     _currWidth = _isCollapsed ? widget.minWidth : tempWidth;
     _delta = tempWidth - widget.minWidth;

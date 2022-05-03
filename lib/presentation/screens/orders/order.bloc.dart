@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lng_adminapp/data/enums/status.enum.dart';
-import 'package:lng_adminapp/data/models/api_response.dart';
+import 'package:lng_adminapp/data/models/orders/filter_parameters.dart';
 import 'package:lng_adminapp/data/models/orders/order.model.dart';
 import 'package:lng_adminapp/data/models/orders/get-mapping.model.dart';
 import 'package:lng_adminapp/data/models/orders/mapping-response.model.dart';
@@ -17,6 +17,7 @@ enum UpdateSingleOrderStatus { idle, loading, error, success }
 enum DeleteMultipleOrderStatus { idle, loading, error, success }
 enum GetMappingStatus { idle, loading, error, success }
 enum CreateMultipleOrderStatus { idle, loading, error, success }
+enum AssigningDriverStatus { idle, loading, error, success }
 
 class OrderState {
   final OrderStatus orderStatus;
@@ -77,23 +78,16 @@ class OrderState {
 
 class OrderBloc extends Cubit<OrderState> {
   OrderBloc() : super(OrderState(orderStatus: OrderStatus.loading)) {
-    loadOrders();
+    loadOrders(OrderFilterParameters(page: "60", limit: "4"));
   }
 
-  loadOrders({
-    String? page = "60",
-    String? limit = "4",
-    String? searchFilter,
-  }) async {
-    final queryParams = <String, dynamic>{
-      "page": page,
-      "limit": limit,
-      "searchFilter": searchFilter,
-      "status": Status.ORDER_CREATED.name,
-    };
+  loadOrders(
+      [OrderFilterParameters params =
+          const OrderFilterParameters(page: "60", limit: "4")]) async {
+    OrderService.currentPage.value = params.page;
     emit(state.updateOrderState(orderStatus: OrderStatus.loading));
     try {
-      var orders = await OrderService.getOrders(queryParams);
+      var orders = await OrderService.getOrders(params.toJson());
       emit(state.updateOrderState(
           orderStatus: OrderStatus.idle, orders: orders));
     } catch (_) {
@@ -125,7 +119,12 @@ class OrderBloc extends Cubit<OrderState> {
               );
               Navigator.pop(context);
               Navigator.pop(context);
-              loadOrders(page: OrderService.currentPage.value!);
+              loadOrders(
+                OrderFilterParameters(
+                  page: OrderService.currentPage.value!,
+                  limit: "4",
+                ),
+              );
             },
           ),
         );
@@ -155,6 +154,7 @@ class OrderBloc extends Cubit<OrderState> {
       var result = await OrderService.getMapping(data);
       if (result.success == true) {
         final _mappingResponse = MappingResponse.fromJson(result.data);
+        print(_mappingResponse.id);
         emit(state.updateOrderState(
           mappingResponse: _mappingResponse,
           getMappingStatus: GetMappingStatus.success,
@@ -173,10 +173,16 @@ class OrderBloc extends Cubit<OrderState> {
 
     try {
       var result = await OrderService.createMultipleOrders(data);
+      print(result);
       if (result.success == true) {
         emit(state.updateOrderState(
             createMultipleOrderStatus: CreateMultipleOrderStatus.success));
-        loadOrders();
+        loadOrders(
+          OrderFilterParameters(
+            page: OrderService.currentPage.value!,
+            limit: "4",
+          ),
+        );
       } else {
         emit(state.updateOrderState(
             createMultipleOrderStatus: CreateMultipleOrderStatus.idle));
@@ -210,7 +216,12 @@ class OrderBloc extends Cubit<OrderState> {
               );
               Navigator.pop(context);
               Navigator.pop(context);
-              loadOrders();
+              loadOrders(
+                OrderFilterParameters(
+                  page: OrderService.currentPage.value!,
+                  limit: "4",
+                ),
+              );
             },
           ),
         );
@@ -242,7 +253,13 @@ class OrderBloc extends Cubit<OrderState> {
       var response = await OrderService.deleteMultipleOrders(orderIDs);
       emit(state.updateOrderState(
           deleteMultipleOrderStatus: DeleteMultipleOrderStatus.idle));
-      if (response.success == true) await this.loadOrders();
+      if (response.success == true)
+        await this.loadOrders(
+          OrderFilterParameters(
+            page: OrderService.currentPage.value!,
+            limit: "4",
+          ),
+        );
       print(response);
     } catch (_) {
       emit(state.updateOrderState(

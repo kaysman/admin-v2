@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lng_adminapp/data/models/orders/filter_parameters.dart';
 import 'package:lng_adminapp/data/models/orders/order.model.dart';
 import 'package:lng_adminapp/data/models/shared/ids.model.dart';
 import 'package:lng_adminapp/data/services/order.service.dart';
@@ -8,25 +9,28 @@ class PrepareOrderBloc extends Cubit<PrepareOrderState> {
     loadOrders();
   }
 
-  loadOrders([String page = "1", String limit = "10"]) async {
-    final queryParams = <String, String>{"page": page, "limit": limit};
+  loadOrders(
+      [OrderFilterParameters params =
+          const OrderFilterParameters(page: "60", limit: "4")]) async {
+    OrderService.currentPage.value = params.page;
     emit(state.updateState(prepareOrderStatus: PrepareOrderStatus.loading));
     try {
-      var orders = await OrderService.getOrders(queryParams);
+      var orders = await OrderService.getOrders(params.toJson());
       emit(state.updateState(
           prepareOrderStatus: PrepareOrderStatus.idle, orders: orders));
     } catch (_) {
+      print(_.toString());
       emit(state.updateState(prepareOrderStatus: PrepareOrderStatus.error));
       throw _;
     }
   }
 
-  downloadAwb(List<Order> selectedOders) async {
+  downloadAwb(List<String> selectedOders) async {
     emit(state.updateState(downloadStatus: DownloadStatus.loading));
     ListOfIds data = ListOfIds();
 
     try {
-      data.ids = selectedOders.map((v) => v.id).toList();
+      data.ids = selectedOders;
       var result = await OrderService.printShippingLabels(data);
 
       if (result == true) {

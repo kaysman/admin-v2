@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lng_adminapp/data/enums/status.enum.dart';
 import 'package:lng_adminapp/data/models/address.model.dart';
+import 'package:lng_adminapp/data/models/contact-detail.model.dart';
 import 'package:lng_adminapp/data/models/orders/order.model.dart';
 import 'package:lng_adminapp/data/models/orders/single-order-upload.model.dart';
-import 'package:lng_adminapp/data/models/receiver.model.dart';
 import 'package:lng_adminapp/data/services/app.service.dart';
 import 'package:lng_adminapp/presentation/screens/orders/manage_order_table/widgets/label_of_details.dart';
 import 'package:lng_adminapp/presentation/screens/orders/order.bloc.dart';
@@ -305,7 +305,7 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
           latitudeController.text),
     );
 
-    ReceiverDetail receiverDetails = ReceiverDetail(
+    ContactDetail receiverDetails = ContactDetail(
       id: IDController.text,
       firstName: checkIfChangedAndReturn(
           widget.order.receiverDetail?.firstName, firstNameController.text),

@@ -1,6 +1,6 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lng_adminapp/data/models/pagination_options.dart';
 import 'package:lng_adminapp/data/models/user.model.dart';
 import 'package:lng_adminapp/data/models/user/create-user-request.model.dart';
 import 'package:lng_adminapp/data/services/user.service.dart';
@@ -21,17 +21,15 @@ class MerchantBloc extends Cubit<MerchantState> {
 
   final DeleteDialogBloc deleteDialogBloc;
 
-  loadMerchants([String page = "1"]) async {
-    final queryParams = <String, String>{
-      "page": page,
-      "limit": state.perPage,
-      "roleId": "0066c81f-9900-4f27-971e-ad2d2c72cd4d"
-    };
+  loadMerchants([PaginationOptions? paginationOptions]) async {
+    if (paginationOptions == null) paginationOptions = PaginationOptions();
+
     emit(state.updateMerchantState(
         listMerchantStatus: ListMerchantStatus.loading));
 
     try {
-      var merchants = await UserService.getUsers(queryParams);
+      var merchants =
+          await UserService.getMerchants(paginationOptions.toJson());
       emit(state.updateMerchantState(
         listMerchantStatus: ListMerchantStatus.idle,
         merchants: merchants,
@@ -44,7 +42,7 @@ class MerchantBloc extends Cubit<MerchantState> {
     }
   }
 
-  setPerPageAndLoad(String v) {
+  setPerPageAndLoad(int v) {
     emit(state.updateMerchantState(perPage: v));
     this.loadMerchants();
   }
@@ -64,13 +62,16 @@ class MerchantBloc extends Cubit<MerchantState> {
   }
 
   saveMerchant(
-      CreateUserRequest data, BuildContext context, bool isUpdating) async {
+    CreateUserRequest data,
+    BuildContext context,
+    bool isUpdating,
+  ) async {
     emit(
       state.updateMerchantState(
           createMerchantStatus: CreateMerchantStatus.loading),
     );
     try {
-      var result = await UserService.createUser(data, isUpdating);
+      var result = await UserService.createMerchant(data, isUpdating);
 
       if (result.success == true) {
         if (isUpdating) {
@@ -121,7 +122,7 @@ class MerchantState {
   final ListMerchantStatus listMerchantStatus;
   final UserList? merchants;
   final List<User>? merchantItems;
-  final String perPage;
+  final int perPage;
   final CreateMerchantStatus createMerchantStatus;
   final MerchantInformationStatus merchantInformationStatus;
 
@@ -129,7 +130,7 @@ class MerchantState {
     this.listMerchantStatus = ListMerchantStatus.loading,
     this.merchants,
     this.merchantItems,
-    this.perPage = '10',
+    this.perPage = 10,
     this.createMerchantStatus = CreateMerchantStatus.idle,
     this.merchantInformationStatus = MerchantInformationStatus.loading,
   });
@@ -138,7 +139,7 @@ class MerchantState {
     ListMerchantStatus? listMerchantStatus,
     UserList? merchants,
     List<User>? merchantItems,
-    String? perPage,
+    int? perPage,
     CreateMerchantStatus? createMerchantStatus,
     MerchantInformationStatus? merchantInformationStatus,
   }) {

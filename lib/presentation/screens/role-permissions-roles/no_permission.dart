@@ -26,7 +26,6 @@ class NoPermissionPage extends StatelessWidget {
                   text: "Go back",
                   textColor: kPrimaryColor,
                   onPressed: () {
-                    print("go back");
                     Navigator.of(context).pop();
                   },
                 ),

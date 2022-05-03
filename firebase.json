@@ -1,0 +1,7 @@
+{
+  "hosting": {
+    "site": "lng-test-admin-app",
+    "public": "build/web",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
+}

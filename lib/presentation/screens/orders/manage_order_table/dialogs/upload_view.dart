@@ -34,7 +34,7 @@ class UploadViewModal extends StatelessWidget {
             child: Button(
               text: "Upload single order",
               hasBorder: true,
-              verticalPadding: 14.0,
+              padding: const EdgeInsets.only(top: 14, bottom: 14),
               borderColor: kGrey3Color,
               textColor: kBlack,
               onPressed: () {

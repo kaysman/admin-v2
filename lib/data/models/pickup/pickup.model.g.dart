@@ -30,18 +30,10 @@ Pickup _$PickupFromJson(Map<String, dynamic> json) => Pickup(
       status: json['status'] as String?,
       numberOfItems: json['numberOfItems'] as int?,
       weight: (json['weight'] as num?)?.toDouble(),
-      pickupTimeWindowStart: json['pickupTimeWindowStart'] == null
-          ? null
-          : DateTime.parse(json['pickupTimeWindowStart'] as String),
-      pickupTimeWindowEnd: json['pickupTimeWindowEnd'] == null
-          ? null
-          : DateTime.parse(json['pickupTimeWindowEnd'] as String),
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
+      pickupTimeWindowStart: json['pickupTimeWindowStart'] as String?,
+      pickupTimeWindowEnd: json['pickupTimeWindowEnd'] as String?,
+      createdAt: json['createdAt'] as String?,
+      updatedAt: json['updatedAt'] as String?,
     );
 
 Map<String, dynamic> _$PickupToJson(Pickup instance) => <String, dynamic>{
@@ -51,9 +43,8 @@ Map<String, dynamic> _$PickupToJson(Pickup instance) => <String, dynamic>{
       'numberOfItems': instance.numberOfItems,
       'weight': instance.weight,
       'merchant': instance.merchant,
-      'pickupTimeWindowStart':
-          instance.pickupTimeWindowStart?.toIso8601String(),
-      'pickupTimeWindowEnd': instance.pickupTimeWindowEnd?.toIso8601String(),
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'pickupTimeWindowStart': instance.pickupTimeWindowStart,
+      'pickupTimeWindowEnd': instance.pickupTimeWindowEnd,
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
     };

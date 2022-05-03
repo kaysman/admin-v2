@@ -3,10 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:lng_adminapp/data/enums/status.enum.dart';
 import 'package:lng_adminapp/data/models/orders/order_package.model.dart';
 import 'package:lng_adminapp/data/models/orders/order_reference.model.dart';
-import 'package:lng_adminapp/data/models/receiver.model.dart';
-
-import '../sender.model.dart';
-
+import 'package:lng_adminapp/data/models/contact-detail.model.dart';
 part 'single-order-upload.model.g.dart';
 
 @JsonSerializable()
@@ -37,16 +34,16 @@ class SingleOrderUploadModel {
   final ServiceType serviceType;
   final ServiceLevel serviceLevel;
   final String? pickUpNotes;
-  final SenderDetail senderDetail;
-  final ReceiverDetail receiverDetail;
+  final ContactDetail senderDetail;
+  final ContactDetail receiverDetail;
   final String? deliveryNotesFromMerchant;
   final String? deliveryNotesFromReceiver;
   final OrderReference? orderReference;
   final Map<String, List<OrderPackage>>? orderPackage;
   final bool? allowWeekendDelivery;
   final DeliveryTimeSlotType? requestedDeliveryTimeSlotType;
-  final DateTime? requestedDeliveryTimeSlotStart;
-  final DateTime? requestedDeliveryTimeSlotEnd;
+  final String? requestedDeliveryTimeSlotStart;
+  final String? requestedDeliveryTimeSlotEnd;
   final bool? cashOnDeliveryRequested;
   final int? cashOnDeliveryAmount;
   final String? cashOnDeliveryCurrency;
@@ -116,8 +113,8 @@ class UpdateSingleOrderModel {
   final int? insuredAmount;
   final String? insuredAmountCurrency;
   final String? workflowId;
-  final SenderDetail? senderDetail;
-  final ReceiverDetail? receiverDetail;
+  final ContactDetail? senderDetail;
+  final ContactDetail? receiverDetail;
   final OrderReference? orderReference;
   // multi order package
   final Map<String, List<OrderPackage>>? orderPackage;

@@ -14,14 +14,14 @@ class TeamService {
 
   static Future<ApiResponse> createTeam(
       CreateTeamRequest data, bool isUpdating) async {
-    var uri = Uri.http(apiUrl, '/api/v1/teams');
+    var uri = Uri.https(apiUrl, '/api/v1/teams/create');
     var response;
     try {
       if (isUpdating) {
         response = await ApiClient.instance.patch(
           uri,
           headers: await headers,
-          data: jsonEncode(data.toJson()),
+          data: json.encode(data.toJson()),
         );
       } else {
         response = await ApiClient.instance.post(
@@ -38,7 +38,7 @@ class TeamService {
   }
 
   static Future<TeamList> getTeams(Map<String, String> params) async {
-    var uri = Uri.http(apiUrl, '/api/v1/teams', params);
+    var uri = Uri.https(apiUrl, '/api/v1/teams', params);
     try {
       var res = await ApiClient.instance.get(uri, headers: await headers);
       var data = TeamList.fromJson(res.data);
@@ -55,7 +55,7 @@ class TeamService {
   }
 
   static Future<ApiResponse> deleteTeam(String id) async {
-    var uri = Uri.http(apiUrl, '/api/v1/teams/$id');
+    var uri = Uri.https(apiUrl, '/api/v1/teams/$id');
     try {
       var res = await ApiClient.instance.delete(uri, headers: await headers);
       return res;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lng_adminapp/data/data_drivers.dart';
 import 'package:lng_adminapp/data/models/meta.model.dart';
+import 'package:lng_adminapp/data/models/pagination_options.dart';
 import 'package:lng_adminapp/data/models/user.model.dart';
 import 'package:lng_adminapp/data/services/user.service.dart';
 import 'package:lng_adminapp/presentation/screens/dialog/delete/delete-dialog.bloc.dart';
@@ -15,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../data/enums/status.enum.dart';
 import '../../../../data/services/app.service.dart';
+import '../../../shared/components/search_icon.dart';
 
 class ListMerchants extends StatelessWidget {
   static const String routeName = 'manage-merchants';
@@ -106,7 +107,7 @@ class _MerchantListState extends State<MerchantList> {
                                 width: 24,
                               ),
                               Expanded(
-                                child: TextField(
+                                child: TextFormField(
                                   style: Theme.of(context).textTheme.bodyText1,
                                   decoration: InputDecoration(
                                     fillColor: Colors.white,
@@ -141,11 +142,16 @@ class _MerchantListState extends State<MerchantList> {
                                         ?.copyWith(
                                           color: kGrey1Color,
                                         ),
-                                    prefixIcon: Container(
-                                      padding: EdgeInsets.all(8.sp),
-                                      child: AppIcons.svgAsset(AppIcons.search),
-                                    ),
+                                    prefixIcon: SearchIcon(),
                                   ),
+                                  onFieldSubmitted: (v) {
+                                    if (v.isNotEmpty) {
+                                      merchantBloc.loadMerchants(
+                                          PaginationOptions(
+                                              filter: v,
+                                              limit: merchantState.perPage));
+                                    }
+                                  },
                                 ),
                               )
                             ],
@@ -214,12 +220,14 @@ class _MerchantListState extends State<MerchantList> {
                                   Spacings.SMALL_HORIZONTAL,
                                   SizedBox(
                                     width: 85,
-                                    child: DecoratedDropdown(
+                                    child: DecoratedDropdown<int>(
                                       value: merchantState.perPage,
                                       icon: null,
-                                      items: ['10', '20', '50'],
+                                      items: [10, 20, 50],
                                       onChanged: (v) {
-                                        merchantBloc.setPerPageAndLoad(v);
+                                        if (v != null) {
+                                          merchantBloc.setPerPageAndLoad(v);
+                                        }
                                       },
                                     ),
                                   ),
@@ -346,13 +354,17 @@ class _MerchantListState extends State<MerchantList> {
   }
 
   loadPrevious(Meta? meta) async {
-    var previous = (meta!.currentPage - 1).toString();
-    await context.read<MerchantBloc>().loadMerchants(previous);
+    var previous = (meta!.currentPage - 1);
+    await context
+        .read<MerchantBloc>()
+        .loadMerchants(PaginationOptions(page: previous));
   }
 
   loadNext(Meta? meta) async {
-    var next = (meta!.currentPage + 1).toString();
-    await context.read<MerchantBloc>().loadMerchants(next);
+    var next = (meta!.currentPage + 1);
+    await context
+        .read<MerchantBloc>()
+        .loadMerchants(PaginationOptions(page: next));
   }
 
   navigateToMerchantDetailsPage(data) {

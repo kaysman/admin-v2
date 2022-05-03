@@ -36,7 +36,7 @@ class SheetBackButton extends StatelessWidget {
           SizedBox(width: Spacings.kSpaceTiny),
           Text(
             'Back',
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.caption,
           ),
         ],
       ),

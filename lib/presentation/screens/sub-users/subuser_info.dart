@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lng_adminapp/data/models/user.model.dart';
 import 'package:lng_adminapp/presentation/screens/role-permissions-roles/role_details_screen/details.dart';
 import 'package:lng_adminapp/shared.dart';
 
@@ -8,7 +9,12 @@ import '../../../data/services/app.service.dart';
 
 class SubadminInfoScreen extends StatelessWidget {
   static const String routeName = "subadmin-info";
-  const SubadminInfoScreen({Key? key}) : super(key: key);
+  final User user;
+
+  const SubadminInfoScreen({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,23 +52,23 @@ class SubadminInfoScreen extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Sub-admin information',
+                          'Sub-user information',
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
-                        if (AppService.hasPermission(
-                            PermissionType.UPDATE_USER))
-                          Spacer(),
-                        if (AppService.hasPermission(
-                            PermissionType.UPDATE_USER))
-                          Button(
-                            elevation: 0,
-                            hasBorder: true,
-                            text: 'Deactivate',
-                            onPressed: () {
-                              showWhiteDialog(
-                                  context, DeactivateSubAdminDialog());
-                            },
-                          ),
+                        // if (AppService.hasPermission(
+                        //     PermissionType.UPDATE_USER))
+                        //   Spacer(),
+                        // if (AppService.hasPermission(
+                        //     PermissionType.UPDATE_USER))
+                        //   Button(
+                        //     elevation: 0,
+                        //     hasBorder: true,
+                        //     text: 'Deactivate',
+                        //     onPressed: () {
+                        //       showWhiteDialog(
+                        //           context, DeactivateSubAdminDialog());
+                        //     },
+                        //   ),
                       ],
                     ),
                     SizedBox(
@@ -81,20 +87,10 @@ class SubadminInfoScreen extends StatelessWidget {
                     SizedBox(
                       height: 24,
                     ),
-                    _ContactDetails(),
+                    _ContactDetails(user),
                     SizedBox(
                       height: 24,
                     ),
-                    // if (AppService.hasPermission(PermissionType.DELETE_USER))
-                    // DeleteEditButtons(
-                    //   deleteFunction: () {
-                    //     showWhiteDialog(
-                    //       context,
-                    //       DeleteSubAdminDialog(),
-                    //     );
-                    //   },
-                    //   editFunction: () {},
-                    // ),
                   ],
                 ),
               ),
@@ -107,7 +103,12 @@ class SubadminInfoScreen extends StatelessWidget {
 }
 
 class _ContactDetails extends StatelessWidget {
-  const _ContactDetails({Key? key}) : super(key: key);
+  const _ContactDetails(
+    this.user, {
+    Key? key,
+  }) : super(key: key);
+
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -121,19 +122,19 @@ class _ContactDetails extends StatelessWidget {
       ),
       Column(
         children: [
-          Details(title: 'Name', value: 'Joshua Weissmann'),
+          Details(title: 'Name', value: user.fullname),
           SizedBox(
             height: 16,
           ),
-          Details(title: 'Email', value: 'Joshua.design@gmail.com'),
+          Details(title: 'Email', value: user.emailAddress ?? ''),
           SizedBox(
             height: 16,
           ),
-          Details(title: 'Phone number', value: '+65 215326214'),
+          Details(title: 'Phone number', value: user.phoneNumber ?? ''),
           SizedBox(
             height: 16,
           ),
-          Details(title: 'Assigned role', value: 'Customer support'),
+          Details(title: 'Assigned role', value: user.role?.name ?? ''),
         ],
       )
     ]);
@@ -162,7 +163,7 @@ class DeleteSubAdminDialog extends StatelessWidget {
           Text(
             "Simran Joul will be permanently deleted. You can choose to deactivate the sub-admin account instead.",
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.caption,
           ),
           SizedBox(height: 32.sp),
           Text(
@@ -224,7 +225,7 @@ class DeactivateSubAdminDialog extends StatelessWidget {
           Text(
             "Simran Joul will be deactivated and account can no longer be accessed by sub-admin. You can reactivate this sub-admin at anytime",
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.caption,
           ),
           SizedBox(height: 32.sp),
           Row(

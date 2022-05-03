@@ -27,15 +27,9 @@ Order _$OrderFromJson(Map<String, dynamic> json) => Order(
       cashOnDeliveryAmount: json['cashOnDeliveryAmount'] as int?,
       cashOnDeliveryCurrency: json['cashOnDeliveryCurrency'] as String?,
       cashOnDeliveryRequested: json['cashOnDeliveryRequested'] as bool?,
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      deliveryDateBasedOnPickUp: json['deliveryDateBasedOnPickUp'] == null
-          ? null
-          : DateTime.parse(json['deliveryDateBasedOnPickUp'] as String),
-      deliveryDateBasedOnUpload: json['deliveryDateBasedOnUpload'] == null
-          ? null
-          : DateTime.parse(json['deliveryDateBasedOnUpload'] as String),
+      createdAt: json['createdAt'] as String?,
+      deliveryDateBasedOnPickUp: json['deliveryDateBasedOnPickUp'] as String?,
+      deliveryDateBasedOnUpload: json['deliveryDateBasedOnUpload'] as String?,
       deliveryNotesFromMerchant: json['deliveryNotesFromMerchant'] as String?,
       deliveryNotesFromReceiver: json['deliveryNotesFromReceiver'] as String?,
       insuredAmount: json['insuredAmount'] as int?,
@@ -43,13 +37,10 @@ Order _$OrderFromJson(Map<String, dynamic> json) => Order(
       pickUpId: json['pickUpId'] as String?,
       pickUpNotes: json['pickUpNotes'] as String?,
       pickUpRequested: json['pickUpRequested'] as bool?,
-      requestedDeliveryTimeSlotEnd: json['requestedDeliveryTimeSlotEnd'] == null
-          ? null
-          : DateTime.parse(json['requestedDeliveryTimeSlotEnd'] as String),
-      requestedDeliveryTimeSlotStart: json['requestedDeliveryTimeSlotStart'] ==
-              null
-          ? null
-          : DateTime.parse(json['requestedDeliveryTimeSlotStart'] as String),
+      requestedDeliveryTimeSlotEnd:
+          json['requestedDeliveryTimeSlotEnd'] as String?,
+      requestedDeliveryTimeSlotStart:
+          json['requestedDeliveryTimeSlotStart'] as String?,
       requestedDeliveryTimeSlotType: $enumDecodeNullable(
           _$DeliveryTimeSlotTypeEnumMap, json['requestedDeliveryTimeSlotType']),
       serviceLevel:
@@ -59,9 +50,7 @@ Order _$OrderFromJson(Map<String, dynamic> json) => Order(
       shippingLabelUrl: json['shippingLabelUrl'] as String?,
       status: $enumDecode(_$StatusEnumMap, json['status']),
       trackingUrl: json['trackingUrl'] as String?,
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
+      updatedAt: json['updatedAt'] as String?,
       createdBy: json['createdBy'] == null
           ? null
           : User.fromJson(json['createdBy'] as Map<String, dynamic>),
@@ -77,11 +66,12 @@ Order _$OrderFromJson(Map<String, dynamic> json) => Order(
               json['orderReference'] as Map<String, dynamic>),
       receiverDetail: json['receiverDetail'] == null
           ? null
-          : ReceiverDetail.fromJson(
+          : ContactDetail.fromJson(
               json['receiverDetail'] as Map<String, dynamic>),
       senderDetail: json['senderDetail'] == null
           ? null
-          : SenderDetail.fromJson(json['senderDetail'] as Map<String, dynamic>),
+          : ContactDetail.fromJson(
+              json['senderDetail'] as Map<String, dynamic>),
       tenant: json['tenant'] == null
           ? null
           : Tenant.fromJson(json['tenant'] as Map<String, dynamic>),
@@ -102,26 +92,22 @@ Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{
       'pickUpNotes': instance.pickUpNotes,
       'deliveryNotesFromMerchant': instance.deliveryNotesFromMerchant,
       'deliveryNotesFromReceiver': instance.deliveryNotesFromReceiver,
-      'deliveryDateBasedOnUpload':
-          instance.deliveryDateBasedOnUpload?.toIso8601String(),
-      'deliveryDateBasedOnPickUp':
-          instance.deliveryDateBasedOnPickUp?.toIso8601String(),
+      'deliveryDateBasedOnUpload': instance.deliveryDateBasedOnUpload,
+      'deliveryDateBasedOnPickUp': instance.deliveryDateBasedOnPickUp,
       'allowWeekendDelivery': instance.allowWeekendDelivery,
       'pickUpRequested': instance.pickUpRequested,
       'pickUpId': instance.pickUpId,
       'requestedDeliveryTimeSlotType':
           _$DeliveryTimeSlotTypeEnumMap[instance.requestedDeliveryTimeSlotType],
-      'requestedDeliveryTimeSlotStart':
-          instance.requestedDeliveryTimeSlotStart?.toIso8601String(),
-      'requestedDeliveryTimeSlotEnd':
-          instance.requestedDeliveryTimeSlotEnd?.toIso8601String(),
+      'requestedDeliveryTimeSlotStart': instance.requestedDeliveryTimeSlotStart,
+      'requestedDeliveryTimeSlotEnd': instance.requestedDeliveryTimeSlotEnd,
       'cashOnDeliveryRequested': instance.cashOnDeliveryRequested,
       'cashOnDeliveryAmount': instance.cashOnDeliveryAmount,
       'cashOnDeliveryCurrency': instance.cashOnDeliveryCurrency,
       'insuredAmount': instance.insuredAmount,
       'insuredAmountCurrency': instance.insuredAmountCurrency,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
       'tenant': instance.tenant,
       'merchant': instance.merchant,
       'createdBy': instance.createdBy,

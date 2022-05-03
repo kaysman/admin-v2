@@ -34,10 +34,14 @@ class LoginLayout extends StatelessWidget {
                   height: 45.sp,
                 ),
                 Spacings.TINY_HORIZONTAL,
-                Text("Load and Go",
-                    style: Theme.of(context).textTheme.headline1?.copyWith(
-                          color: kPrimaryColor,
-                        )),
+                Text(
+                  "Load and Go",
+                  style: GoogleFonts.inter(
+                    color: kPrimaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
+                ),
                 Spacer(),
                 ...[
                   Icon(

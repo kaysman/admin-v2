@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lng_adminapp/data/models/role/create-role.model.dart';
 import 'package:lng_adminapp/data/models/role/module.model.dart';
-import 'package:lng_adminapp/data/models/role/permission.model.dart';
 import 'package:lng_adminapp/data/models/role/role.model.dart';
 import 'package:lng_adminapp/data/services/role.service.dart';
-import 'package:lng_adminapp/data/enums/status.enum.dart';
 import 'package:lng_adminapp/presentation/screens/dialog/enums/dialog.enum.dart';
 import 'package:lng_adminapp/presentation/screens/dialog/response/response-dialog.view.dart';
 import 'package:lng_adminapp/shared.dart';
@@ -13,7 +11,6 @@ import 'package:lng_adminapp/shared.dart';
 class RoleBloc extends Cubit<RoleState> {
   RoleBloc() : super(RoleState()) {
     loadRoles();
-    loadModules();
   }
 
   loadRoles([String page = '1', String limit = '10']) async {
@@ -21,7 +18,7 @@ class RoleBloc extends Cubit<RoleState> {
     emit(state.updateState(roleStatus: RoleStatus.loading));
 
     try {
-      var roles = await RoleService.getRoles(queryParams);
+      var roles = await RoleAndPermissionsService.getRoles(queryParams);
 
       emit(state.updateState(
         roleStatus: RoleStatus.idle,
@@ -35,8 +32,8 @@ class RoleBloc extends Cubit<RoleState> {
   loadModules() async {
     emit(state.updateState(moduleStatus: ModuleStatus.loading));
     try {
-      var modules = await RoleService.getModules();
-      RoleService.modules.value = modules;
+      var modules = await RoleAndPermissionsService.getModules();
+      RoleAndPermissionsService.modules.value = modules;
       emit(state.updateState(
         moduleStatus: ModuleStatus.idle,
         modules: modules,
@@ -51,7 +48,7 @@ class RoleBloc extends Cubit<RoleState> {
       Role? role) async {
     emit(state.updateState(createRoleStatus: CreateRoleStatus.loading));
     try {
-      var result = await RoleService.createRole(data, isUpdating);
+      var result = await RoleAndPermissionsService.createRole(data, isUpdating);
 
       if (result.success == true) {
         if (isUpdating) {
@@ -97,7 +94,7 @@ class RoleBloc extends Cubit<RoleState> {
       permissions: role?.permissions,
       createdAt: role?.createdAt,
     );
-    RoleService.selectedRole.value = updatedRole;
+    RoleAndPermissionsService.selectedRole.value = updatedRole;
   }
 }
 

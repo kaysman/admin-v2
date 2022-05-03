@@ -16,6 +16,7 @@ class LocationBloc extends Cubit<LocationState> {
         )) {
     loadLocations();
   }
+
   loadLocations([String page = "1"]) async {
     final queryParams = <String, String>{"page": page, "limit": state.perPage};
     emit(state.updateLocationState(

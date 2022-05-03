@@ -8,8 +8,8 @@ import 'package:lng_adminapp/presentation/screens/dialog/delete/delete-dialog.bl
 import 'package:lng_adminapp/presentation/screens/role-permissions-roles/add_role_screen/add_role_screen.dart';
 import 'package:lng_adminapp/presentation/screens/role-permissions-roles/role.bloc.dart';
 import 'package:lng_adminapp/presentation/screens/role-permissions-roles/role_details_screen/role_details_screen.dart';
+import 'package:lng_adminapp/presentation/shared/components/search_icon.dart';
 import 'package:lng_adminapp/shared.dart';
-
 import '../../../data/enums/status.enum.dart';
 
 class RolesDashboard extends StatefulWidget {
@@ -74,7 +74,6 @@ class _RolesDashboardState extends State<RolesDashboard> {
                   roleBloc.loadRoles();
                   roleBloc.loadModules();
                 }
-                // TODO: implement listener
               },
               listenWhen: (state1, state2) => state1 != state2,
               builder: (context, state) {
@@ -89,7 +88,7 @@ class _RolesDashboardState extends State<RolesDashboard> {
                             // mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                'Permissions',
+                                'Roles',
                                 style: GoogleFonts.inter(
                                   fontSize: 24.sp,
                                   fontWeight: FontWeight.w700,
@@ -134,10 +133,7 @@ class _RolesDashboardState extends State<RolesDashboard> {
                                         ?.copyWith(
                                           color: kGrey1Color,
                                         ),
-                                    prefixIcon: Container(
-                                      padding: EdgeInsets.all(8.sp),
-                                      child: AppIcons.svgAsset(AppIcons.search),
-                                    ),
+                                    prefixIcon: SearchIcon(),
                                   ),
                                 ),
                               )
@@ -298,7 +294,7 @@ class _RolesDashboardState extends State<RolesDashboard> {
   }
 
   navigateToRoleDetailsPage(data) {
-    RoleService.selectedRole.value = data;
+    RoleAndPermissionsService.selectedRole.value = data;
     Navigator.pushNamed(context, RoleDetailsScreen.routeName);
   }
 }

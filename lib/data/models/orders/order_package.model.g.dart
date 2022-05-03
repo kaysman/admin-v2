@@ -7,22 +7,22 @@ part of 'order_package.model.dart';
 // **************************************************************************
 
 OrderPackage _$OrderPackageFromJson(Map<String, dynamic> json) => OrderPackage(
-      name: json['name'] as String,
-      description: json['description'] as String,
-      quantity: json['quantity'] as int,
-      price: json['price'] as int,
-      currency: json['currency'] as String,
-      height: json['height'] as int,
-      width: json['width'] as int,
-      length: json['length'] as int,
-      dimensionUnit:
-          $enumDecode(_$DimensionUnitConversionEnumMap, json['dimensionUnit']),
-      weight: json['weight'] as int,
-      weightUnit:
-          $enumDecode(_$WeightUnitConversionEnumMap, json['weightUnit']),
-      isDangerousGood: json['isDangerousGood'] as bool,
-      type: $enumDecode(_$TypeOfPackageEnumMap, json['type']),
-      otherNotes: json['otherNotes'] as String,
+      name: json['name'] as String?,
+      description: json['description'] as String?,
+      quantity: json['quantity'] as int?,
+      price: json['price'] as int?,
+      currency: json['currency'] as String?,
+      height: json['height'] as int?,
+      width: json['width'] as int?,
+      length: json['length'] as int?,
+      dimensionUnit: $enumDecodeNullable(
+          _$DimensionUnitConversionEnumMap, json['dimensionUnit']),
+      weight: json['weight'] as int?,
+      weightUnit: $enumDecodeNullable(
+          _$WeightUnitConversionEnumMap, json['weightUnit']),
+      isDangerousGood: json['isDangerousGood'] as bool?,
+      type: $enumDecodeNullable(_$TypeOfPackageEnumMap, json['type']),
+      otherNotes: json['otherNotes'] as String?,
       orderId: json['orderId'] as String?,
     );
 

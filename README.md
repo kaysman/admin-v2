@@ -4,11 +4,10 @@ baseURL = https://lng-test-environment.as.r.appspot.com
 
 api at: /api/v1
 
-A few resources to get you started if this is your first Flutter project:
+Deploy commands:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- firebase init
+- flutter build web
+- firebase deploy --only hosting:lng-test-admin-app
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+// TODO: paste live url here

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lng_adminapp/data/enums/status.enum.dart';
 import 'package:lng_adminapp/data/models/orders/order.model.dart';
 import 'package:lng_adminapp/data/models/orders/single-order-upload.model.dart';
-import 'package:lng_adminapp/data/models/receiver.model.dart';
+import 'package:lng_adminapp/data/models/contact-detail.model.dart';
 import 'package:lng_adminapp/data/services/app.service.dart';
 import 'package:lng_adminapp/presentation/screens/orders/manage_order_table/widgets/info.label.dart';
 import 'package:lng_adminapp/presentation/screens/orders/order.bloc.dart';
@@ -52,8 +52,8 @@ class _OrderDetailsState extends State<OrderDetails> {
   DateTime? timeslotStart;
   DateTime? timeslotEnd;
   bool? codRequested;
-  late DateTime? createdAt;
-  DateTime? updatedAt;
+  late String? createdAt;
+  String? updatedAt;
 
   bool isEditMode = false;
   late OrderBloc orderBloc;
@@ -83,18 +83,25 @@ class _OrderDetailsState extends State<OrderDetails> {
         replaceStringWithDash(widget.order.orderReference?.merchantOrderNumber);
     otherMerchantDetailsController.text =
         replaceStringWithDash(widget.order.orderReference?.others);
-    uploadDate = widget.order.deliveryDateBasedOnUpload;
-    pickupDate = widget.order.deliveryDateBasedOnPickUp;
+    uploadDate =
+        DateTime.tryParse(widget.order.deliveryDateBasedOnUpload ?? '');
+    pickupDate =
+        DateTime.tryParse(widget.order.deliveryDateBasedOnPickUp ?? '');
     weekendDelivery = widget.order.allowWeekendDelivery;
     pickupRequested = widget.order.pickUpRequested;
     pickupIDController.text = replaceStringWithDash(widget.order.pickUpId);
     if (widget.order.requestedDeliveryTimeSlotStart != null &&
         widget.order.requestedDeliveryTimeSlotEnd != null)
       timeslotRange = DateTimeRange(
-          start: widget.order.requestedDeliveryTimeSlotStart!,
-          end: widget.order.requestedDeliveryTimeSlotEnd!);
-    timeslotStart = widget.order.requestedDeliveryTimeSlotStart;
-    timeslotEnd = widget.order.requestedDeliveryTimeSlotEnd;
+          start:
+              DateTime.tryParse(widget.order.requestedDeliveryTimeSlotStart!) ??
+                  DateTime.now(),
+          end: DateTime.tryParse(widget.order.requestedDeliveryTimeSlotEnd!) ??
+              DateTime.now());
+    timeslotStart =
+        DateTime.tryParse(widget.order.requestedDeliveryTimeSlotStart ?? '');
+    timeslotEnd =
+        DateTime.tryParse(widget.order.requestedDeliveryTimeSlotEnd ?? '');
     codRequested = widget.order.cashOnDeliveryRequested;
     codAmountController.text =
         replaceStringWithDash(widget.order.cashOnDeliveryAmount?.toString());
@@ -168,14 +175,6 @@ class _OrderDetailsState extends State<OrderDetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 32.h),
-                Text(
-                  'Order history',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline5!
-                      .copyWith(fontWeight: FontWeight.w600),
-                ),
-                SizedBox(height: 24.h),
                 buildTimelines(),
                 this.horizontalLine,
                 SizedBox(height: 32.h),
@@ -524,99 +523,106 @@ class _OrderDetailsState extends State<OrderDetails> {
     );
   }
 
-  SizedBox buildTimelines() {
-    return SizedBox(
-      height: 450.h,
-      child: Timeline.tileBuilder(
-        padding: EdgeInsets.zero,
-        theme: TimelineThemeData(
-          nodePosition: 0,
-          color: kGrey1Color,
-          indicatorTheme: IndicatorThemeData(
-            position: 0,
-            size: 16.sp,
-            color: kGrey1Color,
+  buildTimelines() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 24.w, right: 24.w),
+          child: Text(
+            'Order history',
+            style: Theme.of(context)
+                .textTheme
+                .headline5!
+                .copyWith(fontWeight: FontWeight.w600),
           ),
-          connectorTheme: ConnectorThemeData(
-            thickness: 1.w,
-          ),
-          indicatorPosition: 0,
         ),
-        builder: TimelineTileBuilder.connected(
-          connectionDirection: ConnectionDirection.before,
-          contentsBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.only(
-                left: 18.w,
-                bottom: 24.h,
+        SizedBox(height: 24.h),
+        SizedBox(
+          height: 0.3.sh,
+          child: Timeline.tileBuilder(
+            padding: EdgeInsets.only(left: 24.w, right: 24.w),
+            theme: TimelineThemeData(
+              nodePosition: 0,
+              color: kGrey1Color,
+              indicatorTheme: IndicatorThemeData(
+                position: 0,
+                size: 16.sp,
+                color: kGrey1Color,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '',
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+              connectorTheme: ConnectorThemeData(
+                thickness: 1.w,
+              ),
+            ),
+            builder: TimelineTileBuilder.connected(
+              connectionDirection: ConnectionDirection.before,
+              contentsBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    left: 18.w,
+                    bottom: 24.h,
                   ),
-                  SizedBox(
-                    width: 24.w,
-                  ),
-                  Column(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '',
+                        'Oct 04',
                         style: Theme.of(context).textTheme.headline5!.copyWith(
                               fontWeight: FontWeight.w600,
                             ),
                       ),
-                      SizedBox(height: 4.h),
-                      Text(
-                        '',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              color: kGrey1Color,
-                            ),
-                      )
+                      SizedBox(
+                        width: 24.w,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Picked up by Mike',
+                            style:
+                                Theme.of(context).textTheme.headline5!.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                          ),
+                          SizedBox(height: 4.h),
+                          Text(
+                            '12:30',
+                            style:
+                                Theme.of(context).textTheme.bodyText1!.copyWith(
+                                      color: kGrey1Color,
+                                    ),
+                          )
+                        ],
+                      ),
                     ],
                   ),
-                ],
-              ),
-            );
-          },
-          itemCount: 0,
-          indicatorBuilder: (_, index) {
-            if (index == 0) {
-              return DotIndicator(
-                color: Color(0xFFEE7911),
-                size: 20.sp,
-              );
-            } else {
-              return OutlinedDotIndicator(
-                color: kGrey2Color,
-                size: 20.sp,
-                borderWidth: 4.w,
-                child: CircleAvatar(
-                  backgroundColor: kPrimaryColor,
-                  radius: 4.sp,
-                ),
-                // backgroundColor: kPrimaryColor,
-              );
-            }
-          },
-          connectorBuilder: (_, index, ___) {
-            return SolidLineConnector(
-              color: index == 0 ? kGrey1Color : kGrey1Color,
-            );
-          },
+                );
+              },
+              itemCount: 4,
+              indicatorBuilder: (_, index) {
+                return DotIndicator(
+                  color: index == 0 ? Color(0xFFEE7911) : kGrey1Color,
+                  size: 20.sp,
+                );
+              },
+              connectorBuilder: (_, index, ___) {
+                return SolidLineConnector(
+                  indent: 0,
+                  endIndent: 0,
+                  direction: Axis.vertical,
+                  color: index == 0 ? kGrey1Color : kGrey1Color,
+                );
+              },
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 
   submitOrderDetailsForm() async {
-    ReceiverDetail _receiverInfo = ReceiverDetail(
+    ContactDetail _receiverInfo = ContactDetail(
       firstName: widget.order.receiverDetail?.firstName,
       lastName: widget.order.receiverDetail?.lastName,
       phoneNumber: widget.order.receiverDetail?.phoneNumber,

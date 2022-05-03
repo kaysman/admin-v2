@@ -7,7 +7,7 @@ import 'package:lng_adminapp/shared.dart';
 
 class DriversService {
   static Future<User> createDriver(Map<String, dynamic> data) async {
-    var uri = Uri.http(apiUrl, '/api/v1/');
+    var uri = Uri.https(apiUrl, '/api/v1/');
 
     try {
       var res = await ApiClient.instance.post(

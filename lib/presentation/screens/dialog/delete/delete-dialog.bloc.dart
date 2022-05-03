@@ -70,7 +70,7 @@ class DeleteDialogBloc extends Cubit<DeleteDialogState> {
             //TODO: show something else
           }
         } else if (module == ModuleType.ROLE) {
-          var result = await RoleService.deleteRole(id);
+          var result = await RoleAndPermissionsService.deleteRole(id);
           if (result.success != null && result.success == true) {
             emit(state.update(deleteDialogStatus: DeleteDialogStatus.success));
             emit(state.update(deleteRoleStatus: DeleteRoleStatus.success));

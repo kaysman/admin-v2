@@ -22,6 +22,8 @@ import 'package:lng_adminapp/presentation/screens/settings/settings.bloc.dart';
 import 'package:lng_adminapp/presentation/screens/teams/team.bloc.dart';
 
 import '../../main.dart';
+import '../../presentation/screens/role-permissions-roles/permission_bloc.dart';
+import '../../presentation/screens/sub-users/subuser_bloc.dart';
 import '../models/user.model.dart';
 import 'api_client.dart';
 import 'storage.service.dart';
@@ -66,9 +68,7 @@ class AppService {
     IndexCubit indexBloc = IndexCubit();
     SnackbarBloc snackbarBloc = SnackbarBloc();
     AuthState initialAppState = await determineInitialAppState();
-    AuthBloc authBloc = AuthBloc(
-      initialAppState,
-    );
+    AuthBloc authBloc = AuthBloc(initialAppState, indexBloc);
     httpRequests = HttpRequestBloc();
 
     onAuthError = () => {ApiClient.reset(), authBloc.setAuthLoggedOut()};
@@ -102,6 +102,8 @@ class AppService {
         BlocProvider(create: (_) => LocationBloc()),
         BlocProvider(create: (_) => PrepareOrderBloc()),
         BlocProvider(create: (_) => RoleBloc()),
+        BlocProvider(create: (_) => PermissionBloc()),
+        BlocProvider(create: (_) => SubuserBloc()),
       ],
       child: LNGApp(initialRoute: initialRoute),
     ));

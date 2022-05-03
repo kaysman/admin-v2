@@ -69,28 +69,28 @@ class TeamItem extends StatelessWidget {
               height: 24.h,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  children: [
-                    AppIcons.svgAsset(
-                      AppIcons.subadmin,
-                      width: 20.sp,
-                      height: 20.sp,
-                    ),
-                    SizedBox(
-                      width: 8.w,
-                    ),
-                    Text(
-                      '${0} Sub-Admin(s)',
-                      style: GoogleFonts.inter(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     AppIcons.svgAsset(
+                //       AppIcons.subadmin,
+                //       width: 20.sp,
+                //       height: 20.sp,
+                //     ),
+                //     SizedBox(
+                //       width: 8.w,
+                //     ),
+                //     Text(
+                //       '${0} Sub-Admin(s)',
+                //       style: GoogleFonts.inter(
+                //         fontSize: 14.sp,
+                //         fontWeight: FontWeight.w400,
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 Row(
                   children: [
                     AppIcons.svgAsset(

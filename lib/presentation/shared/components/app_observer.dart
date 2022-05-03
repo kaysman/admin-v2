@@ -65,7 +65,7 @@ class _AppObserverState extends State<AppObserver> {
         authListener(),
       ],
       child: MediaQuery(
-        data: mq.copyWith(textScaleFactor: 1.1),
+        data: mq.copyWith(textScaleFactor: 1.0),
         child: Scaffold(
           key: _scaffoldKey,
           body: identityErrorCork(

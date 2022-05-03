@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lng_adminapp/data/data.dart';
 import 'package:lng_adminapp/presentation/shared/colors.dart';
-import 'package:lng_adminapp/presentation/shared/components/dropdowns.dart';
 
 import '../icons.dart';
 import 'date_pickers.dart';
@@ -20,6 +18,7 @@ class LabeledInput extends StatelessWidget {
     this.validator,
     this.onTap,
     this.saved,
+    this.onSubmitted,
     this.autovalidateMode,
     this.isEnabled,
     this.maxLine = 1,
@@ -33,6 +32,7 @@ class LabeledInput extends StatelessWidget {
   final VoidCallback? onTap;
   final FormFieldValidator<String>? validator;
   final FormFieldSetter<String>? saved;
+  final FormFieldSetter<String>? onSubmitted;
   final AutovalidateMode? autovalidateMode;
   final int maxLine;
 
@@ -41,19 +41,19 @@ class LabeledInput extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: Theme.of(context).textTheme.caption),
+        Text(label, style: Theme.of(context).textTheme.subtitle2),
         SizedBox(
           height: 8.h,
         ),
         SizedBox(
-          height: maxLine != 1 ? null : 34.0,
+          // height: maxLine != 1 ? null : 38.0,
           child: TextFormField(
             controller: controller,
             style: Theme.of(context).textTheme.bodyText1,
             enabled: isEnabled ?? true,
             decoration: InputDecoration(
               counterText: '',
-              contentPadding: const EdgeInsets.all(8.0),
+              contentPadding: const EdgeInsets.only(left: 8, right: 8),
               filled: false,
               disabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: kGrey3Color),
@@ -84,6 +84,7 @@ class LabeledInput extends StatelessWidget {
             maxLines: maxLine,
             onTap: onTap,
             onSaved: saved,
+            onFieldSubmitted: onSubmitted,
             validator: validator,
             autovalidateMode: autovalidateMode,
           ),

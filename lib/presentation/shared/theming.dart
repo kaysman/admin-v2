@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'colors.dart';
 
 class AppTheme {
@@ -13,7 +11,7 @@ class AppTheme {
         contentPadding: const EdgeInsets.only(left: 12, right: 8),
         hintStyle: TextStyle(
           color: const Color(0xff828282),
-          fontSize: 14.sp,
+          fontSize: 14,
         ),
         filled: true,
         fillColor: kWhite,
@@ -66,8 +64,6 @@ class AppTheme {
       ),
       scrollbarTheme: ScrollbarThemeData(
         radius: Radius.circular(10.0),
-        // isAlwaysShown: true,
-        // showTrackOnHover: true,
         thumbColor: MaterialStateProperty.resolveWith<Color>(
           (states) => kGrey1Color,
         ),
@@ -81,61 +77,61 @@ class AppTheme {
       textTheme: TextTheme(
         headline1: GoogleFonts.inter(
           color: kText1Color,
-          fontSize: 24.sp,
+          fontSize: 24,
           fontWeight: FontWeight.w900,
         ),
         headline2: GoogleFonts.inter(
           color: kText1Color,
-          fontSize: 18.sp,
+          fontSize: 18,
           fontWeight: FontWeight.w600,
         ),
         headline3: GoogleFonts.inter(
           color: kText1Color,
-          fontSize: 16.sp,
+          fontSize: 16,
           fontWeight: FontWeight.w600,
         ),
         headline4: GoogleFonts.inter(
           color: kText1Color,
-          fontSize: 16.sp,
+          fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
         headline5: GoogleFonts.inter(
           color: kText1Color,
-          fontSize: 16.sp,
+          fontSize: 16,
           fontWeight: FontWeight.w400,
         ),
         headline6: GoogleFonts.inter(
-          fontSize: 18.sp,
+          fontSize: 18,
           fontWeight: FontWeight.w700,
         ),
         bodyText1: GoogleFonts.inter(
           color: kText1Color,
-          fontSize: 14.sp,
+          fontSize: 14,
           fontWeight: FontWeight.w400,
         ),
         bodyText2: GoogleFonts.inter(
-          fontSize: 14.sp,
+          fontSize: 14,
           fontWeight: FontWeight.w500,
           color: kText1Color,
         ),
         button: GoogleFonts.inter(
-          fontSize: 14.sp,
+          fontSize: 14,
           fontWeight: FontWeight.w500,
           color: kPrimaryColor,
         ),
         subtitle1: GoogleFonts.inter(
-          fontSize: 12.sp,
+          fontSize: 16, // TextField text style uses this by default
           fontWeight: FontWeight.w400,
           color: kGrey1Color,
         ),
         subtitle2: GoogleFonts.inter(
-          fontSize: 14.sp,
+          fontSize: 14,
           fontWeight: FontWeight.w500,
           color: kGrey1Color,
         ),
         caption: GoogleFonts.inter(
           color: kText1Color,
-          fontSize: 12.sp,
+          fontSize: 12,
           fontWeight: FontWeight.w400,
         ),
       ),

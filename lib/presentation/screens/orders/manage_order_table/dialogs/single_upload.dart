@@ -5,11 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lng_adminapp/data/enums/status.enum.dart';
 import 'package:lng_adminapp/data/models/address.model.dart';
+import 'package:lng_adminapp/data/models/contact-detail.model.dart';
 import 'package:lng_adminapp/data/models/orders/order_package.model.dart';
 import 'package:lng_adminapp/data/models/orders/order_reference.model.dart';
 import 'package:lng_adminapp/data/models/orders/single-order-upload.model.dart';
-import 'package:lng_adminapp/data/models/receiver.model.dart';
-import 'package:lng_adminapp/data/models/sender.model.dart';
 import 'package:lng_adminapp/presentation/screens/orders/order.bloc.dart';
 import 'package:lng_adminapp/shared.dart';
 
@@ -274,7 +273,7 @@ class _UploadSingleDialogState extends State<UploadSingleDialog>
       postalCode: _dPostalCodeController.text,
     );
 
-    ReceiverDetail receiver = ReceiverDetail(
+    ContactDetail receiver = ContactDetail(
       firstName: _customerFirstNameController.text,
       lastName: _customerLastNameController.text,
       phoneNumber: _customerPhoneNumberController.text,
@@ -282,7 +281,7 @@ class _UploadSingleDialogState extends State<UploadSingleDialog>
       address: _deliveryAddress,
     );
 
-    SenderDetail sender = SenderDetail(
+    ContactDetail sender = ContactDetail(
       firstName: _customerFirstNameController.text,
       lastName: _customerLastNameController.text,
       phoneNumber: _customerPhoneNumberController.text,
@@ -324,8 +323,8 @@ class _UploadSingleDialogState extends State<UploadSingleDialog>
       serviceType: ServiceType.LOCAL_PARCEL_LESSER_THAN_30KG,
       allowWeekendDelivery: false,
       requestedDeliveryTimeSlotType: DeliveryTimeSlotType.STANDARD,
-      requestedDeliveryTimeSlotStart: DateTime(2022, 03, 02),
-      requestedDeliveryTimeSlotEnd: DateTime(2022, 03, 02),
+      requestedDeliveryTimeSlotStart: DateTime(2022, 03, 02).toIso8601String(),
+      requestedDeliveryTimeSlotEnd: DateTime(2022, 03, 02).toIso8601String(),
       cashOnDeliveryRequested: false,
       cashOnDeliveryAmount: null,
       cashOnDeliveryCurrency: "string",

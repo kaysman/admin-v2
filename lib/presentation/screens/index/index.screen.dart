@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lng_adminapp/data/enums/status.enum.dart';
-import 'package:lng_adminapp/data/services/app.service.dart';
 import 'package:lng_adminapp/presentation/screens/drivers/list-drivers/list-driver.view.dart';
 import 'package:lng_adminapp/presentation/screens/locations/list-locations/list-locations.view.dart';
 import 'package:lng_adminapp/presentation/screens/merchants/list-merchants/list-merchants.view.dart';
 import 'package:lng_adminapp/presentation/screens/prepare-orders/list-orders/prepare-order-list.view.dart';
-import 'package:lng_adminapp/presentation/screens/role-permissions-roles/permissions_dashboard.dart';
+import 'package:lng_adminapp/presentation/screens/role-permissions-roles/roles_dashboard.dart';
 import 'package:lng_adminapp/presentation/screens/screens.dart';
 import 'package:lng_adminapp/presentation/screens/teams/list-teams/list-teams.view.dart';
 import 'package:lng_adminapp/shared.dart';
 import '../../blocs/auth/auth.bloc.dart';
 import '../../blocs/auth/auth.state.dart';
+import '../sub-users/subusers_table.dart';
 import 'index.cubit.dart';
 
 class IndexScreen extends StatelessWidget {
@@ -65,7 +65,7 @@ class IndexScreen extends StatelessWidget {
             ),
           if (hasPermission(state, PermissionType.READ_ROLE))
             SideBarItem(
-              text: "Permissions",
+              text: "Roles and Permissions",
               icon: AppIcons.permissions,
               bodyBuilder: (context) => RolesDashboard(),
             ),
@@ -96,8 +96,8 @@ class IndexScreen extends StatelessWidget {
           if (hasPermission(state, PermissionType.READ_USER))
             SideBarItem(
               icon: AppIcons.subadmin,
-              text: "Sub-admins",
-              bodyBuilder: (context) => ManageSubadminsScreen(),
+              text: "Sub-users",
+              bodyBuilder: (context) => ManageSubusersScreen(),
             ),
           SideBarItem(
             icon: AppIcons.settings,

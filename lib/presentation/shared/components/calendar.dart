@@ -220,7 +220,7 @@ class _CalendarState extends State<Calendar> {
                                           child: Text(date.day.toString(),
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .subtitle1!
+                                                  .caption!
                                                   .copyWith(
                                                       color: dayColor,
                                                       fontSize: selected

@@ -22,7 +22,7 @@ Map<String, dynamic> _$RoleListToJson(RoleList instance) => <String, dynamic>{
 
 Role _$RoleFromJson(Map<String, dynamic> json) => Role(
       id: json['id'] as String?,
-      name: $enumDecodeNullable(_$RoleTypeEnumMap, json['name']),
+      name: json['name'] as String?,
       description: json['description'] as String?,
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
@@ -32,22 +32,18 @@ Role _$RoleFromJson(Map<String, dynamic> json) => Role(
       permissions: (json['permissions'] as List<dynamic>?)
           ?.map((e) => Permission.fromJson(e as Map<String, dynamic>))
           .toList(),
+      createdBy: json['createdBy'] == null
+          ? null
+          : User.fromJson(json['createdBy'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$RoleToJson(Role instance) => <String, dynamic>{
       'id': instance.id,
-      'name': _$RoleTypeEnumMap[instance.name],
+      'name': instance.name,
       'description': instance.description,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
       'permissions': instance.permissions,
       'tenant': instance.tenant,
+      'createdBy': instance.createdBy,
     };
-
-const _$RoleTypeEnumMap = {
-  RoleType.LOAD_AND_GO: 'LOAD_AND_GO',
-  RoleType.TENANT: 'TENANT',
-  RoleType.MERCHANT: 'MERCHANT',
-  RoleType.DRIVER: 'DRIVER',
-  RoleType.RECEIVER: 'RECEIVER',
-};

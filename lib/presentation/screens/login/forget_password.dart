@@ -15,12 +15,17 @@ class ForgetPassword extends StatefulWidget {
 
 class _ForgetPasswordState extends State<ForgetPassword> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late TextEditingController _emailController;
+  final _emailController = TextEditingController();
   String? _errorText;
 
   @override
   void initState() {
-    _emailController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -35,9 +40,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                blurRadius: 45,
-                color: const Color(0xff000000).withOpacity(0.1),
-              ),
+                  blurRadius: 45,
+                  color: const Color(0xff000000).withOpacity(0.1)),
             ],
           ),
           child: Form(

@@ -16,3 +16,4 @@ export 'scrollable.dart';
 export 'tabviewed_component.dart';
 export 'textfield_borderless.dart';
 export 'unfocus.dart';
+export 'lng_page.dart';

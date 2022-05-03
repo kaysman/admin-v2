@@ -53,6 +53,7 @@ const _$PermissionTypeEnumMap = {
   PermissionType.CREATE_ORDER_UPLOAD: 'create-order-upload',
   PermissionType.READ_ORDER_UPLOAD: 'read-order-upload',
   PermissionType.CREATE_PERMISSION: 'create-permission',
+  PermissionType.READ_PERMISSION: 'read-permission',
   PermissionType.CREATE_PROOF_OF_DELIVERY: 'create-proof-of-delivery',
   PermissionType.CREATE_REQUEST: 'create-request',
   PermissionType.READ_REQUEST: 'read-request',
@@ -87,10 +88,42 @@ const _$PermissionTypeEnumMap = {
   PermissionType.READ_WORKFLOW: 'read-workflow',
   PermissionType.UPDATE_WORKFLOW: 'update-workflow',
   PermissionType.DELETE_WORKFLOW: 'delete-workflow',
+  PermissionType.CREATE_WORKFLOW_WAREHOUSE: 'create-workflow-warehouse',
+  PermissionType.READ_WORKFLOW_WAREHOUSE: 'read-workflow-warehouse',
   PermissionType.CREATE_WORKFLOW_STEP: 'create-workflow-step',
   PermissionType.READ_WORKFLOW_STEP: 'read-workflow-step',
   PermissionType.UPDATE_WORKFLOW_STEP: 'update-workflow-step',
   PermissionType.DELETE_WORKFLOW_STEP: 'delete-workflow-step',
-  PermissionType.CREATE_WORKFLOW_WAREHOUSE: 'create-workflow-warehouse',
-  PermissionType.READ_WORKFLOW_WAREHOUSE: 'read-workflow-warehouse',
+  PermissionType.ONLY_LOAD_AND_GO_TECH: 'only-load-and-go-tech',
+  PermissionType.CREATE_TASK_SEQUENCING: 'create-task-sequencing',
+  PermissionType.READ_TASK_SEQUENCING: 'read-task-sequencing',
+  PermissionType.UPDATE_TASK_SEQUENCING: 'update-task-sequencing',
+  PermissionType.DELETE_TASK_SEQUENCING: 'delete-task-sequencing',
+  PermissionType.READ_VEHICLE_DETAIL: 'read-vehicle-detail',
+  PermissionType.CREATE_WORKFLOW_AND_WORKFLOW_STEP:
+      'create-workflow-and-workflow-step',
+  PermissionType.READ_WORKFLOW_AND_WORKFLOW_STEP:
+      'read-workflow-and-workflow-step',
+  PermissionType.UPDATE_WORKFLOW_AND_WORKFLOW_STEP:
+      'update-workflow-and-workflow-step',
+  PermissionType.DELETE_WORKFLOW_AND_WORKFLOW_STEP:
+      'delete-workflow-and-workflow-step',
 };
+
+PermissionsByModule _$PermissionsByModuleFromJson(Map<String, dynamic> json) =>
+    PermissionsByModule(
+      data: (json['data'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(
+            k,
+            (e as List<dynamic>)
+                .map((e) => Permission.fromJson(e as Map<String, dynamic>))
+                .toList()),
+      ),
+    );
+
+Map<String, dynamic> _$PermissionsByModuleToJson(
+        PermissionsByModule instance) =>
+    <String, dynamic>{
+      'data': instance.data
+          ?.map((k, e) => MapEntry(k, e.map((e) => e.toJson()).toList())),
+    };

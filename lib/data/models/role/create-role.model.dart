@@ -1,8 +1,6 @@
-import 'package:lng_adminapp/data/enums/status.enum.dart';
-
 class CreateRole {
   String? id;
-  RoleType? name;
+  String? name;
   String? description;
   List<String>? permissionIds;
 
@@ -18,7 +16,7 @@ class CreateRole {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['name'] = this.name?.text;
+    data['name'] = this.name;
     data['description'] = this.description;
     data['permissionIds'] = this.permissionIds;
     return data;

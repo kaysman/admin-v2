@@ -3,8 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lng_adminapp/data/models/address.model.dart';
 import 'package:lng_adminapp/data/models/orders/order.model.dart';
 import 'package:lng_adminapp/data/models/orders/single-order-upload.model.dart';
-import 'package:lng_adminapp/data/models/receiver.model.dart';
-import 'package:lng_adminapp/data/models/sender.model.dart';
+import 'package:lng_adminapp/data/models/contact-detail.model.dart';
 import 'package:lng_adminapp/data/services/app.service.dart';
 import 'package:lng_adminapp/presentation/screens/orders/manage_order_table/widgets/info.label.dart';
 import 'package:lng_adminapp/presentation/screens/orders/manage_order_table/widgets/label_of_details.dart';
@@ -297,7 +296,7 @@ class _PickupDetailsState extends State<PickupDetails> {
           latitudeController.text),
     );
 
-    SenderDetail senderDetails = SenderDetail(
+    ContactDetail senderDetails = ContactDetail(
       id: IDController.text,
       firstName: checkIfChangedAndReturn(
           widget.order.senderDetail?.firstName, firstNameController.text),

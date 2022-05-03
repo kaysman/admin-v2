@@ -16,7 +16,7 @@ class _EditOrganizationInfoState extends State<EditOrganizationInfo> {
       color: kWhite,
       padding: const EdgeInsets.only(
         left: Spacings.kSpaceLittleBig,
-        top: 29, // TODO modify by figma
+        top: 29,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,9 +120,7 @@ class _EditOrganizationInfoState extends State<EditOrganizationInfo> {
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                        SizedBox(
-                          height: 8,
-                        ),
+                        SizedBox(height: 8),
                         Container(
                           width: 0.22.sw,
                           child: TextFormField(

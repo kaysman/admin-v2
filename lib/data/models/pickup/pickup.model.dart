@@ -29,10 +29,10 @@ class Pickup {
   final int? numberOfItems;
   final double? weight;
   final Merchant? merchant;
-  final DateTime? pickupTimeWindowStart;
-  final DateTime? pickupTimeWindowEnd;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
+  final String? pickupTimeWindowStart;
+  final String? pickupTimeWindowEnd;
+  final String? createdAt;
+  final String? updatedAt;
 
   Pickup({
     this.id,

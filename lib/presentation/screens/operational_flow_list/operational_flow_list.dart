@@ -44,7 +44,6 @@ class _OperationalFlowListState extends State<OperationalFlowList> {
           if (state.flowListStatus == FlowListStatus.error) {
             return TryAgainButton(
               tryAgain: () async {
-                // TODO also refetch workflows
                 await workflowBloc.getWorkflowStandardNames();
               },
             );
@@ -100,7 +99,9 @@ class _OperationalFlowListState extends State<OperationalFlowList> {
                           itemCount: state.workflows?.length ?? 0,
                           itemBuilder: (context, index) {
                             var data = state.workflows![index];
-                            return ActiveFlowCard(flowData: data);
+                            return ActiveFlowCard(
+                              workflowEntity: data,
+                            );
                           },
                         ),
                       ),
@@ -137,8 +138,8 @@ class _OperationalFlowListState extends State<OperationalFlowList> {
               width: 26,
             ),
             ElevatedButton(
-              onPressed: () => showWorkflowTypesDialog(
-                  context, state.standards?.data!.keys.toList() ?? []),
+              onPressed: () =>
+                  showWorkflowTypesDialog(context, state.standards?.data ?? []),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(6)),
@@ -196,7 +197,9 @@ class _OperationalFlowListState extends State<OperationalFlowList> {
                   primary: kPrimaryColor,
                   textColor: kWhite,
                   onPressed: () => showWorkflowTypesDialog(
-                      context, state.standards?.data!.keys.toList() ?? []),
+                    context,
+                    state.standards?.data ?? [],
+                  ),
                 ),
               ],
             ),
