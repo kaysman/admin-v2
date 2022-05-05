@@ -38,7 +38,13 @@ class _MerchantListState extends State<MerchantList> {
   int sortColumnIndex = 0;
   bool sortAscending = true;
   late MerchantBloc merchantBloc;
-  List<String> headers = ['Photo', 'Company Name', 'Merchant Name', 'Phone', 'Address'];
+  List<String> headers = [
+    'Photo',
+    'Company Name',
+    'Merchant Name',
+    'Phone',
+    'Address'
+  ];
 
   @override
   void initState() {
@@ -74,7 +80,8 @@ class _MerchantListState extends State<MerchantList> {
 
             return BlocConsumer<DeleteDialogBloc, DeleteDialogState>(
               listener: (context, deleteDialogState) {
-                if (deleteDialogState.deleteMerchantStatus == DeleteMerchantStatus.success) {
+                if (deleteDialogState.deleteMerchantStatus ==
+                    DeleteMerchantStatus.success) {
                   merchantBloc.loadMerchants();
                 }
               },
@@ -129,15 +136,20 @@ class _MerchantListState extends State<MerchantList> {
                                       ),
                                     ),
                                     hintText: 'Search',
-                                    hintStyle: Theme.of(context).textTheme.headline5?.copyWith(
+                                    hintStyle: Theme.of(context)
+                                        .textTheme
+                                        .headline5
+                                        ?.copyWith(
                                           color: kGrey1Color,
                                         ),
                                     prefixIcon: SearchIcon(),
                                   ),
                                   onFieldSubmitted: (v) {
                                     if (v.isNotEmpty) {
-                                      merchantBloc.loadMerchants(PaginationOptions(
-                                          filter: v, limit: merchantState.perPage));
+                                      merchantBloc.loadMerchants(
+                                          PaginationOptions(
+                                              filter: v,
+                                              limit: merchantState.perPage));
                                     }
                                   },
                                 ),
@@ -150,9 +162,11 @@ class _MerchantListState extends State<MerchantList> {
                             AppIcons.svgAsset(
                               AppIcons.help,
                             ),
-                            if (AppService.hasPermission(PermissionType.CREATE_MERCHANT))
+                            if (AppService.hasPermission(
+                                PermissionType.CREATE_MERCHANT))
                               SizedBox(width: 24.w),
-                            if (AppService.hasPermission(PermissionType.CREATE_MERCHANT))
+                            if (AppService.hasPermission(
+                                PermissionType.CREATE_MERCHANT))
                               Button(
                                 primary: Theme.of(context).primaryColor,
                                 text: 'Add New Merchant',
@@ -194,12 +208,14 @@ class _MerchantListState extends State<MerchantList> {
                                 children: [
                                   Text(
                                     '${_merchants?.length} merchants available',
-                                    style: Theme.of(context).textTheme.bodyText1,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
                                   ),
                                   Spacer(),
                                   Text(
                                     'Results per page',
-                                    style: Theme.of(context).textTheme.bodyText2,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
                                   ),
                                   Spacings.SMALL_HORIZONTAL,
                                   SizedBox(
@@ -229,17 +245,22 @@ class _MerchantListState extends State<MerchantList> {
                                 child: ScrollableWidget(
                                   child: DataTable(
                                     dataRowHeight: 56.h,
-                                    headingRowColor: MaterialStateProperty.resolveWith<Color>(
+                                    headingRowColor: MaterialStateProperty
+                                        .resolveWith<Color>(
                                       (Set<MaterialState> states) {
-                                        if (states.contains(MaterialState.selected)) {
-                                          return kSecondaryColor.withOpacity(0.6);
+                                        if (states
+                                            .contains(MaterialState.selected)) {
+                                          return kSecondaryColor
+                                              .withOpacity(0.6);
                                         }
                                         return kSecondaryColor;
                                       },
                                     ),
-                                    dataRowColor: MaterialStateProperty.resolveWith<Color>(
+                                    dataRowColor: MaterialStateProperty
+                                        .resolveWith<Color>(
                                       (Set<MaterialState> states) {
-                                        if (states.contains(MaterialState.selected)) {
+                                        if (states
+                                            .contains(MaterialState.selected)) {
                                           return kGrey5Color;
                                         }
                                         return kWhite;
@@ -316,19 +337,23 @@ class _MerchantListState extends State<MerchantList> {
             onTap: () => navigateToMerchantDetailsPage(merchant),
           ),
           DataCell(
-            Text("${merchant.merchant?.companyName}"),
+            Text("${merchant.merchant?.companyName}",
+                style: Theme.of(context).textTheme.bodyText1),
             onTap: () => navigateToMerchantDetailsPage(merchant),
           ),
           DataCell(
-            Text("${merchant.firstName} ${merchant.lastName}"),
+            Text("${merchant.firstName} ${merchant.lastName}",
+                style: Theme.of(context).textTheme.bodyText1),
             onTap: () => navigateToMerchantDetailsPage(merchant),
           ),
           DataCell(
-            Text("${merchant.countryCode}${merchant.phoneNumber}"),
+            Text("${merchant.countryCode}${merchant.phoneNumber}",
+                style: Theme.of(context).textTheme.bodyText1),
             onTap: () => navigateToMerchantDetailsPage(merchant),
           ),
           DataCell(
-            Text("${merchant.merchant?.address?.addressLineOne ?? ''}"),
+            Text("${merchant.merchant?.address?.addressLineOne ?? ''}",
+                style: Theme.of(context).textTheme.bodyText1),
             onTap: () => navigateToMerchantDetailsPage(merchant),
           ),
         ],
@@ -338,12 +363,16 @@ class _MerchantListState extends State<MerchantList> {
 
   loadPrevious(Meta? meta) async {
     var previous = (meta!.currentPage - 1);
-    await context.read<MerchantBloc>().loadMerchants(PaginationOptions(page: previous));
+    await context
+        .read<MerchantBloc>()
+        .loadMerchants(PaginationOptions(page: previous));
   }
 
   loadNext(Meta? meta) async {
     var next = (meta!.currentPage + 1);
-    await context.read<MerchantBloc>().loadMerchants(PaginationOptions(page: next));
+    await context
+        .read<MerchantBloc>()
+        .loadMerchants(PaginationOptions(page: next));
   }
 
   navigateToMerchantDetailsPage(data) {
