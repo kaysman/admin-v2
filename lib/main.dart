@@ -42,7 +42,7 @@ class _LNGAppState extends State<LNGApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(1440, 1190),
-      builder: () {
+      builder: (child) {
         return MaterialApp(
           title: 'LNG ADMIN APP',
           navigatorKey: navigatorKey,
@@ -50,8 +50,7 @@ class _LNGAppState extends State<LNGApp> with WidgetsBindingObserver {
           theme: AppTheme.lightTheme(),
           onGenerateRoute: onGenerateRoutes,
           initialRoute: LoginScreen.routeName /*LoginScreen.routeName*/,
-          onGenerateInitialRoutes: (value) =>
-              onGenerateInitialRoute(value, widget.initialRoute),
+          onGenerateInitialRoutes: (value) => onGenerateInitialRoute(value, widget.initialRoute),
           builder: (context, home) => AppObserver(
             child: home!,
             navigatorKey: navigatorKey,

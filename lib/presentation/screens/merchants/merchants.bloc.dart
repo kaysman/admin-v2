@@ -24,20 +24,17 @@ class MerchantBloc extends Cubit<MerchantState> {
   loadMerchants([PaginationOptions? paginationOptions]) async {
     if (paginationOptions == null) paginationOptions = PaginationOptions();
 
-    emit(state.updateMerchantState(
-        listMerchantStatus: ListMerchantStatus.loading));
+    emit(state.updateMerchantState(listMerchantStatus: ListMerchantStatus.loading));
 
     try {
-      var merchants =
-          await UserService.getMerchants(paginationOptions.toJson());
+      var merchants = await UserService.getMerchants(paginationOptions.toJson());
       emit(state.updateMerchantState(
         listMerchantStatus: ListMerchantStatus.idle,
         merchants: merchants,
         merchantItems: merchants.items,
       ));
     } catch (_) {
-      emit(state.updateMerchantState(
-          listMerchantStatus: ListMerchantStatus.error));
+      emit(state.updateMerchantState(listMerchantStatus: ListMerchantStatus.error));
       throw _;
     }
   }
@@ -67,8 +64,7 @@ class MerchantBloc extends Cubit<MerchantState> {
     bool isUpdating,
   ) async {
     emit(
-      state.updateMerchantState(
-          createMerchantStatus: CreateMerchantStatus.loading),
+      state.updateMerchantState(createMerchantStatus: CreateMerchantStatus.loading),
     );
     try {
       var result = await UserService.createMerchant(data, isUpdating);
@@ -105,11 +101,9 @@ class MerchantBloc extends Cubit<MerchantState> {
         );
         // show error dialog
       }
-      emit(state.updateMerchantState(
-          createMerchantStatus: CreateMerchantStatus.idle));
+      emit(state.updateMerchantState(createMerchantStatus: CreateMerchantStatus.idle));
     } catch (_) {
-      emit(state.updateMerchantState(
-          createMerchantStatus: CreateMerchantStatus.idle));
+      emit(state.updateMerchantState(createMerchantStatus: CreateMerchantStatus.idle));
     }
   }
 }

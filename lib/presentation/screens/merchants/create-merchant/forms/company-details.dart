@@ -41,10 +41,12 @@ class AddCompanyDetails extends StatelessWidget {
       padding: EdgeInsets.all(3.w),
       child: Form(
         key: this.companyDetailsFormKey,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
+        child: ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+          child: ListView(
+            shrinkWrap: true,
+            //crossAxisAlignment: CrossAxisAlignment.start,
+            // mainAxisSize: MainAxisSize.min,
             children: [
               LabeledInput(
                 label: 'Company name',
@@ -157,6 +159,123 @@ class AddCompanyDetails extends StatelessWidget {
             ],
           ),
         ),
+
+        // child: SingleChildScrollView(
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     mainAxisSize: MainAxisSize.min,
+        //     children: [
+        //       LabeledInput(
+        //         label: 'Company name',
+        //         controller: this.companyNameController!,
+        //         autovalidateMode: AutovalidateMode.onUserInteraction,
+        //         validator: (value) {
+        //           return emptyField(value);
+        //         },
+        //       ),
+        //       space,
+        //       RowOfTwoChildren(
+        //         child1: LabeledInput(
+        //           label: 'Address line 1',
+        //           controller: this.addressLineOneController!,
+        //           autovalidateMode: AutovalidateMode.onUserInteraction,
+        //           validator: (value) {
+        //             return emptyField(value);
+        //           },
+        //         ),
+        //         child2: LabeledInput(
+        //           label: 'Address line 2',
+        //           controller: this.addressLineTwoController!,
+        //           autovalidateMode: AutovalidateMode.onUserInteraction,
+        //         ),
+        //       ),
+        //       space,
+        //       RowOfTwoChildren(
+        //         child1: LabeledInput(
+        //           label: 'Postal code',
+        //           controller: this.postalCodeController!,
+        //           autovalidateMode: AutovalidateMode.onUserInteraction,
+        //           validator: (value) {
+        //             return emptyField(value);
+        //           },
+        //         ),
+        //         child2: LabeledInput(
+        //           label: 'City',
+        //           controller: this.cityController!,
+        //           autovalidateMode: AutovalidateMode.onUserInteraction,
+        //           validator: (value) {
+        //             return emptyField(value);
+        //           },
+        //         ),
+        //       ),
+        //       space,
+        //       RowOfTwoChildren(
+        //         child1: LabeledInput(
+        //           label: 'State',
+        //           controller: this.stateController!,
+        //           autovalidateMode: AutovalidateMode.onUserInteraction,
+        //         ),
+        //         child2: LabeledInput(
+        //           label: 'Country',
+        //           controller: this.countryController!,
+        //           autovalidateMode: AutovalidateMode.onUserInteraction,
+        //           validator: (value) {
+        //             return emptyField(value);
+        //           },
+        //         ),
+        //       ),
+        //       space,
+        //       RowOfTwoChildren(
+        //         child1: LabeledInput(
+        //           label: 'VAT/GST ID',
+        //           controller: this.vatController!,
+        //           autovalidateMode: AutovalidateMode.onUserInteraction,
+        //         ),
+        //         child2: SizedBox(),
+        //       ),
+        //       SizedBox(
+        //         height: 24.h,
+        //       ),
+        //       Text(
+        //         'Main Contact Details',
+        //         style: GoogleFonts.inter(
+        //           fontSize: 14.sp,
+        //           fontWeight: FontWeight.w600,
+        //         ),
+        //       ),
+        //       SizedBox(
+        //         height: 24.h,
+        //       ),
+        //       LabeledInput(
+        //         label: 'Full name',
+        //         controller: this.contactNameController!,
+        //         autovalidateMode: AutovalidateMode.onUserInteraction,
+        //         validator: (value) {
+        //           return emptyField(value);
+        //         },
+        //       ),
+        //       space,
+        //       RowOfTwoChildren(
+        //         child1: LabeledInput(
+        //           label: 'Phone number',
+        //           controller: this.phoneNumberController!,
+        //           autovalidateMode: AutovalidateMode.onUserInteraction,
+        //           validator: (value) {
+        //             return emptyField(value);
+        //           },
+        //         ),
+        //         child2: LabeledInput(
+        //           label: 'Email address',
+        //           controller: this.emailAddressController!,
+        //           autovalidateMode: AutovalidateMode.onUserInteraction,
+        //           validator: (value) {
+        //             return validateEmail(value);
+        //           },
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }

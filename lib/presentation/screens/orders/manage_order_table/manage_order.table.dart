@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,8 +29,7 @@ class ManageOrdersTableScreen extends StatefulWidget {
   final VoidCallback onViewChanged;
 
   @override
-  State<ManageOrdersTableScreen> createState() =>
-      _ManageOrdersTableScreenState();
+  State<ManageOrdersTableScreen> createState() => _ManageOrdersTableScreenState();
 }
 
 class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
@@ -42,12 +43,7 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
   String? viewType;
   int? perPage;
 
-  List<String> showTypes = [
-    'All (50)',
-    'Pickup (32)',
-    'Transit(12)',
-    'Delivery (6)'
-  ];
+  List<String> showTypes = ['All (50)', 'Pickup (32)', 'Transit(12)', 'Delivery (6)'];
   int selectedIndex = 0;
   List<Order> selectedOrders = [];
 
@@ -111,13 +107,11 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 32, vertical: 12),
+                            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                             child: Row(
                               children: [
                                 ...showTypes.map((e) {
-                                  final selected =
-                                      selectedIndex == showTypes.indexOf(e);
+                                  final selected = selectedIndex == showTypes.indexOf(e);
                                   return InkWell(
                                     onTap: () {
                                       if (!selected) {
@@ -129,8 +123,7 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
                                     child: Card(
                                       elevation: 0,
                                       margin: EdgeInsets.zero,
-                                      color:
-                                          selected ? kSecondaryColor : kWhite,
+                                      color: selected ? kSecondaryColor : kWhite,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(6),
                                       ),
@@ -141,13 +134,8 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
                                         ),
                                         child: Text(
                                           e,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2
-                                              ?.copyWith(
-                                                  color: selected
-                                                      ? kPrimaryColor
-                                                      : kText1Color),
+                                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                              color: selected ? kPrimaryColor : kText1Color),
                                         ),
                                       ),
                                     ),
@@ -158,16 +146,12 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
                                   Button(
                                     primary: kWhite,
                                     textColor: kPrimaryColor,
-                                    isLoading:
-                                        orderState.deleteMultipleOrderStatus ==
-                                            DeleteMultipleOrderStatus.loading,
-                                    text:
-                                        "Delete orders ${selectedOrders.length}",
+                                    isLoading: orderState.deleteMultipleOrderStatus ==
+                                        DeleteMultipleOrderStatus.loading,
+                                    text: "Delete orders ${selectedOrders.length}",
                                     onPressed: () async {
                                       await orderBloc.deleteOrders(
-                                          selectedOrders
-                                              .map((Order e) => e.id)
-                                              .toList());
+                                          selectedOrders.map((Order e) => e.id).toList());
                                       setState(() {
                                         selectedOrders = [];
                                       });
@@ -214,16 +198,12 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
                                     children: [
                                       Text(
                                         "${_orders?.length} orders",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
+                                        style: Theme.of(context).textTheme.bodyText1,
                                       ),
                                       Spacer(),
                                       Text(
                                         'Results per page',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
+                                        style: Theme.of(context).textTheme.bodyText2,
                                       ),
                                       Spacings.SMALL_HORIZONTAL,
                                       SizedBox(
@@ -234,15 +214,11 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
                                           items: [10, 20, 50],
                                           onChanged: (v) {
                                             setState(() => perPage = v);
-                                            print(
-                                                OrderService.currentPage.value);
-                                            if (OrderService
-                                                    .currentPage.value !=
-                                                null) {
+                                            print(OrderService.currentPage.value);
+                                            if (OrderService.currentPage.value != null) {
                                               orderBloc.loadOrders(
                                                 OrderFilterParameters(
-                                                  page: OrderService
-                                                      .currentPage.value!,
+                                                  page: OrderService.currentPage.value!,
                                                   limit: v.toString(),
                                                 ),
                                               );
@@ -258,33 +234,24 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
                                       child: DataTable(
                                         checkboxHorizontalMargin: 18.w,
                                         dataRowHeight: 58.h,
-                                        headingRowColor: MaterialStateProperty
-                                            .resolveWith<Color>(
+                                        headingRowColor: MaterialStateProperty.resolveWith<Color>(
                                           (states) {
-                                            if (states.contains(
-                                                MaterialState.selected)) {
-                                              return kSecondaryColor
-                                                  .withOpacity(0.6);
+                                            if (states.contains(MaterialState.selected)) {
+                                              return kSecondaryColor.withOpacity(0.6);
                                             }
                                             return kSecondaryColor;
                                           },
                                         ),
-                                        dataRowColor: MaterialStateProperty
-                                            .resolveWith<Color>(
+                                        dataRowColor: MaterialStateProperty.resolveWith<Color>(
                                           (states) {
-                                            if (states.contains(
-                                                MaterialState.selected)) {
+                                            if (states.contains(MaterialState.selected)) {
                                               return kGrey5Color;
                                             }
                                             return kWhite;
                                           },
                                         ),
-                                        headingTextStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
-                                        dataTextStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
+                                        headingTextStyle: Theme.of(context).textTheme.bodyText2,
+                                        dataTextStyle: Theme.of(context).textTheme.bodyText1,
                                         columnSpacing: 36.w,
                                         horizontalMargin: 12.w,
                                         dividerThickness: 0.4.sp,
@@ -436,6 +403,111 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
           ],
         ],
       ),
+
+      // child: Row(
+      //   crossAxisAlignment: CrossAxisAlignment.start,
+      //   textBaseline: TextBaseline.ideographic,
+      //   children: [
+      //     Text("Orders", style: Theme.of(context).textTheme.headline1),
+      //     Spacings.SMALL_HORIZONTAL,
+      //     SizedBox(
+      //       width: 260,
+      //       child: TextFormField(
+      //         controller: searchController,
+      //         style: Theme.of(context).textTheme.headline5,
+      //         decoration: InputDecoration(
+      //           contentPadding: EdgeInsets.symmetric(
+      //             vertical: 12,
+      //             horizontal: 16,
+      //           ),
+      //           enabledBorder: OutlineInputBorder(
+      //             borderRadius: BorderRadius.circular(6),
+      //             borderSide: const BorderSide(
+      //               color: kWhite,
+      //               width: 0.0,
+      //             ),
+      //           ),
+      //           border: OutlineInputBorder(
+      //             borderRadius: BorderRadius.circular(6),
+      //             borderSide: const BorderSide(
+      //               color: kWhite,
+      //               width: 0.0,
+      //             ),
+      //           ),
+      //           hintText: 'Search by any order parameter',
+      //           hintStyle: Theme.of(context).textTheme.headline5?.copyWith(
+      //                 color: kGrey1Color,
+      //               ),
+      //           prefixIcon: SearchIcon(),
+      //         ),
+      //         onFieldSubmitted: search,
+      //         onSaved: search,
+      //       ),
+      //     ),
+      //     Spacings.SMALL_HORIZONTAL,
+      //     InkWell(
+      //       onTap: () {
+      //         showDialog(
+      //           context: context,
+      //           useRootNavigator: false,
+      //           barrierDismissible: false,
+      //           builder: (context) {
+      //             return OrderFilterMenu();
+      //           },
+      //         );
+      //       },
+      //       child: Container(
+      //         width: 160,
+      //         height: 34,
+      //         padding: EdgeInsets.all(8.0),
+      //         decoration: BoxDecoration(
+      //           color: Colors.white,
+      //           borderRadius: BorderRadius.circular(6),
+      //         ),
+      //         child: Row(
+      //           children: [
+      //             AppIcons.svgAsset(AppIcons.calendar),
+      //             Expanded(child: SizedBox()),
+      //           ],
+      //         ),
+      //       ),
+      //     ),
+      //     Spacings.SMALL_HORIZONTAL,
+      //     SizedBox(
+      //       width: 160,
+      //       child: DecoratedDropdown<String>(
+      //         value: viewType,
+      //         icon: AppIcons.svgAsset(AppIcons.columns),
+      //         items: ['Columns', 'Rows'],
+      //         onChanged: (v) {
+      //           setState(() => viewType = v);
+      //         },
+      //       ),
+      //     ),
+      //     Spacer(),
+      //     OutlinedButton(
+      //       style: OutlinedButton.styleFrom(
+      //         shape: RoundedRectangleBorder(
+      //           borderRadius: BorderRadius.circular(6),
+      //           side: BorderSide(color: kBlack, width: 1),
+      //         ),
+      //       ),
+      //       child: Text(
+      //         "Map view",
+      //         style: Theme.of(context).textTheme.bodyText2,
+      //       ),
+      //       onPressed: widget.onViewChanged,
+      //     ),
+      //     if (AppService.hasPermission(PermissionType.CREATE_ORDER)) ...[
+      //       Spacings.SMALL_HORIZONTAL,
+      //       Button(
+      //           primary: Theme.of(context).primaryColor,
+      //           text: "Add new order",
+      //           textColor: kWhite,
+      //           onPressed: () => addNewOrderTapped(context)),
+      //     ],
+      //   ],
+      // ),
     );
   }
 
@@ -454,8 +526,7 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
     return orders?.map((order) {
       return DataRow(
         selected: selectedOrders.contains(order), // <- check if order selected
-        color: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
+        color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           if (states.contains(MaterialState.selected)) {
             return kPrimaryColor.withOpacity(0.08);
           }
@@ -476,20 +547,13 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
         cells: <DataCell>[
           DataCell(Text("${order.orderReference?.merchantOrderNumber}"),
               onTap: () => openEndDrawer(order)),
-          DataCell(Text("${order.merchant?.companyName}"),
-              onTap: () => openEndDrawer(order)),
-          DataCell(Text("${order.allowWeekendDelivery}"),
-              onTap: () => openEndDrawer(order)),
-          DataCell(Text("${order.cashOnDeliveryAmount}"),
-              onTap: () => openEndDrawer(order)),
-          DataCell(Text("${order.cashOnDeliveryCurrency}"),
-              onTap: () => openEndDrawer(order)),
-          DataCell(Text("${order.cashOnDeliveryRequested}"),
-              onTap: () => openEndDrawer(order)),
-          DataCell(Text("${order.createdAt}"),
-              onTap: () => openEndDrawer(order)),
-          DataCell(statusBall(order.status, false),
-              onTap: () => openEndDrawer(order)),
+          DataCell(Text("${order.merchant?.companyName}"), onTap: () => openEndDrawer(order)),
+          DataCell(Text("${order.allowWeekendDelivery}"), onTap: () => openEndDrawer(order)),
+          DataCell(Text("${order.cashOnDeliveryAmount}"), onTap: () => openEndDrawer(order)),
+          DataCell(Text("${order.cashOnDeliveryCurrency}"), onTap: () => openEndDrawer(order)),
+          DataCell(Text("${order.cashOnDeliveryRequested}"), onTap: () => openEndDrawer(order)),
+          DataCell(Text("${order.createdAt}"), onTap: () => openEndDrawer(order)),
+          DataCell(statusBall(order.status, false), onTap: () => openEndDrawer(order)),
         ],
       );
     }).toList();
@@ -575,19 +639,24 @@ class DecoratedDropdown<T> extends StatelessWidget {
             prefixIcon: icon == null
                 ? icon
                 : Padding(
-                    padding: EdgeInsets.fromLTRB(0, 8, 8, 8),
+                    padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
                     child: icon,
                   ),
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<T>(
               value: value,
+              isExpanded: true,
               items: items.map<DropdownMenuItem<T>>((e) {
                 return DropdownMenuItem<T>(
                   value: e,
-                  child: Text(
-                    '$e',
-                    style: Theme.of(context).textTheme.bodyText1,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      '$e',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
                   ),
                 );
               }).toList(),

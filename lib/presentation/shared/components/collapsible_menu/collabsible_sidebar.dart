@@ -34,12 +34,7 @@ class _CollapsibleSideBarState extends State<CollapsibleSideBar>
   late LoginBloc loginBloc;
   late AuthBloc authBloc;
 
-  late double _currWidth,
-      _delta,
-      _delta1By4,
-      _delta3by4,
-      _maxOffsetX,
-      _maxOffsetY;
+  late double _currWidth, _delta, _delta1By4, _delta3by4, _maxOffsetX, _maxOffsetY;
 
   late int _selectedItemIndex;
   late bool _isCollapsed;
@@ -84,8 +79,7 @@ class _CollapsibleSideBarState extends State<CollapsibleSideBar>
     return BlocBuilder<IndexCubit, int>(
       builder: (context, indexState) {
         final lastIndex = widget.items.length - 1;
-        final allItemsExceptSettings =
-            widget.items.sublist(0, widget.items.length - 1);
+        final allItemsExceptSettings = widget.items.sublist(0, widget.items.length - 1);
         final settingsSelected = indexState == lastIndex;
 
         return BlocConsumer<AuthBloc, AuthState>(
@@ -110,11 +104,11 @@ class _CollapsibleSideBarState extends State<CollapsibleSideBar>
                           : _expandedHeader(context, authState),
                     ),
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: ListView(
+                        //crossAxisAlignment: CrossAxisAlignment.start,
+                        shrinkWrap: true,
                         children: [
-                          ...List.generate(allItemsExceptSettings.length,
-                              (index) {
+                          ...List.generate(allItemsExceptSettings.length, (index) {
                             final item = allItemsExceptSettings[index];
                             var sideBarItemColor = kGrey1Color;
                             if (index == indexState) {
@@ -132,10 +126,7 @@ class _CollapsibleSideBarState extends State<CollapsibleSideBar>
                                 item.text,
                                 softWrap: false,
                                 overflow: TextOverflow.fade,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline2
-                                    ?.copyWith(
+                                style: Theme.of(context).textTheme.headline2?.copyWith(
                                       color: sideBarItemColor,
                                     ),
                               ),
@@ -144,29 +135,22 @@ class _CollapsibleSideBarState extends State<CollapsibleSideBar>
                               },
                             );
                           }),
-                          Spacer(),
+                          // Spacer(),
                           // Settings
                           CollapsibleItemWidget(
                             offsetX: _offsetX,
                             scale: _fraction,
                             leading: AppIcons.svgAsset(
                               widget.items.last.icon,
-                              color: settingsSelected
-                                  ? kPrimaryColor
-                                  : kGrey1Color,
+                              color: settingsSelected ? kPrimaryColor : kGrey1Color,
                             ),
                             tooltip: "Settings",
                             title: Text(
                               widget.items.last.text,
                               softWrap: false,
                               overflow: TextOverflow.fade,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline2
-                                  ?.copyWith(
-                                    color: settingsSelected
-                                        ? kPrimaryColor
-                                        : kGrey1Color,
+                              style: Theme.of(context).textTheme.headline2?.copyWith(
+                                    color: settingsSelected ? kPrimaryColor : kGrey1Color,
                                   ),
                             ),
                             onTap: () {
@@ -253,13 +237,11 @@ class _CollapsibleSideBarState extends State<CollapsibleSideBar>
             elevation: 0,
             color: kSecondaryColor,
             margin: EdgeInsets.only(top: 16, bottom: 8),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
             child: ExpansionTile(
               leading: authState.identity?.photoUrl != null
                   ? CircleAvatar(
-                      backgroundImage:
-                          NetworkImage(authState.identity!.photoUrl!),
+                      backgroundImage: NetworkImage(authState.identity!.photoUrl!),
                     )
                   : CircleAvatar(),
               title: Text(
@@ -313,9 +295,7 @@ class _CollapsibleSideBarState extends State<CollapsibleSideBar>
       setState(() => _isCollapsed = true);
     else {
       var threshold = _isCollapsed ? _delta1By4 : _delta3by4;
-      var endWidth = _currWidth - widget.minWidth > threshold
-          ? tempWidth
-          : widget.minWidth;
+      var endWidth = _currWidth - widget.minWidth > threshold ? tempWidth : widget.minWidth;
       _animateTo(endWidth);
     }
   }

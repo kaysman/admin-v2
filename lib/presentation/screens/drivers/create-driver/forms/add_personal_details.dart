@@ -120,6 +120,7 @@ class AddPersonalDetails extends StatelessWidget {
                 child1: LabeledInput(
                   label: 'Phone Number',
                   hintText: '+65 ',
+                  keyboardType: TextInputType.phone,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: this.phoneController!,
                   validator: (value) {

@@ -25,8 +25,7 @@ class CreateMerchant extends StatefulWidget {
   _CreateMerchantState createState() => _CreateMerchantState();
 }
 
-class _CreateMerchantState extends State<CreateMerchant>
-    with SingleTickerProviderStateMixin {
+class _CreateMerchantState extends State<CreateMerchant> with SingleTickerProviderStateMixin {
   // Personal details
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
@@ -103,12 +102,9 @@ class _CreateMerchantState extends State<CreateMerchant>
       _phoneController.text = merchant?.phoneNumber ?? '';
 
       _companyNameController.text = merchant?.merchant?.companyName ?? '';
-      _addressLineOneController.text =
-          merchant?.merchant?.address?.addressLineOne ?? '';
-      _addressLineTwoController.text =
-          merchant?.merchant?.address?.addressLineTwo ?? '';
-      _postalCodeController.text =
-          merchant?.merchant?.address?.postalCode ?? '';
+      _addressLineOneController.text = merchant?.merchant?.address?.addressLineOne ?? '';
+      _addressLineTwoController.text = merchant?.merchant?.address?.addressLineTwo ?? '';
+      _postalCodeController.text = merchant?.merchant?.address?.postalCode ?? '';
       _cityController.text = merchant?.merchant?.address?.city ?? '';
       _stateController.text = merchant?.merchant?.address?.state ?? '';
       _countryController.text = merchant?.merchant?.address?.country ?? '';
@@ -144,8 +140,7 @@ class _CreateMerchantState extends State<CreateMerchant>
                 ),
                 SizedBox(height: 24.h),
                 AbsorbPointer(
-                  absorbing: state.createMerchantStatus ==
-                      CreateMerchantStatus.loading,
+                  absorbing: state.createMerchantStatus == CreateMerchantStatus.loading,
                   child: TabViewedContainer(
                     tabIndex: tabIndex,
                     controller: _tabController,
@@ -183,10 +178,8 @@ class _CreateMerchantState extends State<CreateMerchant>
                         emailAddressController: _emailAddressController,
                       ),
                       AddTrackingDetails(
-                        trackingEmailAddressController:
-                            _trackingEmailAddressController,
-                        trackingPhoneNumberController:
-                            _trackingPhoneNumberController,
+                        trackingEmailAddressController: _trackingEmailAddressController,
+                        trackingPhoneNumberController: _trackingPhoneNumberController,
                         trackingDetailsFormKey: _trackingDetailsFormKey,
                       )
                     ],
@@ -211,8 +204,7 @@ class _CreateMerchantState extends State<CreateMerchant>
                                       ? 'Update'
                                       : 'Save'
                                   : 'Next',
-                              isLoading: state.createMerchantStatus ==
-                                  CreateMerchantStatus.loading,
+                              isLoading: state.createMerchantStatus == CreateMerchantStatus.loading,
                               hasBorder: true,
                               textColor: kGrey1Color,
                               onPressed: () => gotoTab('+', merchant != null),
@@ -275,8 +267,8 @@ class _CreateMerchantState extends State<CreateMerchant>
     }
   }
 
-  submitForm(MerchantBloc merchantBloc, FilePickerResult? selectedImage,
-      BuildContext context, bool isUpdating) async {
+  submitForm(MerchantBloc merchantBloc, FilePickerResult? selectedImage, BuildContext context,
+      bool isUpdating) async {
     Address _address = Address(
       addressLineOne: _addressLineOneController.text,
       addressLineTwo: _addressLineTwoController.text,

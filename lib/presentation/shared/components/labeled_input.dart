@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lng_adminapp/presentation/shared/colors.dart';
 
@@ -22,6 +23,8 @@ class LabeledInput extends StatelessWidget {
     this.autovalidateMode,
     this.isEnabled,
     this.maxLine = 1,
+    this.inputFormatters,
+    this.keyboardType,
   }) : super(key: key);
 
   final String label;
@@ -35,7 +38,8 @@ class LabeledInput extends StatelessWidget {
   final FormFieldSetter<String>? onSubmitted;
   final AutovalidateMode? autovalidateMode;
   final int maxLine;
-
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? keyboardType;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,50 +49,55 @@ class LabeledInput extends StatelessWidget {
         SizedBox(
           height: 8.h,
         ),
-        SizedBox(
-          // height: maxLine != 1 ? null : 38.0,
-          child: TextFormField(
-            controller: controller,
-            style: Theme.of(context).textTheme.bodyText1,
-            enabled: isEnabled ?? true,
-            decoration: InputDecoration(
-              counterText: '',
-              contentPadding: const EdgeInsets.only(left: 8, right: 8),
-              filled: false,
-              disabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: kGrey3Color),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: kPrimaryColor,
-                  width: 1.5,
-                ),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: kFailedColor,
-                  width: 1.5,
-                ),
-              ),
-              border: OutlineInputBorder(),
-              enabled: isEnabled ?? false,
-              hintText: hintText,
-              suffixIcon: suffixIcon != null
-                  ? Padding(
-                      padding: EdgeInsets.all(6.w),
-                      child: suffixIcon,
-                    )
-                  : null,
+        //SizedBox(
+        // height: maxLine != 1 ? null : 38.0,
+        //child:
+        TextFormField(
+          controller: controller,
+          keyboardType: keyboardType ?? TextInputType.text,
+          inputFormatters: inputFormatters ?? [],
+          style: Theme.of(context).textTheme.bodyText1,
+          enabled: isEnabled ?? true,
+          decoration: InputDecoration(
+            counterText: '',
+            helperText: '',
+            contentPadding: const EdgeInsets.only(left: 8, right: 8),
+            filled: false,
+            isDense: false,
+            disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: kGrey3Color),
             ),
-            minLines: maxLine,
-            maxLines: maxLine,
-            onTap: onTap,
-            onSaved: saved,
-            onFieldSubmitted: onSubmitted,
-            validator: validator,
-            autovalidateMode: autovalidateMode,
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: kPrimaryColor,
+                width: 1.5,
+              ),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: kFailedColor,
+                width: 1.5,
+              ),
+            ),
+            border: OutlineInputBorder(),
+            enabled: isEnabled ?? false,
+            hintText: hintText,
+            suffixIcon: suffixIcon != null
+                ? Padding(
+                    padding: EdgeInsets.all(6.w),
+                    child: suffixIcon,
+                  )
+                : null,
           ),
+          minLines: maxLine,
+          maxLines: maxLine,
+          onTap: onTap,
+          onSaved: saved,
+          onFieldSubmitted: onSubmitted,
+          validator: validator,
+          autovalidateMode: autovalidateMode,
         ),
+        // ),
       ],
     );
   }
