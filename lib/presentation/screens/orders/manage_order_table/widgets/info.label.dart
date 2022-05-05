@@ -19,6 +19,7 @@ class InfoWithLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
           label,
@@ -37,7 +38,7 @@ class InfoWithLabel extends StatelessWidget {
                   decoration: InputDecoration(
                     counterText: '',
                     contentPadding: const EdgeInsets.only(
-                      left: 12,
+                      left: 0, //12,
                       right: 8,
                       bottom: 12,
                     ),
@@ -83,7 +84,7 @@ class InfoWithLabel extends StatelessWidget {
                 )
               : Container(
                   padding: const EdgeInsets.only(
-                    left: 12,
+                    left: 0, //12,
                     right: 8,
                     bottom: 12,
                   ),

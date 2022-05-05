@@ -62,20 +62,13 @@ class _OrderDetailsState extends State<OrderDetails> {
   void initState() {
     // TODO
     generatedIDController.text = replaceStringWithDash(widget.order.id);
-    tenantNameController.text =
-        replaceStringWithDash(widget.order.tenant?.name);
-    orderCreatedByController.text =
-        replaceStringWithDash(widget.order.createdBy?.fullname);
-    merchantNameController.text =
-        replaceStringWithDash(widget.order.merchant?.contactName);
-    barcodeController.text =
-        replaceStringWithDash(widget.order.barcodeAndTrackingNumber);
-    shippingUrlController.text =
-        replaceStringWithDash(widget.order.shippingLabelUrl);
-    trackingUrlController.text =
-        replaceStringWithDash(widget.order.trackingUrl);
-    workflowNameController.text =
-        replaceStringWithDash(widget.order.workflowEntity?.name);
+    tenantNameController.text = replaceStringWithDash(widget.order.tenant?.name);
+    orderCreatedByController.text = replaceStringWithDash(widget.order.createdBy?.fullname);
+    merchantNameController.text = replaceStringWithDash(widget.order.merchant?.contactName);
+    barcodeController.text = replaceStringWithDash(widget.order.barcodeAndTrackingNumber);
+    shippingUrlController.text = replaceStringWithDash(widget.order.shippingLabelUrl);
+    trackingUrlController.text = replaceStringWithDash(widget.order.trackingUrl);
+    workflowNameController.text = replaceStringWithDash(widget.order.workflowEntity?.name);
     orderStatus = widget.order.status;
     serviceType = widget.order.serviceType;
     serviceLevel = widget.order.serviceLevel;
@@ -83,34 +76,23 @@ class _OrderDetailsState extends State<OrderDetails> {
         replaceStringWithDash(widget.order.orderReference?.merchantOrderNumber);
     otherMerchantDetailsController.text =
         replaceStringWithDash(widget.order.orderReference?.others);
-    uploadDate =
-        DateTime.tryParse(widget.order.deliveryDateBasedOnUpload ?? '');
-    pickupDate =
-        DateTime.tryParse(widget.order.deliveryDateBasedOnPickUp ?? '');
+    uploadDate = DateTime.tryParse(widget.order.deliveryDateBasedOnUpload ?? '');
+    pickupDate = DateTime.tryParse(widget.order.deliveryDateBasedOnPickUp ?? '');
     weekendDelivery = widget.order.allowWeekendDelivery;
     pickupRequested = widget.order.pickUpRequested;
     pickupIDController.text = replaceStringWithDash(widget.order.pickUpId);
     if (widget.order.requestedDeliveryTimeSlotStart != null &&
         widget.order.requestedDeliveryTimeSlotEnd != null)
       timeslotRange = DateTimeRange(
-          start:
-              DateTime.tryParse(widget.order.requestedDeliveryTimeSlotStart!) ??
-                  DateTime.now(),
-          end: DateTime.tryParse(widget.order.requestedDeliveryTimeSlotEnd!) ??
-              DateTime.now());
-    timeslotStart =
-        DateTime.tryParse(widget.order.requestedDeliveryTimeSlotStart ?? '');
-    timeslotEnd =
-        DateTime.tryParse(widget.order.requestedDeliveryTimeSlotEnd ?? '');
+          start: DateTime.tryParse(widget.order.requestedDeliveryTimeSlotStart!) ?? DateTime.now(),
+          end: DateTime.tryParse(widget.order.requestedDeliveryTimeSlotEnd!) ?? DateTime.now());
+    timeslotStart = DateTime.tryParse(widget.order.requestedDeliveryTimeSlotStart ?? '');
+    timeslotEnd = DateTime.tryParse(widget.order.requestedDeliveryTimeSlotEnd ?? '');
     codRequested = widget.order.cashOnDeliveryRequested;
-    codAmountController.text =
-        replaceStringWithDash(widget.order.cashOnDeliveryAmount?.toString());
-    codCurrencyController.text =
-        replaceStringWithDash(widget.order.cashOnDeliveryCurrency);
-    insuredAmountController.text =
-        replaceStringWithDash(widget.order.insuredAmount?.toString());
-    insuredCurrencyController.text =
-        replaceStringWithDash(widget.order.insuredAmountCurrency);
+    codAmountController.text = replaceStringWithDash(widget.order.cashOnDeliveryAmount?.toString());
+    codCurrencyController.text = replaceStringWithDash(widget.order.cashOnDeliveryCurrency);
+    insuredAmountController.text = replaceStringWithDash(widget.order.insuredAmount?.toString());
+    insuredCurrencyController.text = replaceStringWithDash(widget.order.insuredAmountCurrency);
     createdAt = widget.order.createdAt;
     updatedAt = widget.order.updatedAt;
 
@@ -201,6 +183,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       InfoWithLabel(
                         controller: generatedIDController,
@@ -508,16 +491,14 @@ class _OrderDetailsState extends State<OrderDetails> {
                   textColor: kWhite,
                   hasBorder: false,
                   primary: kPrimaryColor,
-                  isLoading: state.updateSingleOrderStatus ==
-                      UpdateSingleOrderStatus.loading,
+                  isLoading: state.updateSingleOrderStatus == UpdateSingleOrderStatus.loading,
                   onPressed: () async {
                     await submitOrderDetailsForm();
                   },
                 ),
               ],
             ),
-          if (AppService.hasPermission(PermissionType.UPDATE_ORDER))
-            SizedBox(height: 32.h),
+          if (AppService.hasPermission(PermissionType.UPDATE_ORDER)) SizedBox(height: 32.h),
         ],
       ),
     );
@@ -531,10 +512,7 @@ class _OrderDetailsState extends State<OrderDetails> {
           padding: EdgeInsets.only(left: 24.w, right: 24.w),
           child: Text(
             'Order history',
-            style: Theme.of(context)
-                .textTheme
-                .headline5!
-                .copyWith(fontWeight: FontWeight.w600),
+            style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.w600),
           ),
         ),
         SizedBox(height: 24.h),
@@ -580,18 +558,16 @@ class _OrderDetailsState extends State<OrderDetails> {
                         children: [
                           Text(
                             'Picked up by Mike',
-                            style:
-                                Theme.of(context).textTheme.headline5!.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                            style: Theme.of(context).textTheme.headline5!.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
                           ),
                           SizedBox(height: 4.h),
                           Text(
                             '12:30',
-                            style:
-                                Theme.of(context).textTheme.bodyText1!.copyWith(
-                                      color: kGrey1Color,
-                                    ),
+                            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                                  color: kGrey1Color,
+                                ),
                           )
                         ],
                       ),
@@ -631,12 +607,9 @@ class _OrderDetailsState extends State<OrderDetails> {
 
     UpdateSingleOrderModel _data = UpdateSingleOrderModel(
       orderId: widget.order.id,
-      barcodeAndTrackingNumber:
-          checkIfChangedAndReturn(this.barcode, barcodeController.text),
-      shippingLabelUrl:
-          checkIfChangedAndReturn(this.shippingUrl, shippingUrlController.text),
-      trackingUrl:
-          checkIfChangedAndReturn(this.trackingUrl, trackingUrlController.text),
+      barcodeAndTrackingNumber: checkIfChangedAndReturn(this.barcode, barcodeController.text),
+      shippingLabelUrl: checkIfChangedAndReturn(this.shippingUrl, shippingUrlController.text),
+      trackingUrl: checkIfChangedAndReturn(this.trackingUrl, trackingUrlController.text),
       status: checkIfChangedAndReturn(this.status, status),
       serviceType: checkIfChangedAndReturn(this.getServiceType, serviceType),
       serviceLevel: checkIfChangedAndReturn(this.getServiceLevel, serviceLevel),
@@ -647,23 +620,19 @@ class _OrderDetailsState extends State<OrderDetails> {
           checkIfChangedAndReturn(this.deliveryDateBasedOnUpload, uploadDate),
       deliveryDateBasedOnPickUp:
           checkIfChangedAndReturn(this.deliveryDateBasedOnPickUp, pickupDate),
-      allowWeekendDelivery:
-          checkIfChangedAndReturn(this.allowWeekendDelivery, weekendDelivery),
-      pickUpRequested:
-          checkIfChangedAndReturn(this.pickUpRequested, pickupRequested),
+      allowWeekendDelivery: checkIfChangedAndReturn(this.allowWeekendDelivery, weekendDelivery),
+      pickUpRequested: checkIfChangedAndReturn(this.pickUpRequested, pickupRequested),
       pickUpId: null,
       requestedDeliveryTimeSlotType: null,
       requestedDeliveryTimeSlotStart: null,
-      cashOnDeliveryAmount: checkIfChangedAndReturn(
-          this.cashOnDeliveryAmount, codAmountController.text),
-      cashOnDeliveryCurrency: checkIfChangedAndReturn(
-          this.cashOnDeliveryCurrency, codCurrencyController.text),
-      cashOnDeliveryRequested:
-          checkIfChangedAndReturn(this.cashOnDeliveryRequested, codRequested),
-      insuredAmount: checkIfChangedAndReturn(
-          this.insuredAmount, insuredAmountController.text),
-      insuredAmountCurrency: checkIfChangedAndReturn(
-          this.insuredCurrency, insuredAmountController.text),
+      cashOnDeliveryAmount:
+          checkIfChangedAndReturn(this.cashOnDeliveryAmount, codAmountController.text),
+      cashOnDeliveryCurrency:
+          checkIfChangedAndReturn(this.cashOnDeliveryCurrency, codCurrencyController.text),
+      cashOnDeliveryRequested: checkIfChangedAndReturn(this.cashOnDeliveryRequested, codRequested),
+      insuredAmount: checkIfChangedAndReturn(this.insuredAmount, insuredAmountController.text),
+      insuredAmountCurrency:
+          checkIfChangedAndReturn(this.insuredCurrency, insuredAmountController.text),
       workflowId: null,
     );
 

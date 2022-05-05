@@ -20,11 +20,7 @@ class _OrderStatusEndDrawerState extends State<OrderStatusEndDrawer>
     with SingleTickerProviderStateMixin {
   final Order? selectedOrder = OrderService.selectedOrder.value;
   late TabController tabController;
-  List<String> tabNames = [
-    "Order details",
-    "Pickup details",
-    "Delivery details"
-  ];
+  List<String> tabNames = ["Order details", "Pickup details", "Delivery details"];
 
   @override
   void initState() {
@@ -115,7 +111,9 @@ class _OrderStatusEndDrawerState extends State<OrderStatusEndDrawer>
       child: Row(
         children: [
           Expanded(
+            flex: 1,
             child: Container(
+              width: 200,
               padding: EdgeInsets.symmetric(
                 vertical: 8,
               ),
@@ -125,11 +123,13 @@ class _OrderStatusEndDrawerState extends State<OrderStatusEndDrawer>
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.message, color: kWhite),
                   SizedBox(width: 8),
                   Text(
                     "Whatsapp receiver",
+                    overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.headline3!.copyWith(
                           color: kWhite,
                           fontWeight: FontWeight.bold,
@@ -141,7 +141,9 @@ class _OrderStatusEndDrawerState extends State<OrderStatusEndDrawer>
           ),
           SizedBox(width: 24),
           Expanded(
+            flex: 1,
             child: Container(
+              width: 200,
               padding: EdgeInsets.symmetric(
                 vertical: 8,
               ),
@@ -151,11 +153,13 @@ class _OrderStatusEndDrawerState extends State<OrderStatusEndDrawer>
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.message, color: kBlack),
                   SizedBox(width: 8),
                   Text(
                     "Email receiver",
+                    overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.headline3!.copyWith(
                           color: kBlack,
                           fontWeight: FontWeight.bold,

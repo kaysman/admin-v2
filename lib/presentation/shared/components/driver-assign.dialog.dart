@@ -107,8 +107,7 @@ class _DriverAssigningDialogState extends State<DriverAssigningDialog> {
               taskTypeValue: taskType,
             ),
             BlocBuilder<LocationBloc, LocationState>(builder: (context, state) {
-              var showLoading =
-                  state.listLocationStatus == ListLocationStatus.loading;
+              var showLoading = state.listLocationStatus == ListLocationStatus.loading;
 
               return _PickupDetails(
                 loadingLocations: showLoading,
@@ -139,10 +138,8 @@ class _DriverAssigningDialogState extends State<DriverAssigningDialog> {
               );
             }),
             if (taskType != TaskRelatedWorkflowSteps.ON_VEHICLE_FOR_DELIVERY)
-              BlocBuilder<LocationBloc, LocationState>(
-                  builder: (context, state) {
-                var showLoading =
-                    state.listLocationStatus == ListLocationStatus.loading;
+              BlocBuilder<LocationBloc, LocationState>(builder: (context, state) {
+                var showLoading = state.listLocationStatus == ListLocationStatus.loading;
 
                 return _DropoffDetails(
                   loadingLocations: showLoading,
@@ -181,8 +178,7 @@ class _DriverAssigningDialogState extends State<DriverAssigningDialog> {
                 onDriverValueChanged: (v) {
                   _setState(() => _selectedDriverId = v);
                 },
-                isDriversBeingFetched:
-                    state.listDriverStatus == ListDriverStatus.loading,
+                isDriversBeingFetched: state.listDriverStatus == ListDriverStatus.loading,
                 drivers: state.drivers?.items ?? [],
                 isAssignLoading: assignLoading,
               );
@@ -207,35 +203,31 @@ class _DriverAssigningDialogState extends State<DriverAssigningDialog> {
       ContactDetail senderContactDetail = ContactDetail();
       ContactDetail receiverContactDetail = ContactDetail();
 
-      AddressWithOtherContactDetails? senderCustomAddress =
-          isPickupCustomAddress
-              ? AddressWithOtherContactDetails(
-                  typeOfContactForAddress: TypeOfContactForAddress.SENDER,
-                  addressLineOne: pickupAddress1Controller.text,
-                  addressLineTwo: notNullOrEmpty(pickupAddress2Controller.text),
-                  postalCode: notNullOrEmpty(pickupPostalController.text),
-                  city: notNullOrEmpty(pickupCityController.text),
-                  country: notNullOrEmpty(pickupCountryController.text),
-                  specificTypeOfLocation: SpecificTypeOfLocation.SENDER_ADDRESS,
-                  otherContactDetail: senderContactDetail,
-                )
-              : null;
+      AddressWithOtherContactDetails? senderCustomAddress = isPickupCustomAddress
+          ? AddressWithOtherContactDetails(
+              typeOfContactForAddress: TypeOfContactForAddress.SENDER,
+              addressLineOne: pickupAddress1Controller.text,
+              addressLineTwo: notNullOrEmpty(pickupAddress2Controller.text),
+              postalCode: notNullOrEmpty(pickupPostalController.text),
+              city: notNullOrEmpty(pickupCityController.text),
+              country: notNullOrEmpty(pickupCountryController.text),
+              specificTypeOfLocation: SpecificTypeOfLocation.SENDER_ADDRESS,
+              otherContactDetail: senderContactDetail,
+            )
+          : null;
 
-      AddressWithOtherContactDetails? receiverCustomAddress =
-          isdropoffCustomAddress
-              ? AddressWithOtherContactDetails(
-                  typeOfContactForAddress: TypeOfContactForAddress.RECEIVER,
-                  addressLineOne: dropoffAddress1Controller.text,
-                  addressLineTwo:
-                      notNullOrEmpty(dropoffAddress2Controller.text),
-                  postalCode: notNullOrEmpty(dropoffPostalController.text),
-                  city: notNullOrEmpty(dropoffCityController.text),
-                  country: notNullOrEmpty(dropoffCountryController.text),
-                  specificTypeOfLocation:
-                      SpecificTypeOfLocation.RECEIVER_ADDRESS,
-                  otherContactDetail: receiverContactDetail,
-                )
-              : null;
+      AddressWithOtherContactDetails? receiverCustomAddress = isdropoffCustomAddress
+          ? AddressWithOtherContactDetails(
+              typeOfContactForAddress: TypeOfContactForAddress.RECEIVER,
+              addressLineOne: dropoffAddress1Controller.text,
+              addressLineTwo: notNullOrEmpty(dropoffAddress2Controller.text),
+              postalCode: notNullOrEmpty(dropoffPostalController.text),
+              city: notNullOrEmpty(dropoffCityController.text),
+              country: notNullOrEmpty(dropoffCountryController.text),
+              specificTypeOfLocation: SpecificTypeOfLocation.RECEIVER_ADDRESS,
+              otherContactDetail: receiverContactDetail,
+            )
+          : null;
 
       CreateTaskEntity taskEntity = () {
         switch (taskType) {
@@ -244,16 +236,14 @@ class _DriverAssigningDialogState extends State<DriverAssigningDialog> {
               relationToWhichSpecificTaskRelatedStatus: taskType!,
               startTimeForPickUp: _pickupTime!,
               endTimeForPickUp: _pickupCloseTime!,
-              genericTypeOfAddressForPickUp:
-                  GenericTypeOfLocation.TENANT_WAREHOUSE,
+              genericTypeOfAddressForPickUp: GenericTypeOfLocation.TENANT_WAREHOUSE,
               addressIdIfExistingForPickUp: _pickupWarehouseId,
               addressAndContactIfNewForPickUp: senderCustomAddress,
               orderIds: widget.selectedOrders.map((e) => e.id).toList(),
               driverId: _selectedDriverId!,
             );
 
-          case TaskRelatedWorkflowSteps
-              .ON_VEHICLE_TO_DISPATCH_POINT_FOR_DELIVERY_DISPATCH:
+          case TaskRelatedWorkflowSteps.ON_VEHICLE_TO_DISPATCH_POINT_FOR_DELIVERY_DISPATCH:
           case TaskRelatedWorkflowSteps.ON_VEHICLE_TO_WAREHOUSE_FOR_SORTING:
           default:
             return CreateTaskEntity(
@@ -261,13 +251,11 @@ class _DriverAssigningDialogState extends State<DriverAssigningDialog> {
               startTimeForPickUp: _pickupTime!,
               endTimeForPickUp: _pickupCloseTime!,
               addressIdIfExistingForPickUp: _pickupWarehouseId,
-              genericTypeOfAddressForPickUp:
-                  GenericTypeOfLocation.TENANT_WAREHOUSE,
+              genericTypeOfAddressForPickUp: GenericTypeOfLocation.TENANT_WAREHOUSE,
               addressAndContactIfNewForPickUp: senderCustomAddress,
               startTimeForDropOff: _dropoffTime,
               endTimeForDropOff: _dropoffCloseTime,
-              genericTypeOfAddressForDropOff:
-                  GenericTypeOfLocation.RECEIVER_ADDRESS,
+              genericTypeOfAddressForDropOff: GenericTypeOfLocation.RECEIVER_ADDRESS,
               addressIdIfExistingForDropOff: _dropoffLocationId,
               addressAndContactIfNewForDropOff: receiverCustomAddress,
               orderIds: widget.selectedOrders.map((e) => e.id).toList(),
@@ -279,10 +267,8 @@ class _DriverAssigningDialogState extends State<DriverAssigningDialog> {
       try {
         var res = await OrderService.assignDriver(taskEntity);
         if (res) {
-          showSnackBar(
-              context, Text("Task created and assigned successfully."));
-          Navigator.pushNamedAndRemoveUntil(
-              context, IndexScreen.routeName, (route) => false);
+          showSnackBar(context, Text("Task created and assigned successfully."));
+          Navigator.pushNamedAndRemoveUntil(context, IndexScreen.routeName, (route) => false);
         }
       } catch (_) {
       } finally {
@@ -327,10 +313,7 @@ class _TaskType extends StatelessWidget {
             ),
             Text(
               "1/4",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2
-                  ?.copyWith(color: kText2Color),
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(color: kText2Color),
             ),
           ],
         ),
@@ -339,6 +322,8 @@ class _TaskType extends StatelessWidget {
         SizedBox(height: 8),
         DropdownButtonHideUnderline(
           child: DropdownButtonFormField<TaskRelatedWorkflowSteps>(
+            isExpanded: true,
+            isDense: false,
             items: TaskRelatedWorkflowSteps.values
                 .map((e) => DropdownMenuItem<TaskRelatedWorkflowSteps>(
                       value: e,
@@ -356,8 +341,7 @@ class _TaskType extends StatelessWidget {
           text: "Next",
           onPressed: () {
             pageController.nextPage(
-                duration: const Duration(milliseconds: 250),
-                curve: Curves.decelerate);
+                duration: const Duration(milliseconds: 250), curve: Curves.decelerate);
           },
         ),
       ],
@@ -429,10 +413,7 @@ class _PickupDetails extends StatelessWidget {
               ),
               Text(
                 "2/4",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2
-                    ?.copyWith(color: kText2Color),
+                style: Theme.of(context).textTheme.bodyText2?.copyWith(color: kText2Color),
               ),
             ],
           ),
@@ -458,8 +439,14 @@ class _PickupDetails extends StatelessWidget {
               DropdownButtonHideUnderline(
                   child: DropdownButtonFormField<String>(
                 value: locationId,
+                style: TextStyle(color: Color(0xFF000000)),
+                hint: Text(
+                  "Address",
+                  style: TextStyle(fontSize: 14),
+                ),
                 onChanged: onLocationValueChanged,
                 isExpanded: true,
+                isDense: false,
                 items: locations
                     .map((e) => DropdownMenuItem<String>(
                           value: e.address?.id ?? e.id,
@@ -611,10 +598,7 @@ class _DropoffDetails extends StatelessWidget {
             ),
             Text(
               "3/4",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2
-                  ?.copyWith(color: kText2Color),
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(color: kText2Color),
             ),
           ],
         ),
@@ -771,16 +755,12 @@ class _AssignDriver extends StatelessWidget {
             ),
             Text(
               "4/4",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2
-                  ?.copyWith(color: kText2Color),
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(color: kText2Color),
             ),
           ],
         ),
         SizedBox(height: 16.sp),
-        if (isDriversBeingFetched)
-          const Center(child: CircularProgressIndicator()),
+        if (isDriversBeingFetched) const Center(child: CircularProgressIndicator()),
         if (!isDriversBeingFetched)
           DropdownButtonHideUnderline(
             child: DropdownButtonFormField<String>(
@@ -853,10 +833,7 @@ class _AssignDriver extends StatelessWidget {
           contentPadding: EdgeInsets.zero,
           border: InputBorder.none,
           hintText: 'Search drivers',
-          hintStyle: Theme.of(context)
-              .textTheme
-              .bodyText1
-              ?.copyWith(color: kGrey1Color),
+          hintStyle: Theme.of(context).textTheme.bodyText1?.copyWith(color: kGrey1Color),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.zero,
             borderSide: const BorderSide(

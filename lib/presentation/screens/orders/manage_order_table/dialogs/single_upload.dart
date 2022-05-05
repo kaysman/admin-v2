@@ -19,8 +19,7 @@ class UploadSingleDialog extends StatefulWidget {
   _UploadSingleDialogState createState() => _UploadSingleDialogState();
 }
 
-class _UploadSingleDialogState extends State<UploadSingleDialog>
-    with WidgetsBindingObserver {
+class _UploadSingleDialogState extends State<UploadSingleDialog> with WidgetsBindingObserver {
   PageController _pageController = PageController(initialPage: 0);
   var _currentPage = ValueNotifier(0);
   GlobalKey<FormState> _orderDetailsSectionKey = GlobalKey<FormState>();
@@ -34,31 +33,22 @@ class _UploadSingleDialogState extends State<UploadSingleDialog>
 
   GlobalKey<FormState> _pickupDetailsSectionKey = GlobalKey<FormState>();
   final TextEditingController _pickupDateController = TextEditingController();
-  final TextEditingController _pAddressLineOneController =
-      TextEditingController();
-  final TextEditingController _pAddressLineTwoController =
-      TextEditingController();
+  final TextEditingController _pAddressLineOneController = TextEditingController();
+  final TextEditingController _pAddressLineTwoController = TextEditingController();
   final TextEditingController _pPostalCodeController = TextEditingController();
   final TextEditingController _pickupNoteController = TextEditingController();
 
   GlobalKey<FormState> _deliveryDetailsSectionKey = GlobalKey<FormState>();
   final TextEditingController _deliveryDateController = TextEditingController();
-  final TextEditingController _dAddressLineOneController =
-      TextEditingController();
-  final TextEditingController _dAddressLineTwoController =
-      TextEditingController();
+  final TextEditingController _dAddressLineOneController = TextEditingController();
+  final TextEditingController _dAddressLineTwoController = TextEditingController();
   final TextEditingController _dPostalCodeController = TextEditingController();
   final TextEditingController _deliveryNoteController = TextEditingController();
-  final TextEditingController _customerFirstNameController =
-      TextEditingController();
-  final TextEditingController _customerLastNameController =
-      TextEditingController();
-  final TextEditingController _customerPhoneNumberController =
-      TextEditingController();
-  final TextEditingController _customerCompanyController =
-      TextEditingController();
-  final TextEditingController _customerEmailController =
-      TextEditingController();
+  final TextEditingController _customerFirstNameController = TextEditingController();
+  final TextEditingController _customerLastNameController = TextEditingController();
+  final TextEditingController _customerPhoneNumberController = TextEditingController();
+  final TextEditingController _customerCompanyController = TextEditingController();
+  final TextEditingController _customerEmailController = TextEditingController();
 
   late OrderBloc orderBloc;
   @override
@@ -104,8 +94,9 @@ class _UploadSingleDialogState extends State<UploadSingleDialog>
       ),
       child: BlocBuilder<OrderBloc, OrderState>(
         builder: (context, state) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
+          return ListView(
+            shrinkWrap: true,
+            //  mainAxisSize: MainAxisSize.min,
             children: [
               Row(
                 children: [
@@ -168,8 +159,7 @@ class _UploadSingleDialogState extends State<UploadSingleDialog>
                     customerCompanyController: _customerCompanyController,
                     customerFirstNameController: _customerFirstNameController,
                     customerLastNameController: _customerLastNameController,
-                    customerPhoneNumberController:
-                        _customerPhoneNumberController,
+                    customerPhoneNumberController: _customerPhoneNumberController,
                     customerEmailController: _customerEmailController,
                   ),
                 ],
@@ -199,8 +189,7 @@ class _UploadSingleDialogState extends State<UploadSingleDialog>
                       textColor: kWhite,
                       elevation: 0,
                       isLoading: v == 2
-                          ? (state.createSingleOrderStatus ==
-                                  CreateSingleOrderStatus.loading
+                          ? (state.createSingleOrderStatus == CreateSingleOrderStatus.loading
                               ? true
                               : false)
                           : false,
@@ -226,8 +215,7 @@ class _UploadSingleDialogState extends State<UploadSingleDialog>
                           }
                         } else if (v == 2) {
                           final isDeliveryDetailsFormValid =
-                              _deliveryDetailsSectionKey.currentState!
-                                  .validate();
+                              _deliveryDetailsSectionKey.currentState!.validate();
                           if (isDeliveryDetailsFormValid) {
                             await submitSingleUploadForm(orderBloc, context);
                           }

@@ -165,14 +165,14 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
                                     text: "Assign 1 driver",
                                     onPressed: () {
                                       showWhiteDialog(
-                                        context,
-                                        SizedBox(
-                                          width: 402,
-                                          child: DriverAssigningDialog(
-                                            selectedOrders: selectedOrders,
+                                          context,
+                                          SizedBox(
+                                            width: 402,
+                                            child: DriverAssigningDialog(
+                                              selectedOrders: selectedOrders,
+                                            ),
                                           ),
-                                        ),
-                                      );
+                                          false);
                                     },
                                   ),
                                   SizedBox(width: 12),
@@ -298,15 +298,18 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
 
   buildHeader(BuildContext context, OrderState state) {
     return Container(
-      height: 34,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        textBaseline: TextBaseline.ideographic,
+      height: 78, //34,
+      child: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.start,
+        alignment: WrapAlignment.spaceEvenly,
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        // textBaseline: TextBaseline.ideographic,
         children: [
           Text("Orders", style: Theme.of(context).textTheme.headline1),
           Spacings.SMALL_HORIZONTAL,
           SizedBox(
             width: 260,
+            height: 34,
             child: TextFormField(
               controller: searchController,
               style: Theme.of(context).textTheme.headline5,
@@ -370,6 +373,7 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
           Spacings.SMALL_HORIZONTAL,
           SizedBox(
             width: 160,
+            height: 34,
             child: DecoratedDropdown<String>(
               value: viewType,
               icon: AppIcons.svgAsset(AppIcons.columns),
@@ -379,9 +383,10 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
               },
             ),
           ),
-          Spacer(),
+          //Spacer(),
           OutlinedButton(
             style: OutlinedButton.styleFrom(
+              minimumSize: Size(100, 34),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(6),
                 side: BorderSide(color: kBlack, width: 1),
@@ -565,7 +570,7 @@ class _ManageOrdersTableScreenState extends State<ManageOrdersTableScreen> {
   }
 
   addNewOrderTapped(BuildContext context) {
-    showWhiteDialog(context, UploadViewModal());
+    showWhiteDialog(context, UploadViewModal(), false);
   }
 
   loadPrevious(Meta? meta) async {

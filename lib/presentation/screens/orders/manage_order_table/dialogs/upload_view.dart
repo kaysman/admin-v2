@@ -39,7 +39,7 @@ class UploadViewModal extends StatelessWidget {
               textColor: kBlack,
               onPressed: () {
                 Navigator.pop(context);
-                showWhiteDialog(context, UploadSingleDialog());
+                showWhiteDialog(context, UploadSingleDialog(), false);
               },
             ),
           ),
@@ -52,7 +52,7 @@ class UploadViewModal extends StatelessWidget {
               textColor: kBlack,
               hasBorder: true,
               onPressed: () {
-                showWhiteDialog(context, UploadExcelDialog());
+                showWhiteDialog(context, UploadExcelDialog(), false);
               },
             ),
           ),
